@@ -22,5 +22,9 @@ class MainActivity : AppCompatActivity() {
         binding.btnUserListing.setOnClickListener {
             UserListingActivity.start(this)
         }
+
+        binding.btnMultiSelect.setOnClickListener {
+            MultiSelectListingActivity.start(this)
+        }
     }
 }
