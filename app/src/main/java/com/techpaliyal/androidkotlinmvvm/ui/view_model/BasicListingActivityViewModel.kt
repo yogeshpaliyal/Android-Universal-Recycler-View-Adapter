@@ -13,7 +13,7 @@ import com.techpaliyal.androidkotlinmvvm.ui.adapter.UniversalRecyclerAdapter
  * @author Yogesh Paliyal
  * Created Date : 9 January 2020
  */
-class MainActivityViewModel(application: Application) : AndroidViewModel(application),
+class BasicListingActivityViewModel(application: Application) : AndroidViewModel(application),
     BasicListener<BasicModel> {
     override fun onClick(model: BasicModel) {
         Toast.makeText(getApplication(), model.name, Toast.LENGTH_LONG).show()
