@@ -20,7 +20,6 @@ class UserListingActivityViewModel(application: Application) : AndroidViewModel(
         Toast.makeText(getApplication(), model.name, Toast.LENGTH_LONG).show()
     }
 
-    val adapter : UniversalRecyclerAdapter<UserModel> ?= null
     val data = MutableLiveData<ArrayList<UserModel>>(ArrayList<UserModel>())
     val basicListener : BasicListener<UserModel> ?= this
 

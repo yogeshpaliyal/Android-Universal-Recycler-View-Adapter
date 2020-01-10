@@ -24,7 +24,6 @@ class MultiSelectListingActivityViewModel(application: Application) : AndroidVie
         }
     }
 
-    val adapter : UniversalRecyclerAdapter<MultiSelectModel> ?= null
     val data = MutableLiveData<ArrayList<MultiSelectModel>>(ArrayList<MultiSelectModel>())
     val basicListener : BasicListener<MultiSelectModel> ?= this
 

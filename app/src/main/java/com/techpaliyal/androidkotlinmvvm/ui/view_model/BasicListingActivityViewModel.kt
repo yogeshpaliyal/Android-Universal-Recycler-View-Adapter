@@ -20,7 +20,6 @@ class BasicListingActivityViewModel(application: Application) : AndroidViewModel
 
     }
 
-    val adapter : UniversalRecyclerAdapter<BasicModel> ?= null
     val data = MutableLiveData<ArrayList<BasicModel>>(ArrayList<BasicModel>())
     val basicListener : BasicListener<BasicModel> ?= this
 
