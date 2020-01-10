@@ -13,16 +13,10 @@ import com.techpaliyal.androidkotlinmvvm.ui.adapter.UniversalRecyclerAdapter
  * @author Yogesh Paliyal
  * Created Date : 9 January 2020
  */
-
-@BindingAdapter(value = ["tools:adapter","tools:data","tools:itemList", "tools:itemListener"], requireAll = false)
-fun <T> setAdapter(recyclerView: RecyclerView,adapter: UniversalRecyclerAdapter<T>?, data : MutableLiveData<ArrayList<T>>, @LayoutRes listItem : Int = R.layout.item_simple, itemListener: Any){
+@BindingAdapter(value = ["tools:data","tools:itemList", "tools:itemListener"], requireAll = true)
+fun <T> setAdapter(recyclerView: RecyclerView, data : MutableLiveData<ArrayList<T>>, @LayoutRes listItem : Int = R.layout.item_simple, itemListener: Any){
     if (recyclerView.adapter == null){
-        val tempAdapter = if (adapter == null){
-          UniversalRecyclerAdapter(listItem, data.value ?: ArrayList(), itemListener)
-        }else{
-            adapter
-        }
-        recyclerView.adapter = tempAdapter
+        recyclerView.adapter = UniversalRecyclerAdapter(listItem, data.value ?: ArrayList(), itemListener)
     }else{
         if (recyclerView.adapter is UniversalRecyclerAdapter<*>) {
             val items = data.value ?: ArrayList()
