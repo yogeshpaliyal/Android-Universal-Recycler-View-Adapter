@@ -7,7 +7,10 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import com.techpaliyal.androidkotlinmvvm.R
+import com.techpaliyal.androidkotlinmvvm.data.Resource
 import com.techpaliyal.androidkotlinmvvm.databinding.ActivityBasicListingBinding
+import com.techpaliyal.androidkotlinmvvm.model.BasicModel
+import com.techpaliyal.androidkotlinmvvm.ui.adapter.UniversalAdapter
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.BasicListingActivityViewModel
 
 /**
@@ -30,12 +33,9 @@ class BasicListingActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_basic_listing)
 
-
-        binding.lifecycleOwner = this
         val viewModel = ViewModelProviders.of(this).get(BasicListingActivityViewModel::class.java)
-        binding.viewModel = viewModel
-        binding.executePendingBindings()
+        viewModel.setData()
 
-        binding.viewModel?.setData()
+        binding.recyclerView.adapter = UniversalAdapter<BasicModel>(R.layout.item_simple,data = Resource.success(viewModel.data.value), mListener = viewModel.basicListener)
     }
 }

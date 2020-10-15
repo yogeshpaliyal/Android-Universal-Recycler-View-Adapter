@@ -6,7 +6,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.techpaliyal.androidkotlinmvvm.listeners.BasicListener
 import com.techpaliyal.androidkotlinmvvm.model.BasicModel
-import com.techpaliyal.androidkotlinmvvm.ui.adapter.UniversalRecyclerAdapter
 
 
 /**
