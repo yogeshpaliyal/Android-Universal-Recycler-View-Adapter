@@ -5,48 +5,48 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.techpaliyal.androidkotlinmvvm.R
 import com.techpaliyal.androidkotlinmvvm.data.Resource
+import com.techpaliyal.androidkotlinmvvm.data.Status
 import com.techpaliyal.androidkotlinmvvm.databinding.ActivityListingBinding
+import com.techpaliyal.androidkotlinmvvm.extensions.setupPagination
 import com.techpaliyal.androidkotlinmvvm.listeners.BasicListener
-import com.techpaliyal.androidkotlinmvvm.model.MultiSelectModel
+import com.techpaliyal.androidkotlinmvvm.model.BasicModel
 import com.techpaliyal.androidkotlinmvvm.model.UserModel
 import com.techpaliyal.androidkotlinmvvm.ui.adapter.UniversalRecyclerAdapter
-import com.techpaliyal.androidkotlinmvvm.ui.view_model.MultiSelectListingActivityViewModel
-import com.techpaliyal.androidkotlinmvvm.ui.view_model.UserListingActivityViewModel
+import com.techpaliyal.androidkotlinmvvm.ui.view_model.LoadingListingViewModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.initViewModel
 
-/**
- * @author Yogesh Paliyal
- * Created Date : 9 January 2020
- */
-class UserListingActivity : AppCompatActivity() {
-
+class PaginationListingActivity : AppCompatActivity() {
     lateinit var binding: ActivityListingBinding
 
+
     companion object {
+        @JvmStatic
         fun start(context: Context) {
-            val intent = Intent(context, UserListingActivity::class.java)
-            context.startActivity(intent)
+            val starter = Intent(context, PaginationListingActivity::class.java)
+            context.startActivity(starter)
         }
     }
+
     private val mViewModel by lazy {
-        initViewModel(UserListingActivityViewModel::class.java)
+        initViewModel(LoadingListingViewModel::class.java)
     }
 
     private val mAdapter by lazy {
         UniversalRecyclerAdapter<UserModel>(
             R.layout.item_user,
+            resourceShimmer = R.layout.item_user_shimmer,
+            defaultShimmerItems = 5,
+            loaderFooter = R.layout.item_loading_more,
             mListener = object : BasicListener<UserModel> {
                 override fun onClick(model: UserModel) {
-                    Toast.makeText(this@UserListingActivity, model.name, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@PaginationListingActivity, model.name, Toast.LENGTH_SHORT)
+                        .show()
                 }
             })
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,11 +55,23 @@ class UserListingActivity : AppCompatActivity() {
 
         binding.recyclerView.adapter = mAdapter
 
+        binding.recyclerView.setupPagination {
+            if (mViewModel.fetchJob?.isActive == false)
+                mViewModel.fetchData()
+        }
+
         mViewModel.data.observe(this, Observer {
-            mAdapter.updateData(Resource.success(it))
+            mAdapter.updateData(it)
+
+           /* when(it.status){
+                Status.LOADING -> {
+                }
+                Status.SUCCESS -> {
+                    mAdapter.updateData(Resource.success(mViewModel.arrAllUsers))
+                }
+            }*/
         })
 
-        mViewModel.setData()
-
+        mViewModel.fetchData()
     }
 }

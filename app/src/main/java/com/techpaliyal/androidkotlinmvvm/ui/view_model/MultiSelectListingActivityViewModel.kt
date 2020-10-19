@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.techpaliyal.androidkotlinmvvm.listeners.BasicListener
 import com.techpaliyal.androidkotlinmvvm.model.MultiSelectModel
 
@@ -12,21 +13,13 @@ import com.techpaliyal.androidkotlinmvvm.model.MultiSelectModel
  * @author Yogesh Paliyal
  * Created Date : 9 January 2020
  */
-class MultiSelectListingActivityViewModel(application: Application) : AndroidViewModel(application),
-    BasicListener<MultiSelectModel> {
-    override fun onClick(model: MultiSelectModel) {
-      //  Toast.makeText(getApplication(), model.name, Toast.LENGTH_LONG).show()
-        data.value?.forEach {
-            Log.d("Testing","Name ${it.name} value => ${it.isChecked}")
-        }
-    }
+class MultiSelectListingActivityViewModel : ViewModel(){
 
     val data = MutableLiveData<ArrayList<MultiSelectModel>>(ArrayList<MultiSelectModel>())
-    val basicListener : BasicListener<MultiSelectModel> ?= this
 
 
 
-    fun setData(){
+    fun fetchData(){
         if (data.value.isNullOrEmpty()) {
             val tempArr = ArrayList<MultiSelectModel>()
             tempArr.add(MultiSelectModel(name = "Apple", isChecked = true))
@@ -40,7 +33,7 @@ class MultiSelectListingActivityViewModel(application: Application) : AndroidVie
         }
     }
 
-    fun checkData(){
+    fun logData(){
         data.value?.forEach {
             Log.d("Testing","Name ${it.name} value => ${it.isChecked}")
         }

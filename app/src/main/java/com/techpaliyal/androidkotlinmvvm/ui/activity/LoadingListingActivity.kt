@@ -6,44 +6,39 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.techpaliyal.androidkotlinmvvm.R
-import com.techpaliyal.androidkotlinmvvm.data.Resource
 import com.techpaliyal.androidkotlinmvvm.databinding.ActivityListingBinding
 import com.techpaliyal.androidkotlinmvvm.listeners.BasicListener
 import com.techpaliyal.androidkotlinmvvm.model.BasicModel
-import com.techpaliyal.androidkotlinmvvm.model.MultiSelectModel
+import com.techpaliyal.androidkotlinmvvm.model.UserModel
 import com.techpaliyal.androidkotlinmvvm.ui.adapter.UniversalRecyclerAdapter
-import com.techpaliyal.androidkotlinmvvm.ui.view_model.BasicListingActivityViewModel
-import com.techpaliyal.androidkotlinmvvm.ui.view_model.MultiSelectListingActivityViewModel
+import com.techpaliyal.androidkotlinmvvm.ui.view_model.LoadingListingViewModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.initViewModel
 
-/**
- * @author Yogesh Paliyal
- * Created Date : 9 January 2020
- */
-class MultiSelectListingActivity : AppCompatActivity() {
-
+class LoadingListingActivity : AppCompatActivity() {
     lateinit var binding: ActivityListingBinding
 
 
     companion object {
+        @JvmStatic
         fun start(context: Context) {
-            val intent = Intent(context, MultiSelectListingActivity::class.java)
-            context.startActivity(intent)
+            val starter = Intent(context, LoadingListingActivity::class.java)
+            context.startActivity(starter)
         }
     }
 
     private val mViewModel by lazy {
-        initViewModel(MultiSelectListingActivityViewModel::class.java)
+        initViewModel(LoadingListingViewModel::class.java)
     }
 
     private val mAdapter by lazy {
-        UniversalRecyclerAdapter<MultiSelectModel>(
-            R.layout.item_multi_select,
-            mListener = object : BasicListener<MultiSelectModel> {
-                override fun onClick(model: MultiSelectModel) {
-                    mViewModel.logData()
+        UniversalRecyclerAdapter<UserModel>(
+            R.layout.item_user, resourceShimmer = R.layout.layout_loading_full_page,
+            defaultShimmerItems = 1,
+            mListener = object : BasicListener<UserModel> {
+                override fun onClick(model: UserModel) {
+                    Toast.makeText(this@LoadingListingActivity, model.name, Toast.LENGTH_SHORT)
+                        .show()
                 }
             })
     }
@@ -56,10 +51,9 @@ class MultiSelectListingActivity : AppCompatActivity() {
         binding.recyclerView.adapter = mAdapter
 
         mViewModel.data.observe(this, Observer {
-            mAdapter.updateData(Resource.success(it))
+            mAdapter.updateData(it)
         })
 
         mViewModel.fetchData()
-
     }
 }

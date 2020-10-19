@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools">
+<com.facebook.shimmer.ShimmerFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    app:shimmer_auto_start="true"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:layout_width="50dp"
+        android:layout_margin="10dp"
+        android:layout_height="0dp"
+        android:background="@color/grey_shimmer"
+        app:riv_oval="true"
+        app:riv_mutate_background="true"
+        android:id="@+id/img"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:layout_width="0dp"
+        app:layout_constraintBottom_toTopOf="@id/txtAddress"
+        app:layout_constraintTop_toTopOf="@id/img"
+        app:layout_constraintStart_toEndOf="@id/img"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/grey_shimmer"
+        android:textColor="#000000"
+        app:layout_constraintWidth_percent="0.5"
+        app:layout_constraintHorizontal_bias="0"
+        android:textSize="16sp"
+        android:layout_marginStart="10dp"
+        android:id="@+id/txtName"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintWidth_percent="0.3"
+        android:background="@color/grey_shimmer"
+        android:layout_width="0dp"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/txtName"
+        app:layout_constraintStart_toStartOf="@id/txtName"
+        app:layout_constraintBottom_toBottomOf="@id/img"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/txtAddress"
+        android:layout_height="wrap_content"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</com.facebook.shimmer.ShimmerFrameLayout>
+</layout>

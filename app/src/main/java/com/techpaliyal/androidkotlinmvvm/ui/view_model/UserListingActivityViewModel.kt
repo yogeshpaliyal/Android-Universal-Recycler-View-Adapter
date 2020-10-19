@@ -4,6 +4,7 @@ import android.app.Application
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.techpaliyal.androidkotlinmvvm.listeners.BasicListener
 import com.techpaliyal.androidkotlinmvvm.model.UserModel
 
@@ -12,14 +13,9 @@ import com.techpaliyal.androidkotlinmvvm.model.UserModel
  * @author Yogesh Paliyal
  * Created Date : 9 January 2020
  */
-class UserListingActivityViewModel(application: Application) : AndroidViewModel(application),
-    BasicListener<UserModel> {
-    override fun onClick(model: UserModel) {
-        Toast.makeText(getApplication(), model.name, Toast.LENGTH_LONG).show()
-    }
+class UserListingActivityViewModel : ViewModel() {
 
-    val data = MutableLiveData<ArrayList<UserModel>>(ArrayList<UserModel>())
-    val basicListener : BasicListener<UserModel> ?= this
+    val data = MutableLiveData<ArrayList<UserModel>>()
 
 
 

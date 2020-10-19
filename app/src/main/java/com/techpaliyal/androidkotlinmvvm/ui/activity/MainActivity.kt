@@ -26,5 +26,18 @@ class MainActivity : AppCompatActivity() {
         binding.btnMultiSelect.setOnClickListener {
             MultiSelectListingActivity.start(this)
         }
+
+        binding.btnLoadingListing.setOnClickListener {
+            LoadingListingActivity.start(this)
+        }
+
+        binding.btnShimmerListing.setOnClickListener {
+            ShimmerListingActivity.start(this)
+        }
+
+        binding.btnPaginationListing.setOnClickListener {
+            PaginationListingActivity.start(this)
+        }
+
     }
 }

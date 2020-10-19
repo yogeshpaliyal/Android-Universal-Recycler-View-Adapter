@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.techpaliyal.androidkotlinmvvm.BR
 import com.techpaliyal.androidkotlinmvvm.data.Resource
 import com.techpaliyal.androidkotlinmvvm.data.Status
-import com.techpaliyal.androidkotlinmvvm.ui.viewholder.UnusedViewHolder
 import com.techpaliyal.androidkotlinmvvm.utils.LogHelper
 
 
@@ -17,15 +16,14 @@ import com.techpaliyal.androidkotlinmvvm.utils.LogHelper
  * @author Yogesh Paliyal
  * Created Date : 15 October 2020
  */
-class UniversalAdapter<T>(
+class UniversalRecyclerAdapter<T>(
     @LayoutRes val resource: Int,
     @LayoutRes val resourceShimmer: Int? = null,
     val defaultShimmerItems: Int = 5,
     @LayoutRes val loaderFooter: Int? = null,
-    private var data: Resource<List<T>?>,
+    private var data: Resource<List<T>?>?= null,
     private var mListener: Any? = null
-) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder?>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder?>() {
 
     private val VIEW_TYPE_LOADING = 0
     private val VIEW_TYPE_LOAD_MORE = 2
@@ -73,23 +71,23 @@ class UniversalAdapter<T>(
     }
 
     override fun getItemCount(): Int {
-        return when (data.status) {
-            Status.LOADING -> if (data.data?.isNullOrEmpty() != false && resourceShimmer != null) {
+        return when (data?.status) {
+            Status.LOADING -> if (data?.data?.isNullOrEmpty() != false && resourceShimmer != null) {
                 defaultShimmerItems
-            } else if (data.data?.isNullOrEmpty() == false) {
-                return (data.data?.size ?: 0) + if (loaderFooter != null)   1 else 0
+            } else if (data?.data?.isNullOrEmpty() == false) {
+                return (data?.data?.size ?: 0) + if (loaderFooter != null)   1 else 0
             } else {
                 0
             }
-            Status.SUCCESS -> data.data?.size ?: 0
+            Status.SUCCESS -> data?.data?.size ?: 0
             else -> 0
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (data.status == Status.LOADING && data.data?.isNullOrEmpty() != false && resourceShimmer != null) {
+        return if (data?.status == Status.LOADING && data?.data?.isNullOrEmpty() != false && resourceShimmer != null) {
             VIEW_TYPE_LOADING
-        } else if (data.status == Status.LOADING && data.data?.isNullOrEmpty() == false && loaderFooter != null && position == itemCount - 1) {
+        } else if (data?.status == Status.LOADING && data?.data?.isNullOrEmpty() == false && loaderFooter != null && position == itemCount - 1) {
             return VIEW_TYPE_LOAD_MORE
         } else {
             VIEW_TYPE_NORMAL
@@ -97,8 +95,8 @@ class UniversalAdapter<T>(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is UniversalAdapter<*>.MyViewHolder) {
-            val item = data.data?.get(position)
+        if (holder is UniversalRecyclerAdapter<*>.MyViewHolder) {
+            val item = data?.data?.get(position)
             if (item != null)
                 holder.setupData(item)
         }
@@ -112,5 +110,7 @@ class UniversalAdapter<T>(
             binding.executePendingBindings()
         }
     }
+
+    inner class UnusedViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root)
 
 }
