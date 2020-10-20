@@ -4,7 +4,7 @@ Bored of creating Adapter for each recycler view?
 
 here is a solution, create any type of recycler view using this Adapter
 
-
+# Single adapter for your all types of recycler view adapter requirements
 
 
 **Features**
@@ -22,36 +22,36 @@ here is a solution, create any type of recycler view using this Adapter
 
 <h3>Simple List</h3>
 
-![Simple List](https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-MVVM-DataBinding/blob/master/images/Screenshot_20201019-224335.jpg)
+<img src="https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-MVVM-DataBinding/blob/master/images/Screenshot_20201019-224335.jpg" width="30%">
 
 <h3>Multi Select List</h3>
 
-![Multi Select List](https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-MVVM-DataBinding/blob/master/images/Screenshot_20201019-224344.jpg)
+<img src="https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-MVVM-DataBinding/blob/master/images/Screenshot_20201019-224344.jpg" width="30%">
 
 <h3>Normal Users list</h3>
 
-![Normal Users List](https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-MVVM-DataBinding/blob/master/images/Screenshot_20201019-224339.jpg)
+<img src="https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-MVVM-DataBinding/blob/master/images/Screenshot_20201019-224339.jpg" width="30%">
 
 
 <h3>Users list progress</h3>
 show progress when data is fetching then show the users list
 
-![Users list progress](https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-MVVM-DataBinding/blob/master/images/user-list-progress.gif)
+<img src="https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-MVVM-DataBinding/blob/master/images/user-list-progress.gif" width="30%">
 
 <h3>Shimmer list progress</h3>
 show shimmer when data is fetching then show the users list
 
-![Shimmer list progress](https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-MVVM-DataBinding/blob/master/images/user-list-shimmer.gif)
+<img src="https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-MVVM-DataBinding/blob/master/images/user-list-shimmer.gif" width="30%">
 
 <h3>Shimmer list with load more progress</h3>
 show shimmer when data is fetching for first page and load more data when scroll to bottom
 
-![Shimmer list with load more progress](https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-MVVM-DataBinding/blob/master/images/user-list-pagination.gif)
 
+<img src="https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-MVVM-DataBinding/blob/master/images/user-list-pagination.gif" width="30%">
 
 
 **Create your sample and share with me**
 
-**Happy Coding :D**
+**Happy Coding 😁**
 
 
