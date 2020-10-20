@@ -33,7 +33,8 @@ class LoadingListingActivity : AppCompatActivity() {
 
     private val mAdapter by lazy {
         UniversalRecyclerAdapter<UserModel>(
-            R.layout.item_user, resourceShimmer = R.layout.layout_loading_full_page,
+            R.layout.item_user,
+            resourceShimmer = R.layout.layout_loading_full_page,
             defaultShimmerItems = 1,
             mListener = object : BasicListener<UserModel> {
                 override fun onClick(model: UserModel) {
