@@ -16,7 +16,7 @@ here is a solution, create any type of recycler view using this Adapter
 
 <h1>Samples</h1>
 
-![Samples](https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-MVVM-DataBinding/blob/master/images/Screenshot_20201019-224331.jpg)
+<img src="https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-MVVM-DataBinding/blob/master/images/Screenshot_20201019-224331.jpg" width="30%">
 
 <hr/>
 
