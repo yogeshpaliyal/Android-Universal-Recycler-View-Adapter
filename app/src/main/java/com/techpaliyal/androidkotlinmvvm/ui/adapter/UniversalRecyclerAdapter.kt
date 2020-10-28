@@ -41,9 +41,9 @@ class UniversalRecyclerAdapter<T: BaseDiffUtil>(
 
         val diffCallback = UniversalDiffUtil(this,this.data, data)
         val diffResult = DiffUtil.calculateDiff(diffCallback, false)
-        data.data?.let {
-            this.data = Resource.create(data.status,ArrayList(it),data.message)
-        }
+
+            this.data = Resource.create(data.status,data.data,data.message)
+
         diffResult.dispatchUpdatesTo(this)
     }
 
