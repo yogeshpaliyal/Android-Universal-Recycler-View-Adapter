@@ -15,6 +15,9 @@ here is a solution, create any type of recycler view using this Adapter
 5. Built in Diff Utils for smooth scrolling and animations.
 
 
+<a href='https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-MVVM-DataBinding/blob/master/app-debug_1_0_0.apk'>Download Sample App</a>
+
+
 <h1>Samples</h1>
 
 <img src="https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-MVVM-DataBinding/blob/master/images/Screenshot_20201019-224331.jpg" width="30%">
