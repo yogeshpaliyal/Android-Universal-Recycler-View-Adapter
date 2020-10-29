@@ -54,6 +54,10 @@ show shimmer when data is fetching for first page and load more data when scroll
 <img src="https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-MVVM-DataBinding/blob/master/images/user-list-pagination.gif" width="30%">
 
 
+
+<h3> <a href="https://gist.github.com/yogeshpaliyal/dcb381941b9f0dec2cb366c85f8ce15b">Initilize Universal Adapter </a> </h3>
+
+
 **Create your sample and share with me**
 
 **Happy Coding 😁**
