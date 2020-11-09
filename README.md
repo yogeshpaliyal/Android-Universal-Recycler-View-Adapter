@@ -13,6 +13,7 @@ here is a solution, create any type of recycler view using this Adapter
 3. Bind to any item using Data Binding
 4. Listen to item events using listener, like click, long press, etc.
 5. Built in Diff Utils for smooth scrolling and animations.
+6. Custom Layout for No Data Found (when list is empty and status is success)
 
 
 <a href='https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-MVVM-DataBinding/blob/master/app-debug_1_0_0.apk'>Download Sample App</a>
