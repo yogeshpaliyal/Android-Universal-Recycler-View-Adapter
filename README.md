@@ -7,7 +7,7 @@ here is a solution, create any type of recycler view using this Adapter
 # Single adapter for your all types of recycler view adapter requirements
 
 
-**Features**
+# Features
 1. Add Custom Loading for multiple cell like shimmer
 2. Show Load more progress at the end of the listing 
 3. Bind to any item using Data Binding
@@ -15,6 +15,30 @@ here is a solution, create any type of recycler view using this Adapter
 5. Built in Diff Utils for smooth scrolling and animations.
 6. Custom Layout for No Data Found (when list is empty and status is success)
 
+
+Status|	List Size|	Result Behaviour
+---|---|---
+LOADING	|0	|Show Loading Cells (default 5 items)
+SUCCESS	|0	|No Record Found Layout will be displayed
+ERROR	|0|	Error Layout Shown
+LOADING	|more than 0|	Data Cells + load more at end
+SUCCESS	|more than 0|	Data Cells
+ERROR	|more than 0|	Data Cells + error cell at end
+
+
+# Parameters
+```kotlin
+ @LayoutRes val resource: Int,
+    @LayoutRes val resourceShimmer: Int? = null,
+    val defaultShimmerItems: Int = 5,
+    @LayoutRes val loaderFooter: Int? = null,
+    private var data: Resource<ArrayList<T>?>?= null,
+    @LayoutRes val errorLayout: Int? = null,
+    private var errorListener: Any? = null,
+    private var mListener: Any? = null,
+    @LayoutRes val noDataLayout: Int? = null,
+    private var noDataListener: Any? = null
+  ```
 
 <a href='https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-MVVM-DataBinding/blob/master/app-debug_1_0_0.apk'>Download Sample App</a>
 
