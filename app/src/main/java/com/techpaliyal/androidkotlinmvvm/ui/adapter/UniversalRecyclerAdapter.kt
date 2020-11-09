@@ -27,13 +27,16 @@ class UniversalRecyclerAdapter<T: BaseDiffUtil>(
     private var data: Resource<ArrayList<T>?>?= null,
     @LayoutRes val errorLayout: Int? = null,
     private var errorListener: Any? = null,
-    private var mListener: Any? = null
-) : RecyclerView.Adapter<RecyclerView.ViewHolder?>() {
+    private var mListener: Any? = null,
+    @LayoutRes val noDataLayout: Int? = null,
+    private var noDataListener: Any? = null ) : RecyclerView.Adapter<RecyclerView.ViewHolder?>() {
 
     private val VIEW_TYPE_LOADING = 0
     private val VIEW_TYPE_NORMAL = 1
     private val VIEW_TYPE_LOAD_MORE = 2
     private val VIEW_TYPE_ERROR = 3
+    private val VIEW_NO_DATA = 4
+
 
     fun updateData(data: Resource<ArrayList<T>?>) {
 
@@ -71,6 +74,15 @@ class UniversalRecyclerAdapter<T: BaseDiffUtil>(
             val binding =
                 DataBindingUtil.inflate<ViewDataBinding>(layoutInflator, errorLayout!!, parent, false)
             return ErrorViewHolder(binding)
+        } else if (viewType == VIEW_NO_DATA) {
+            val binding =
+                DataBindingUtil.inflate<ViewDataBinding>(
+                    layoutInflator,
+                    noDataLayout!!,
+                    parent,
+                    false
+                )
+            return NoDataViewHolder(binding)
         }else {
             val binding =
                 DataBindingUtil.inflate<ViewDataBinding>(layoutInflator, resource, parent, false)
@@ -79,21 +91,34 @@ class UniversalRecyclerAdapter<T: BaseDiffUtil>(
 
     }
 
+
+    inner class NoDataViewHolder(val binding: ViewDataBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun setupData() {
+            binding.setVariable(BR.message, data?.message ?: "")
+            binding.setVariable(BR.listener, noDataListener)
+            binding.executePendingBindings()
+        }
+    }
+
     override fun getItemCount(): Int {
         return getSize(data)
     }
 
-    fun getSize(testData : Resource<List<T>?>?): Int{
-        return when (testData?.status) {
-            Status.LOADING -> if (testData.data?.isNullOrEmpty() != false && resourceShimmer != null) {
+    fun getSize(listData : Resource<List<T>?>?): Int{
+        return when (listData?.status) {
+            Status.LOADING -> if (listData.data?.isNullOrEmpty() != false && resourceShimmer != null) {
                 defaultShimmerItems
-            } else if (testData.data?.isNullOrEmpty() == false) {
-                return (testData.data.size ?: 0) + if (loaderFooter != null) 1 else 0
+            } else if (listData.data?.isNullOrEmpty() == false) {
+                return (listData.data.size ?: 0) + if (loaderFooter != null) 1 else 0
             } else {
                 0
             }
-            Status.SUCCESS -> testData.data?.size ?: 0
-            Status.ERROR -> (testData.data?.size ?: 0) + if (errorLayout != null) 1 else 0
+            Status.SUCCESS -> {
+                val size = listData.data?.size ?: 0
+                return if (size == 0 && noDataLayout != null) 1 else size
+            }
+            Status.ERROR -> (listData.data?.size ?: 0) + if (errorLayout != null) 1 else 0
             else -> 0
         }
     }
@@ -106,7 +131,11 @@ class UniversalRecyclerAdapter<T: BaseDiffUtil>(
         } else if(data?.status == Status.ERROR && errorLayout != null && position == itemCount - 1){
             return VIEW_TYPE_ERROR
         } else {
-            VIEW_TYPE_NORMAL
+            if (data?.data?.isNullOrEmpty() == true && noDataLayout != null) {
+                VIEW_NO_DATA
+            } else {
+                VIEW_TYPE_NORMAL
+            }
         }
     }
 
@@ -116,6 +145,8 @@ class UniversalRecyclerAdapter<T: BaseDiffUtil>(
             if (item != null)
                 holder.setupData(item)
         }else if (holder is UniversalRecyclerAdapter<*>.ErrorViewHolder) {
+            holder.setupData()
+        }else if (holder is UniversalRecyclerAdapter<*>.NoDataViewHolder) {
             holder.setupData()
         }
     }
