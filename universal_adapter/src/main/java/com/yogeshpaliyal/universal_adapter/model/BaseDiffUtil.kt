@@ -1,6 +1,6 @@
-package com.techpaliyal.androidkotlinmvvm.model
+package com.yogeshpaliyal.universal_adapter.model
 
-import com.techpaliyal.androidkotlinmvvm.utils.getRandomString
+import com.yogeshpaliyal.universal_adapter.utils.getRandomString
 
 
 /*

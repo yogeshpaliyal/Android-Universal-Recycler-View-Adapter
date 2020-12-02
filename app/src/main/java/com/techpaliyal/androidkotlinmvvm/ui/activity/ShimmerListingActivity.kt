@@ -9,11 +9,10 @@ import androidx.lifecycle.Observer
 import com.techpaliyal.androidkotlinmvvm.R
 import com.techpaliyal.androidkotlinmvvm.databinding.ActivityListingBinding
 import com.techpaliyal.androidkotlinmvvm.listeners.BasicListener
-import com.techpaliyal.androidkotlinmvvm.model.BasicModel
 import com.techpaliyal.androidkotlinmvvm.model.UserModel
-import com.techpaliyal.androidkotlinmvvm.ui.adapter.UniversalRecyclerAdapter
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.LoadingListingViewModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.initViewModel
+import com.yogeshpaliyal.universal_adapter.adapter.UniversalRecyclerAdapter
 
 class ShimmerListingActivity : AppCompatActivity() {
     lateinit var binding: ActivityListingBinding
@@ -33,8 +32,8 @@ class ShimmerListingActivity : AppCompatActivity() {
 
     private val mAdapter by lazy {
         UniversalRecyclerAdapter<UserModel>(
-            R.layout.item_user, resourceShimmer = R.layout.item_user_shimmer,
-            defaultShimmerItems = 5,
+            R.layout.item_user, resourceLoading = R.layout.item_user_shimmer,
+            defaultLoadingItems = 5,
             mListener = object : BasicListener<UserModel> {
                 override fun onClick(model: UserModel) {
                     Toast.makeText(this@ShimmerListingActivity, model.name, Toast.LENGTH_SHORT)

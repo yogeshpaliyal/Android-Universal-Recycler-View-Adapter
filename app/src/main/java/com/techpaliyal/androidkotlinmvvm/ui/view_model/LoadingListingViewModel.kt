@@ -3,8 +3,8 @@ package com.techpaliyal.androidkotlinmvvm.ui.view_model
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.techpaliyal.androidkotlinmvvm.data.Resource
 import com.techpaliyal.androidkotlinmvvm.model.UserModel
+import com.yogeshpaliyal.universal_adapter.utils.Resource
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive

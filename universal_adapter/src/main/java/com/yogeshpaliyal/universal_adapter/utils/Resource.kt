@@ -1,4 +1,4 @@
-package com.techpaliyal.androidkotlinmvvm.data
+package com.yogeshpaliyal.universal_adapter.utils
 
 
 /**

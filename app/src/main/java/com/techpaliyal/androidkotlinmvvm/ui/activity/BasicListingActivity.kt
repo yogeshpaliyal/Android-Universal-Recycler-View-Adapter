@@ -5,17 +5,15 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.techpaliyal.androidkotlinmvvm.R
-import com.techpaliyal.androidkotlinmvvm.data.Resource
 import com.techpaliyal.androidkotlinmvvm.databinding.ActivityListingBinding
 import com.techpaliyal.androidkotlinmvvm.listeners.BasicListener
 import com.techpaliyal.androidkotlinmvvm.model.BasicModel
-import com.techpaliyal.androidkotlinmvvm.ui.adapter.UniversalRecyclerAdapter
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.BasicListingActivityViewModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.initViewModel
+import com.yogeshpaliyal.universal_adapter.adapter.UniversalRecyclerAdapter
+import com.yogeshpaliyal.universal_adapter.utils.Resource
 
 /**
  * @author Yogesh Paliyal
