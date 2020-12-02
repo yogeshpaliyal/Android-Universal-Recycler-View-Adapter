@@ -1,9 +1,8 @@
-package com.techpaliyal.androidkotlinmvvm.utils
+package com.yogeshpaliyal.universal_adapter.utils
 
 import androidx.recyclerview.widget.DiffUtil
-import com.techpaliyal.androidkotlinmvvm.data.Resource
-import com.techpaliyal.androidkotlinmvvm.model.BaseDiffUtil
-import com.techpaliyal.androidkotlinmvvm.ui.adapter.UniversalRecyclerAdapter
+import com.yogeshpaliyal.universal_adapter.adapter.UniversalRecyclerAdapter
+import com.yogeshpaliyal.universal_adapter.model.BaseDiffUtil
 
 
 /*

@@ -7,16 +7,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.techpaliyal.androidkotlinmvvm.R
-import com.techpaliyal.androidkotlinmvvm.data.Resource
-import com.techpaliyal.androidkotlinmvvm.data.Status
 import com.techpaliyal.androidkotlinmvvm.databinding.ActivityListingBinding
 import com.techpaliyal.androidkotlinmvvm.extensions.setupPagination
 import com.techpaliyal.androidkotlinmvvm.listeners.BasicListener
-import com.techpaliyal.androidkotlinmvvm.model.BasicModel
 import com.techpaliyal.androidkotlinmvvm.model.UserModel
-import com.techpaliyal.androidkotlinmvvm.ui.adapter.UniversalRecyclerAdapter
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.LoadingListingViewModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.initViewModel
+import com.yogeshpaliyal.universal_adapter.adapter.UniversalRecyclerAdapter
 
 class PaginationListingActivity : AppCompatActivity() {
     lateinit var binding: ActivityListingBinding
@@ -37,8 +34,8 @@ class PaginationListingActivity : AppCompatActivity() {
     private val mAdapter by lazy {
         UniversalRecyclerAdapter<UserModel>(
             R.layout.item_user,
-            resourceShimmer = R.layout.item_user_shimmer,
-            defaultShimmerItems = 5,
+            resourceLoading = R.layout.item_user_shimmer,
+            defaultLoadingItems = 5,
             loaderFooter = R.layout.item_loading_more,
             mListener = object : BasicListener<UserModel> {
                 override fun onClick(model: UserModel) {

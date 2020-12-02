@@ -1,2 +1,3 @@
+include ':universal_adapter'
 include ':app'
 rootProject.name='Android KotlinMVVM'

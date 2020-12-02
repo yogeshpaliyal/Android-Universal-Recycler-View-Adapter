@@ -1,4 +1,4 @@
-package com.techpaliyal.androidkotlinmvvm.ui.adapter
+package com.yogeshpaliyal.universal_adapter.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,12 +7,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.techpaliyal.androidkotlinmvvm.BR
-import com.techpaliyal.androidkotlinmvvm.data.Resource
-import com.techpaliyal.androidkotlinmvvm.data.Status
-import com.techpaliyal.androidkotlinmvvm.model.BaseDiffUtil
-import com.techpaliyal.androidkotlinmvvm.utils.LogHelper
-import com.techpaliyal.androidkotlinmvvm.utils.UniversalDiffUtil
+import com.yogeshpaliyal.universal_adapter.BR
+import com.yogeshpaliyal.universal_adapter.model.BaseDiffUtil
+import com.yogeshpaliyal.universal_adapter.utils.LogHelper
+import com.yogeshpaliyal.universal_adapter.utils.Resource
+import com.yogeshpaliyal.universal_adapter.utils.Status
+import com.yogeshpaliyal.universal_adapter.utils.UniversalDiffUtil
 
 
 /**
@@ -21,8 +21,8 @@ import com.techpaliyal.androidkotlinmvvm.utils.UniversalDiffUtil
  */
 class UniversalRecyclerAdapter<T: BaseDiffUtil>(
     @LayoutRes val resource: Int,
-    @LayoutRes val resourceShimmer: Int? = null,
-    val defaultShimmerItems: Int = 5,
+    @LayoutRes val resourceLoading: Int? = null,
+    val defaultLoadingItems: Int = 5,
     @LayoutRes val loaderFooter: Int? = null,
     private var data: Resource<ArrayList<T>?>?= null,
     @LayoutRes val errorLayout: Int? = null,
@@ -45,7 +45,7 @@ class UniversalRecyclerAdapter<T: BaseDiffUtil>(
         val diffCallback = UniversalDiffUtil(this,this.data, data)
         val diffResult = DiffUtil.calculateDiff(diffCallback, false)
 
-            this.data = Resource.create(data.status,data.data,data.message)
+        this.data = Resource.create(data.status,data.data,data.message)
 
         diffResult.dispatchUpdatesTo(this)
     }
@@ -57,7 +57,7 @@ class UniversalRecyclerAdapter<T: BaseDiffUtil>(
         if (viewType == VIEW_TYPE_LOADING) {
             val binding = DataBindingUtil.inflate<ViewDataBinding>(
                 layoutInflator,
-                resourceShimmer!!,
+                resourceLoading!!,
                 parent,
                 false
             )
@@ -107,8 +107,8 @@ class UniversalRecyclerAdapter<T: BaseDiffUtil>(
 
     fun getSize(listData : Resource<List<T>?>?): Int{
         return when (listData?.status) {
-            Status.LOADING -> if (listData.data?.isNullOrEmpty() != false && resourceShimmer != null) {
-                defaultShimmerItems
+            Status.LOADING -> if (listData.data?.isNullOrEmpty() != false && resourceLoading != null) {
+                defaultLoadingItems
             } else if (listData.data?.isNullOrEmpty() == false) {
                 return (listData.data.size ?: 0) + if (loaderFooter != null) 1 else 0
             } else {
@@ -124,7 +124,7 @@ class UniversalRecyclerAdapter<T: BaseDiffUtil>(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (data?.status == Status.LOADING && data?.data?.isNullOrEmpty() != false && resourceShimmer != null) {
+        return if (data?.status == Status.LOADING && data?.data?.isNullOrEmpty() != false && resourceLoading != null) {
             VIEW_TYPE_LOADING
         } else if (data?.status == Status.LOADING && data?.data?.isNullOrEmpty() == false && loaderFooter != null && position == itemCount - 1) {
             return VIEW_TYPE_LOAD_MORE
