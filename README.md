@@ -1,4 +1,4 @@
-# Android-Universal-Recycler-View-MVVM-DataBinding
+# Android-Universal-Recycler-View-Adapter
 
 Bored of creating Adapter for each recycler view?
 
@@ -28,9 +28,9 @@ ERROR	|more than 0|	Data Cells + error cell at end
 
 # Parameters
 ```kotlin
- @LayoutRes val resource: Int,
-    @LayoutRes val resourceShimmer: Int? = null,
-    val defaultShimmerItems: Int = 5,
+    @LayoutRes val resource: Int,
+    @LayoutRes val resourceLoading: Int? = null,
+    val defaultLoadingItems: Int = 5,
     @LayoutRes val loaderFooter: Int? = null,
     private var data: Resource<ArrayList<T>?>?= null,
     @LayoutRes val errorLayout: Int? = null,
@@ -41,6 +41,28 @@ ERROR	|more than 0|	Data Cells + error cell at end
   ```
 
 <a href='https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-MVVM-DataBinding/blob/master/app-debug_1_0_0.apk'>Download Sample App</a>
+
+
+# Setup
+
+#### Step #1. Add the JitPack repository to your build file:
+```gradle
+allprojects {
+    repositories {
+	...
+    	maven { url "https://jitpack.io" }
+    }
+}
+```
+     
+#### Step #2. Add the dependency ([See latest release](https://jitpack.io/#yogeshpaliyal/Android-Universal-Recycler-View-Adapter)). 
+[![](https://jitpack.io/v/yogeshpaliyal/Android-Universal-Recycler-View-Adapter.svg)](https://jitpack.io/#yogeshpaliyal/Android-Universal-Recycler-View-Adapter)
+
+```groovy
+dependencies {
+    implementation 'com.github.yogeshpaliyal:Android-Universal-Recycler-View-Adapter:+'
+}
+```
 
 
 <h1>Samples</h1>
