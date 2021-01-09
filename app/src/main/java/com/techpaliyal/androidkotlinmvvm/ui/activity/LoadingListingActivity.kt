@@ -9,10 +9,13 @@ import androidx.lifecycle.Observer
 import com.techpaliyal.androidkotlinmvvm.R
 import com.techpaliyal.androidkotlinmvvm.databinding.ActivityListingBinding
 import com.techpaliyal.androidkotlinmvvm.listeners.BasicListener
+import com.techpaliyal.androidkotlinmvvm.model.BasicModel
 import com.techpaliyal.androidkotlinmvvm.model.UserModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.LoadingListingViewModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.initViewModel
-import com.yogeshpaliyal.universal_adapter.adapter.UniversalRecyclerAdapter
+import com.yogeshpaliyal.universal_adapter.adapter.UniversalRecyclerAdapterHelper
+import com.yogeshpaliyal.universal_adapter.utils.Resource
+import com.yogeshpaliyal.universal_adapter.utils.UniversalAdapterOptions
 
 class LoadingListingActivity : AppCompatActivity() {
     lateinit var binding: ActivityListingBinding
@@ -31,8 +34,19 @@ class LoadingListingActivity : AppCompatActivity() {
     }
 
     private val mAdapter by lazy {
-        UniversalRecyclerAdapter<UserModel>(
-            R.layout.item_user,
+
+        val header = UniversalAdapterOptions<BasicModel>(R.layout.item_simple,
+            data = Resource.success(ArrayList<BasicModel>().also {
+                it.add(BasicModel(name = "Helllo Header 123 testing"))
+            }),
+            mListener = object : BasicListener<BasicModel> {
+                override fun onClick(model: BasicModel) {
+                    Toast.makeText(this@LoadingListingActivity, model.name, Toast.LENGTH_SHORT)
+                        .show()
+                }
+            })
+
+        val content = UniversalAdapterOptions<UserModel>(R.layout.item_user,
             resourceLoading = R.layout.layout_loading_full_page,
             defaultLoadingItems = 1,
             mListener = object : BasicListener<UserModel> {
@@ -41,6 +55,8 @@ class LoadingListingActivity : AppCompatActivity() {
                         .show()
                 }
             })
+
+        UniversalRecyclerAdapterHelper<UserModel, BasicModel, Unit>(content, header)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,10 +64,10 @@ class LoadingListingActivity : AppCompatActivity() {
         binding = ActivityListingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.recyclerView.adapter = mAdapter
+        binding.recyclerView.adapter = mAdapter.concatedAdapter
 
         mViewModel.data.observe(this, Observer {
-            mAdapter.updateData(it)
+            mAdapter.updateContent(it)
         })
 
         mViewModel.fetchData()

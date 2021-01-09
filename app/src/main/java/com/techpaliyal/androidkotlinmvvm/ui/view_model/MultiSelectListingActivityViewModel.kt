@@ -34,9 +34,9 @@ class MultiSelectListingActivityViewModel : ViewModel(){
     }
 
     fun logData(){
-        data.value?.forEach {
+      /*  data.value?.forEach {
             Log.d("Testing","Name ${it.name} value => ${it.isChecked}")
-        }
+        }*/
     }
 
 }
