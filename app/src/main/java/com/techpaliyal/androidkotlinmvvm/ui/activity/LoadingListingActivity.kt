@@ -13,6 +13,7 @@ import com.techpaliyal.androidkotlinmvvm.model.BasicModel
 import com.techpaliyal.androidkotlinmvvm.model.UserModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.LoadingListingViewModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.initViewModel
+import com.yogeshpaliyal.universal_adapter.adapter.UniversalAdapterViewType
 import com.yogeshpaliyal.universal_adapter.adapter.UniversalRecyclerAdapterHelper
 import com.yogeshpaliyal.universal_adapter.utils.Resource
 import com.yogeshpaliyal.universal_adapter.utils.UniversalAdapterOptions
@@ -35,16 +36,20 @@ class LoadingListingActivity : AppCompatActivity() {
 
     private val mAdapter by lazy {
 
-        val header = UniversalAdapterOptions<BasicModel>(R.layout.item_simple,
+        val header = UniversalAdapterOptions(
+            lifecycleOwner = this,
+            content = UniversalAdapterViewType.Content(
+                R.layout.item_simple,
+                mListener = object : BasicListener<BasicModel> {
+                    override fun onClick(model: BasicModel) {
+                        Toast.makeText(this@LoadingListingActivity, model.name, Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }),
             data = Resource.success(ArrayList<BasicModel>().also {
                 it.add(BasicModel(name = "Helllo Header 123 testing"))
-            }),
-            mListener = object : BasicListener<BasicModel> {
-                override fun onClick(model: BasicModel) {
-                    Toast.makeText(this@LoadingListingActivity, model.name, Toast.LENGTH_SHORT)
-                        .show()
-                }
             })
+        )
 
         val content = UniversalAdapterOptions<UserModel>(R.layout.item_user,
             resourceLoading = R.layout.layout_loading_full_page,

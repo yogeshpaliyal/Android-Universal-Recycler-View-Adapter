@@ -16,26 +16,40 @@ import com.yogeshpaliyal.universal_adapter.utils.*
  * @author Yogesh Paliyal
  * Created Date : 15 October 2020
  */
-class UniversalRecyclerAdapter<T> constructor(val adapterOptions: UniversalAdapterOptions<T>) : RecyclerView.Adapter<RecyclerView.ViewHolder?>() {
+class UniversalRecyclerAdapter<T> constructor(val adapterOptions: UniversalAdapterOptions<T>) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder?>() {
 //    var adapterOptions : UniversalAdapterOptions<T> = UniversalAdapterOptions(resource, resourceLoading, defaultLoadingItems, loaderFooter, data, errorLayout, errorListener, mListener, noDataLayout, noDataListener, lifecycleOwner)
 
 
-    constructor(@LayoutRes
-                resource: Int,
-                @LayoutRes
-                resourceLoading: Int? = null,
-                defaultLoadingItems: Int = 5,
-                @LayoutRes
-                loaderFooter: Int? = null,
-                data: Resource<ArrayList<T>?>?= null,
-                @LayoutRes
-                errorLayout: Int? = null,
-                errorListener: Any? = null,
-                mListener: Any? = null,
-                @LayoutRes
-                noDataLayout: Int? = null,
-                noDataListener: Any? = null,
-                lifecycleOwner: LifecycleOwner ?= null) : this(UniversalAdapterOptions(resource, resourceLoading, defaultLoadingItems, loaderFooter, data, errorLayout, errorListener, mListener, noDataLayout, noDataListener, lifecycleOwner))
+    constructor(
+        @LayoutRes
+        resource: Int,
+        @LayoutRes
+        resourceLoading: Int? = null,
+        defaultLoadingItems: Int = 5,
+        @LayoutRes
+        loaderFooter: Int? = null,
+        data: Resource<ArrayList<T>?>? = null,
+        @LayoutRes
+        errorLayout: Int? = null,
+        errorListener: Any? = null,
+        mListener: Any? = null,
+        @LayoutRes
+        noDataLayout: Int? = null,
+        noDataListener: Any? = null,
+        lifecycleOwner: LifecycleOwner? = null
+    ) :
+            this(
+                UniversalAdapterOptions<T>(
+                    lifecycleOwner,
+                    data,
+                    UniversalAdapterViewType.Content(resource, mListener),
+                    UniversalAdapterViewType.Loading(resourceLoading, defaultLoadingItems),
+                    UniversalAdapterViewType.LoadingFooter(loaderFooter),
+                    UniversalAdapterViewType.NoData(noDataLayout, noDataListener),
+                    UniversalAdapterViewType.Error(errorLayout, errorListener)
+                )
+            )
 
 
     private val VIEW_TYPE_LOADING = 0
@@ -47,26 +61,26 @@ class UniversalRecyclerAdapter<T> constructor(val adapterOptions: UniversalAdapt
 
     fun updateData(data: Resource<ArrayList<T>?>) {
 
-        LogHelper.logD("TestingCrash","updateData ${data.status} data => ${data.data?.size}")
+        LogHelper.logD("TestingCrash", "updateData ${data.status} data => ${data.data?.size}")
 
         val diffCallback = UniversalDiffUtil({
             getSize(it)
         }, adapterOptions.data, data)
         val diffResult = DiffUtil.calculateDiff(diffCallback, false)
 
-        adapterOptions.data = Resource.create(data.status,data.data,data.message)
+        adapterOptions.data = Resource.create(data.status, data.data, data.message)
 
         diffResult.dispatchUpdatesTo(this)
     }
 
-   // fun getData() = adapterOptions.data
+    // fun getData() = adapterOptions.data
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflator = LayoutInflater.from(parent.context)
         if (viewType == VIEW_TYPE_LOADING) {
             val binding = DataBindingUtil.inflate<ViewDataBinding>(
                 layoutInflator,
-                adapterOptions.resourceLoading!!,
+                adapterOptions.loading?.resourceLoading!!,
                 parent,
                 false
             )
@@ -74,27 +88,37 @@ class UniversalRecyclerAdapter<T> constructor(val adapterOptions: UniversalAdapt
         } else if (viewType == VIEW_TYPE_LOAD_MORE) {
             val binding = DataBindingUtil.inflate<ViewDataBinding>(
                 layoutInflator,
-                adapterOptions.loaderFooter!!,
+                adapterOptions.loadingFooter?.loaderFooter!!,
                 parent,
                 false
             )
             return UnusedViewHolder(binding)
-        } else if(viewType == VIEW_TYPE_ERROR) {
+        } else if (viewType == VIEW_TYPE_ERROR) {
             val binding =
-                DataBindingUtil.inflate<ViewDataBinding>(layoutInflator, adapterOptions.errorLayout!!, parent, false)
+                DataBindingUtil.inflate<ViewDataBinding>(
+                    layoutInflator,
+                    adapterOptions.error?.errorLayout!!,
+                    parent,
+                    false
+                )
             return ErrorViewHolder(binding)
         } else if (viewType == VIEW_NO_DATA) {
             val binding =
                 DataBindingUtil.inflate<ViewDataBinding>(
                     layoutInflator,
-                    adapterOptions. noDataLayout!!,
+                    adapterOptions.noData?.noDataLayout!!,
                     parent,
                     false
                 )
             return NoDataViewHolder(binding)
-        }else {
+        } else {
             val binding =
-                DataBindingUtil.inflate<ViewDataBinding>(layoutInflator,adapterOptions. resource, parent, false)
+                DataBindingUtil.inflate<ViewDataBinding>(
+                    layoutInflator,
+                    adapterOptions.content?.resource!!,
+                    parent,
+                    false
+                )
             return MyViewHolder(binding)
         }
 
@@ -104,8 +128,9 @@ class UniversalRecyclerAdapter<T> constructor(val adapterOptions: UniversalAdapt
     inner class NoDataViewHolder(val binding: ViewDataBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun setupData() {
+            binding.lifecycleOwner = adapterOptions.lifecycleOwner
             binding.setVariable(BR.message, adapterOptions.data?.message ?: "")
-            binding.setVariable(BR.listener, adapterOptions.noDataListener)
+            binding.setVariable(BR.listener, adapterOptions.noData?.noDataListener)
             binding.executePendingBindings()
         }
     }
@@ -114,33 +139,34 @@ class UniversalRecyclerAdapter<T> constructor(val adapterOptions: UniversalAdapt
         return getSize(adapterOptions.data)
     }
 
-    fun getSize(listData : Resource<List<T>?>?): Int{
+    fun getSize(listData: Resource<List<T>?>?): Int {
         return when (listData?.status) {
-            Status.LOADING -> if (listData.data?.isNullOrEmpty() != false && adapterOptions.resourceLoading != null) {
-                adapterOptions.defaultLoadingItems
+            Status.LOADING -> if (listData.data?.isNullOrEmpty() != false && adapterOptions.loading?.resourceLoading != null) {
+                adapterOptions.loading.defaultLoadingItems
             } else if (listData.data?.isNullOrEmpty() == false) {
-                return (listData.data.size ?: 0) + if (adapterOptions.loaderFooter != null) 1 else 0
+                return (listData.data.size ?: 0) + if (adapterOptions.loadingFooter?.loaderFooter != null) 1 else 0
             } else {
                 0
             }
             Status.SUCCESS -> {
                 val size = listData.data?.size ?: 0
-                return if (size == 0 && adapterOptions.noDataLayout != null) 1 else size
+                return if (size == 0 && adapterOptions.noData?.noDataLayout != null) 1 else size
             }
-            Status.ERROR -> (listData.data?.size ?: 0) + if (adapterOptions.errorLayout != null) 1 else 0
+            Status.ERROR -> (listData.data?.size
+                ?: 0) + if (adapterOptions.error?.errorLayout != null) 1 else 0
             else -> 0
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (adapterOptions.data?.status == Status.LOADING && adapterOptions.data?.data?.isNullOrEmpty() != false && adapterOptions.resourceLoading != null) {
+        return if (adapterOptions.data?.status == Status.LOADING && adapterOptions.data?.data?.isNullOrEmpty() != false && adapterOptions.loading?.resourceLoading != null) {
             VIEW_TYPE_LOADING
-        } else if (adapterOptions.data?.status == Status.LOADING && adapterOptions.data?.data?.isNullOrEmpty() == false && adapterOptions.loaderFooter != null && position == itemCount - 1) {
+        } else if (adapterOptions.data?.status == Status.LOADING && adapterOptions.data?.data?.isNullOrEmpty() == false && adapterOptions.loadingFooter?.loaderFooter != null && position == itemCount - 1) {
             return VIEW_TYPE_LOAD_MORE
-        } else if(adapterOptions.data?.status == Status.ERROR && adapterOptions.errorLayout != null && position == itemCount - 1){
+        } else if (adapterOptions.data?.status == Status.ERROR && adapterOptions.error?.errorLayout != null && position == itemCount - 1) {
             return VIEW_TYPE_ERROR
         } else {
-            if (adapterOptions.data?.data?.isNullOrEmpty() == true && adapterOptions.noDataLayout != null) {
+            if (adapterOptions.data?.data?.isNullOrEmpty() == true && adapterOptions.noData?.noDataLayout != null) {
                 VIEW_NO_DATA
             } else {
                 VIEW_TYPE_NORMAL
@@ -150,31 +176,45 @@ class UniversalRecyclerAdapter<T> constructor(val adapterOptions: UniversalAdapt
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is UniversalRecyclerAdapter<*>.MyViewHolder) {
-            val item = adapterOptions.data?.data?.get(position)
-            if (item != null)
-                holder.setupData(item)
-        }else if (holder is UniversalRecyclerAdapter<*>.ErrorViewHolder) {
+                holder.setupData(position)
+        } else if (holder is UniversalRecyclerAdapter<*>.ErrorViewHolder) {
             holder.setupData()
-        }else if (holder is UniversalRecyclerAdapter<*>.NoDataViewHolder) {
+        } else if (holder is UniversalRecyclerAdapter<*>.NoDataViewHolder) {
             holder.setupData()
         }
     }
 
     inner class MyViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun setupData(model: Any) {
-            binding.setVariable(BR.model, model)
-            //binding.setVariable(BR.position, adapterPosition)
-            binding.setVariable(BR.listener, adapterOptions.mListener)
-            binding.executePendingBindings()
+        fun setupData(holderPosition: Int) {
+            binding.lifecycleOwner = adapterOptions.lifecycleOwner
+            val model = adapterOptions.data?.data?.get(holderPosition)
+            adapterOptions.content?.let { content ->
+                if (content.customBindingMapping == null) {
+                    binding.setVariable(BR.model, model)
+                    binding.setVariable(BR.listener, content.mListener)
+                }else{
+                    model?.let { content.customBindingMapping.invoke(binding, it) }
+                }
+                binding.executePendingBindings()
+            }
         }
     }
 
 
-    inner class ErrorViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ErrorViewHolder(val binding: ViewDataBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun setupData() {
-            binding.setVariable(BR.message, adapterOptions.data?.message ?: "")
-            binding.setVariable(BR.listener, adapterOptions.errorListener)
-            binding.executePendingBindings()
+            binding.lifecycleOwner = adapterOptions.lifecycleOwner
+            adapterOptions.error?.let { error ->
+                if (error.customBindingMapping == null) {
+                    binding.setVariable(BR.message, adapterOptions.data?.message ?: "")
+                    binding.setVariable(BR.listener, error.errorListener)
+                }else{
+                    error.customBindingMapping.invoke(binding, adapterOptions.data)
+                }
+                binding.executePendingBindings()
+            }
+
         }
     }
 
