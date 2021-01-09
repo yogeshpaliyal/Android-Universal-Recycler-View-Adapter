@@ -14,6 +14,8 @@ here is a solution, create any type of recycler view using this Adapter
 4. Listen to item events using listener, like click, long press, etc.
 5. Built in Diff Utils for smooth scrolling and animations.
 6. Custom Layout for No Data Found (when list is empty and status is success)
+7. Custom binding with any of the layout
+8. added concat adapter for joining multiple adapters
 
 
 Status|	List Size|	Result Behaviour
