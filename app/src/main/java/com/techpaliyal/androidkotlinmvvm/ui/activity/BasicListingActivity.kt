@@ -49,7 +49,7 @@ class BasicListingActivity : AppCompatActivity() {
                     it.name += "jadlfhldajfh adjfh"
                 })
             }))
-
+ 
         UniversalRecyclerAdapterHelper<BasicModel, Unit, Unit>(contentOption)
     }
 
