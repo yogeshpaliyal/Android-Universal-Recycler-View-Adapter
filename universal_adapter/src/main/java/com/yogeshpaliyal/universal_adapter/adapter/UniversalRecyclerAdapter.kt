@@ -16,11 +16,27 @@ import com.yogeshpaliyal.universal_adapter.utils.*
  * @author Yogesh Paliyal
  * Created Date : 15 October 2020
  */
-class UniversalRecyclerAdapter<T> constructor(val adapterOptions: UniversalAdapterOptions<T>) :
+class UniversalRecyclerAdapter<T> constructor(val adapterOptions: UniversalAdapterBuilder<T>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder?>() {
 //    var adapterOptions : UniversalAdapterOptions<T> = UniversalAdapterOptions(resource, resourceLoading, defaultLoadingItems, loaderFooter, data, errorLayout, errorListener, mListener, noDataLayout, noDataListener, lifecycleOwner)
 
 
+    @Deprecated(
+        "Use UniversalAdapterBuilder for better approach",
+        ReplaceWith(
+            "UniversalAdapterBuilder(lifecycleOwner,data,UniversalAdapterViewType.Content(resource,listener = mListener)," +
+                    "UniversalAdapterViewType.Loading(resourceLoading)," +
+                    "UniversalAdapterViewType.LoadingFooter(loaderFooter)," +
+                    "UniversalAdapterViewType.NoData(noDataLayout, listener = noDataListener)," +
+                    "UniversalAdapterViewType.Error(errorLayout, listener = errorListener)).build()",
+            "com.yogeshpaliyal.universal_adapter.utils.UniversalAdapterBuilder",
+            "com.yogeshpaliyal.universal_adapter.adapter.UniversalAdapterViewType.Content",
+            "com.yogeshpaliyal.universal_adapter.adapter.UniversalAdapterViewType.Loading",
+            "com.yogeshpaliyal.universal_adapter.adapter.UniversalAdapterViewType.LoadingFooter",
+            "com.yogeshpaliyal.universal_adapter.adapter.UniversalAdapterViewType.NoData",
+            "com.yogeshpaliyal.universal_adapter.adapter.UniversalAdapterViewType.Error"
+        )
+    )
     constructor(
         @LayoutRes
         resource: Int,
@@ -40,7 +56,7 @@ class UniversalRecyclerAdapter<T> constructor(val adapterOptions: UniversalAdapt
         lifecycleOwner: LifecycleOwner? = null
     ) :
             this(
-                UniversalAdapterOptions<T>(
+                UniversalAdapterBuilder<T>(
                     lifecycleOwner,
                     data,
                     UniversalAdapterViewType.Content(resource, mListener),
@@ -130,7 +146,7 @@ class UniversalRecyclerAdapter<T> constructor(val adapterOptions: UniversalAdapt
         fun setupData() {
             binding.lifecycleOwner = adapterOptions.lifecycleOwner
             binding.setVariable(BR.message, adapterOptions.data?.message ?: "")
-            binding.setVariable(BR.listener, adapterOptions.noData?.noDataListener)
+            binding.setVariable(BR.listener, adapterOptions.noData?.listener)
             binding.executePendingBindings()
         }
     }
@@ -144,7 +160,7 @@ class UniversalRecyclerAdapter<T> constructor(val adapterOptions: UniversalAdapt
             Status.LOADING -> if (listData.data?.isNullOrEmpty() != false && adapterOptions.loading?.resourceLoading != null) {
                 adapterOptions.loading.defaultLoadingItems
             } else if (listData.data?.isNullOrEmpty() == false) {
-                return (listData.data.size ?: 0) + if (adapterOptions.loadingFooter?.loaderFooter != null) 1 else 0
+                return listData.data.size + if (adapterOptions.loadingFooter?.loaderFooter != null) 1 else 0
             } else {
                 0
             }
@@ -176,7 +192,7 @@ class UniversalRecyclerAdapter<T> constructor(val adapterOptions: UniversalAdapt
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is UniversalRecyclerAdapter<*>.MyViewHolder) {
-                holder.setupData(position)
+            holder.setupData(position)
         } else if (holder is UniversalRecyclerAdapter<*>.ErrorViewHolder) {
             holder.setupData()
         } else if (holder is UniversalRecyclerAdapter<*>.NoDataViewHolder) {
@@ -191,11 +207,12 @@ class UniversalRecyclerAdapter<T> constructor(val adapterOptions: UniversalAdapt
             adapterOptions.content?.let { content ->
                 if (content.customBindingMapping == null) {
                     binding.setVariable(BR.model, model)
-                    binding.setVariable(BR.listener, content.mListener)
-                }else{
+                    binding.setVariable(BR.listener, content.listener ?: content.listener)
+                    binding.executePendingBindings()
+                } else {
                     model?.let { content.customBindingMapping.invoke(binding, it) }
                 }
-                binding.executePendingBindings()
+
             }
         }
     }
@@ -208,11 +225,12 @@ class UniversalRecyclerAdapter<T> constructor(val adapterOptions: UniversalAdapt
             adapterOptions.error?.let { error ->
                 if (error.customBindingMapping == null) {
                     binding.setVariable(BR.message, adapterOptions.data?.message ?: "")
-                    binding.setVariable(BR.listener, error.errorListener)
-                }else{
+                    binding.setVariable(BR.listener, error.listener ?: error.listener)
+                    binding.executePendingBindings()
+
+                } else {
                     error.customBindingMapping.invoke(binding, adapterOptions.data)
                 }
-                binding.executePendingBindings()
             }
 
         }

@@ -3,6 +3,7 @@ package com.yogeshpaliyal.universal_adapter.utils
 import androidx.annotation.LayoutRes
 import androidx.lifecycle.LifecycleOwner
 import com.yogeshpaliyal.universal_adapter.adapter.UniversalAdapterViewType
+import com.yogeshpaliyal.universal_adapter.adapter.UniversalRecyclerAdapter
 
 
 /*
@@ -11,30 +12,14 @@ import com.yogeshpaliyal.universal_adapter.adapter.UniversalAdapterViewType
 * https://techpaliyal.com
 * created on 08-01-2021 19:54
 */
-@Deprecated(
-    "Please use @UniversalAdapterBuilder instead of UniversalAdapterOptions",
-    replaceWith = ReplaceWith(
-        "UniversalAdapterBuilder",
-        "com.yogeshpaliyal.universal_adapter.utils.UniversalAdapterBuilder"
-    ),
-    level = DeprecationLevel.WARNING
-)
-class UniversalAdapterOptions<T> constructor(
-    lifecycleOwner: LifecycleOwner? = null,
-    data: Resource<ArrayList<T>?>? = null,
-    content: UniversalAdapterViewType.Content<T>? = null,
-    loading: UniversalAdapterViewType.Loading<T>? = null,
-    loadingFooter: UniversalAdapterViewType.LoadingFooter<T>? = null,
-    noData: UniversalAdapterViewType.NoData<T>? = null,
-    error: UniversalAdapterViewType.Error<T>? = null
-) : UniversalAdapterBuilder<T>(
-    lifecycleOwner,
-    data,
-    content,
-    loading,
-    loadingFooter,
-    noData,
-    error
+open class UniversalAdapterBuilder<T> constructor(
+    var lifecycleOwner: LifecycleOwner? = null,
+    var data: Resource<ArrayList<T>?>? = null,
+    val content: UniversalAdapterViewType.Content<T>? = null,
+    val loading: UniversalAdapterViewType.Loading<T>? = null,
+    val loadingFooter: UniversalAdapterViewType.LoadingFooter<T>? = null,
+    val noData: UniversalAdapterViewType.NoData<T>? = null,
+    val error: UniversalAdapterViewType.Error<T>? = null
 ) {
     constructor(
         @LayoutRes
@@ -62,5 +47,7 @@ class UniversalAdapterOptions<T> constructor(
         UniversalAdapterViewType.NoData(noDataLayout, noDataListener),
         UniversalAdapterViewType.Error(errorLayout, errorListener)
     )
+
+    fun build() = UniversalRecyclerAdapter(this)
 }
 

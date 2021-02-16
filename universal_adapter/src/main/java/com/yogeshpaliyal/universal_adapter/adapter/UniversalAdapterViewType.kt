@@ -15,8 +15,10 @@ sealed class UniversalAdapterViewType {
     data class Content<T>(
         @LayoutRes
         val resource: Int,
+        @Deprecated("Using Common names, so not to confuse", ReplaceWith("listener"))
         var mListener: Any? = null,
-        val customBindingMapping : ((itemBinding : ViewDataBinding,item: T) -> Unit)?  = null
+        val listener: Any? = null,
+        val customBindingMapping: ((itemBinding: ViewDataBinding, item: T) -> Unit)? = null
     )
 
     data class Loading<T>( @LayoutRes
@@ -28,13 +30,28 @@ sealed class UniversalAdapterViewType {
                            val loaderFooter: Int? = null,
                                  val customBindingMapping : ((itemBinding : ViewDataBinding,item: T) -> Unit)? = null)
 
-    data class NoData<T>( @LayoutRes
-                           val noDataLayout: Int? = null,
-                           val noDataListener: Any? = null,
-                          val customBindingMapping : ((itemBinding : ViewDataBinding,item: T) -> Unit)?  = null)
+    data class NoData<T>(
+        @LayoutRes
+        val noDataLayout: Int? = null,
 
-    data class Error<T>( @LayoutRes
-                          val errorLayout: Int? = null,
-                          val errorListener: Any? = null,
-                         val customBindingMapping : ((itemBinding : ViewDataBinding,item: Resource<ArrayList<T>?>?) -> Unit)?  = null)
+        @Deprecated(
+            "Using Common names, so not to confuse",
+            ReplaceWith("listener")
+        )
+        val noDataListener: Any? = null,
+        val listener: Any? = null,
+        val customBindingMapping: ((itemBinding: ViewDataBinding, item: T) -> Unit)? = null
+    )
+
+    data class Error<T>(
+        @LayoutRes
+        val errorLayout: Int? = null,
+        @Deprecated(
+            "Using Common names, so not to confuse",
+            ReplaceWith("listener")
+        )
+        val errorListener: Any? = null,
+        val listener: Any? = null,
+        val customBindingMapping: ((itemBinding: ViewDataBinding, item: Resource<ArrayList<T>?>?) -> Unit)? = null
+    )
 }

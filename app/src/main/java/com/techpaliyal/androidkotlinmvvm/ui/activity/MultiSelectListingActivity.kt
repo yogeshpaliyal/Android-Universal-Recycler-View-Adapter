@@ -11,8 +11,9 @@ import com.techpaliyal.androidkotlinmvvm.listeners.BasicListener
 import com.techpaliyal.androidkotlinmvvm.model.MultiSelectModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.MultiSelectListingActivityViewModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.initViewModel
-import com.yogeshpaliyal.universal_adapter.adapter.UniversalRecyclerAdapter
+import com.yogeshpaliyal.universal_adapter.adapter.UniversalAdapterViewType
 import com.yogeshpaliyal.universal_adapter.utils.Resource
+import com.yogeshpaliyal.universal_adapter.utils.UniversalAdapterBuilder
 
 /**
  * @author Yogesh Paliyal
@@ -35,13 +36,16 @@ class MultiSelectListingActivity : AppCompatActivity() {
     }
 
     private val mAdapter by lazy {
-        UniversalRecyclerAdapter<MultiSelectModel>(
-            R.layout.item_multi_select,
-            mListener = object : BasicListener<MultiSelectModel> {
-                override fun onClick(model: MultiSelectModel) {
-                    mViewModel.logData()
-                }
-            })
+        UniversalAdapterBuilder<MultiSelectModel>(
+            null,
+            null,
+            UniversalAdapterViewType.Content(R.layout.item_multi_select,
+                listener = object : BasicListener<MultiSelectModel> {
+                    override fun onClick(model: MultiSelectModel) {
+                        mViewModel.logData()
+                    }
+                })
+        ).build()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

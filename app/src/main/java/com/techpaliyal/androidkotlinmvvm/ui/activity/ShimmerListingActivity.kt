@@ -12,7 +12,8 @@ import com.techpaliyal.androidkotlinmvvm.listeners.BasicListener
 import com.techpaliyal.androidkotlinmvvm.model.UserModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.LoadingListingViewModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.initViewModel
-import com.yogeshpaliyal.universal_adapter.adapter.UniversalRecyclerAdapter
+import com.yogeshpaliyal.universal_adapter.adapter.UniversalAdapterViewType
+import com.yogeshpaliyal.universal_adapter.utils.UniversalAdapterBuilder
 
 class ShimmerListingActivity : AppCompatActivity() {
     lateinit var binding: ActivityListingBinding
@@ -31,15 +32,22 @@ class ShimmerListingActivity : AppCompatActivity() {
     }
 
     private val mAdapter by lazy {
-        UniversalRecyclerAdapter<UserModel>(
-            R.layout.item_user, resourceLoading = R.layout.item_user_shimmer,
-            defaultLoadingItems = 5,
-            mListener = object : BasicListener<UserModel> {
-                override fun onClick(model: UserModel) {
-                    Toast.makeText(this@ShimmerListingActivity, model.name, Toast.LENGTH_SHORT)
-                        .show()
-                }
-            })
+        UniversalAdapterBuilder<UserModel>(
+            null,
+            null,
+            UniversalAdapterViewType.Content(
+                R.layout.item_user,
+                listener = object : BasicListener<UserModel> {
+                    override fun onClick(model: UserModel) {
+                        Toast.makeText(this@ShimmerListingActivity, model.name, Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }),
+            UniversalAdapterViewType.Loading(resourceLoading = R.layout.item_user_shimmer),
+            UniversalAdapterViewType.LoadingFooter(),
+            UniversalAdapterViewType.NoData(),
+            UniversalAdapterViewType.Error()
+        ).build()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -30,16 +30,15 @@ ERROR	|more than 0|	Data Cells + error cell at end
 
 # Parameters
 ```kotlin
-    @LayoutRes val resource: Int,
-    @LayoutRes val resourceLoading: Int? = null,
-    val defaultLoadingItems: Int = 5,
-    @LayoutRes val loaderFooter: Int? = null,
-    private var data: Resource<ArrayList<T>?>?= null,
-    @LayoutRes val errorLayout: Int? = null,
-    private var errorListener: Any? = null,
-    private var mListener: Any? = null,
-    @LayoutRes val noDataLayout: Int? = null,
-    private var noDataListener: Any? = null
+      UniversalAdapterBuilder(
+            lifecycleOwner,
+            data,
+            UniversalAdapterViewType.Content(resource, listener),
+            UniversalAdapterViewType.Loading(resourceLoading, defaultLoadingItems),
+            UniversalAdapterViewType.LoadingFooter(loaderFooter, listener),
+            UniversalAdapterViewType.NoData(noDataLayout, listener),
+            UniversalAdapterViewType.Error(errorLayout, listener)
+        ).build()
   ```
 
 <a href='https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-MVVM-DataBinding/blob/master/app-debug_1_0_0.apk'>Download Sample App</a>
@@ -107,8 +106,6 @@ show shimmer when data is fetching for first page and load more data when scroll
 <h3> <a href="https://gist.github.com/yogeshpaliyal/dcb381941b9f0dec2cb366c85f8ce15b">Initilize Universal Adapter </a> </h3>
 
 
-**Create your sample and share with me**
+**Create your sample and share with us**
 
 **Happy Coding 😁**
-
-
