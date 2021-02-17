@@ -207,7 +207,7 @@ class UniversalRecyclerAdapter<T> constructor(val adapterOptions: UniversalAdapt
             adapterOptions.content?.let { content ->
                 if (content.customBindingMapping == null) {
                     binding.setVariable(BR.model, model)
-                    binding.setVariable(BR.listener, content.listener ?: content.listener)
+                    binding.setVariable(BR.listener, content.listener ?: content.mListener)
                     binding.executePendingBindings()
                 } else {
                     model?.let { content.customBindingMapping.invoke(binding, it) }
@@ -225,7 +225,7 @@ class UniversalRecyclerAdapter<T> constructor(val adapterOptions: UniversalAdapt
             adapterOptions.error?.let { error ->
                 if (error.customBindingMapping == null) {
                     binding.setVariable(BR.message, adapterOptions.data?.message ?: "")
-                    binding.setVariable(BR.listener, error.listener ?: error.listener)
+                    binding.setVariable(BR.listener, error.listener ?: error.errorListener)
                     binding.executePendingBindings()
 
                 } else {
