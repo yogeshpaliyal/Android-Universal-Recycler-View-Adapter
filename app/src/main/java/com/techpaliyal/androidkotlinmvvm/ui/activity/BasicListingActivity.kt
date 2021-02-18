@@ -13,10 +13,10 @@ import com.techpaliyal.androidkotlinmvvm.model.BasicModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.BasicListingActivityViewModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.initViewModel
 import com.yogeshpaliyal.universal_adapter.BR
+import com.yogeshpaliyal.universal_adapter.adapter.SectionUniversalRecyclerAdapterBuilder
 import com.yogeshpaliyal.universal_adapter.adapter.UniversalAdapterViewType
-import com.yogeshpaliyal.universal_adapter.adapter.UniversalRecyclerAdapterHelper
 import com.yogeshpaliyal.universal_adapter.utils.Resource
-import com.yogeshpaliyal.universal_adapter.utils.UniversalAdapterOptions
+import com.yogeshpaliyal.universal_adapter.utils.UniversalAdapterBuilder
 
 /**
  * @author Yogesh Paliyal
@@ -38,19 +38,24 @@ class BasicListingActivity : AppCompatActivity() {
     }
 
     private val mAdapter by lazy {
-        val contentOption = UniversalAdapterOptions<BasicModel>(
+        val contentOption = UniversalAdapterBuilder<BasicModel>(
             lifecycleOwner = this,
-            content = UniversalAdapterViewType.Content(R.layout.item_simple,mListener = object : BasicListener<BasicModel> {
-                override fun onClick(model: BasicModel) {
-                    Toast.makeText(this@BasicListingActivity, model.name, Toast.LENGTH_SHORT).show()
-                }
-            }, customBindingMapping = {itemBinding, item ->
-                itemBinding.setVariable(BR.model,item.also {
-                    it.name += "jadlfhldajfh adjfh"
+            content = UniversalAdapterViewType.Content(
+                R.layout.item_simple,
+                mListener = object : BasicListener<BasicModel> {
+                    override fun onClick(model: BasicModel) {
+                        Toast.makeText(this@BasicListingActivity, model.name, Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                },
+                customBindingMapping = { itemBinding, item ->
+                    itemBinding.setVariable(BR.model, item.also {
+                        it.name += "jadlfhldajfh adjfh"
+                    })
                 })
-            }))
- 
-        UniversalRecyclerAdapterHelper<BasicModel, Unit, Unit>(contentOption)
+        )
+
+        SectionUniversalRecyclerAdapterBuilder<BasicModel, Unit, Unit>(contentOption)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

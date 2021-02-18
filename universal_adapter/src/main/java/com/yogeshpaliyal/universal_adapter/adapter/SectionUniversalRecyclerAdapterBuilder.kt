@@ -12,27 +12,20 @@ import com.yogeshpaliyal.universal_adapter.utils.UniversalAdapterBuilder
 * created on 08-01-2021 19:47
 */
 
-@Deprecated(
-    "Helper is depricated use builder instead",
-    ReplaceWith(
-        "SectionUniversalRecyclerAdapterBuilder",
-        "com.yogeshpaliyal.universal_adapter.adapter.SectionUniversalRecyclerAdapterBuilder"
-    )
-)
-class UniversalRecyclerAdapterHelper<X : Any, Y : Any, Z : Any>(
+class SectionUniversalRecyclerAdapterBuilder<X : Any, Y : Any, Z : Any>(
     contentOptions: UniversalAdapterBuilder<X>? = null,
     headerOptions: UniversalAdapterBuilder<Y>? = null,
     footerOptions: UniversalAdapterBuilder<Z>? = null
-){
+) {
     val concatedAdapter by lazy {
-        val ada= ConcatAdapter()
-        headerAdapter?.let{
+        val ada = ConcatAdapter()
+        headerAdapter?.let {
             ada.addAdapter(it)
         }
-        contentAdapter?.let{
+        contentAdapter?.let {
             ada.addAdapter(it)
         }
-        footerAdapter?.let{
+        footerAdapter?.let {
             ada.addAdapter(it)
         }
         ada
@@ -62,16 +55,18 @@ class UniversalRecyclerAdapterHelper<X : Any, Y : Any, Z : Any>(
         }
     }
 
+    fun build() = concatedAdapter
 
-    fun updateContent(data: Resource<ArrayList<X>?>){
+
+    fun updateContent(data: Resource<ArrayList<X>?>) {
         contentAdapter?.updateData(data)
     }
 
-    fun updateHeader(data: Resource<ArrayList<Y>?>){
+    fun updateHeader(data: Resource<ArrayList<Y>?>) {
         headerAdapter?.updateData(data)
     }
 
-    fun updateFooter(data: Resource<ArrayList<Z>?>){
+    fun updateFooter(data: Resource<ArrayList<Z>?>) {
         footerAdapter?.updateData(data)
     }
 

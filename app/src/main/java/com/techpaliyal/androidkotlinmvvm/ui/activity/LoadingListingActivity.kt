@@ -13,8 +13,8 @@ import com.techpaliyal.androidkotlinmvvm.model.BasicModel
 import com.techpaliyal.androidkotlinmvvm.model.UserModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.LoadingListingViewModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.initViewModel
+import com.yogeshpaliyal.universal_adapter.adapter.SectionUniversalRecyclerAdapterBuilder
 import com.yogeshpaliyal.universal_adapter.adapter.UniversalAdapterViewType
-import com.yogeshpaliyal.universal_adapter.adapter.UniversalRecyclerAdapterHelper
 import com.yogeshpaliyal.universal_adapter.utils.Resource
 import com.yogeshpaliyal.universal_adapter.utils.UniversalAdapterBuilder
 
@@ -61,7 +61,7 @@ class LoadingListingActivity : AppCompatActivity() {
                 }
             })
 
-        UniversalRecyclerAdapterHelper<UserModel, BasicModel, Unit>(content, header)
+        SectionUniversalRecyclerAdapterBuilder<UserModel, BasicModel, Unit>(content, header)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
