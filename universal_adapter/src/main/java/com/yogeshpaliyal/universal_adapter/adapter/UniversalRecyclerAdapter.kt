@@ -210,7 +210,7 @@ class UniversalRecyclerAdapter<T> constructor(val adapterOptions: UniversalAdapt
                     binding.setVariable(BR.listener, content.listener ?: content.mListener)
                     binding.executePendingBindings()
                 } else {
-                    model?.let { content.customBindingMapping.invoke(binding, it) }
+                    model?.let { content.customBindingMapping.invoke(binding, it, bindingAdapterPosition) }
                 }
 
             }
