@@ -18,7 +18,7 @@ sealed class UniversalAdapterViewType {
         @Deprecated("Using Common names, so not to confuse", ReplaceWith("listener"))
         var mListener: Any? = null,
         val listener: Any? = null,
-        val customBindingMapping: ((itemBinding: ViewDataBinding, item: T) -> Unit)? = null
+        val customBindingMapping: ((itemBinding: ViewDataBinding, item: T, , bindingAdapterPosition: Int) -> Unit)? = null
     )
 
     data class Loading<T>( @LayoutRes
