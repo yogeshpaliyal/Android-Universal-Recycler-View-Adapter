@@ -32,7 +32,7 @@ android {
 }
 
 dependencies {
-    def lifecycle_version = "2.3.0"
+    def lifecycle_version = "2.3.1"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation project(':universal_adapter')

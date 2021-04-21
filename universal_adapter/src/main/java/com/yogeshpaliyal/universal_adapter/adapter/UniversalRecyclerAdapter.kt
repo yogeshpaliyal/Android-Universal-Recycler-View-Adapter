@@ -68,12 +68,6 @@ class UniversalRecyclerAdapter<T> constructor(val adapterOptions: UniversalAdapt
             )
 
 
-    private val VIEW_TYPE_LOADING = 0
-    private val VIEW_TYPE_NORMAL = 1
-    private val VIEW_TYPE_LOAD_MORE = 2
-    private val VIEW_TYPE_ERROR = 3
-    private val VIEW_NO_DATA = 4
-
 
     fun updateData(data: Resource<ArrayList<T>?>) {
 
@@ -93,36 +87,36 @@ class UniversalRecyclerAdapter<T> constructor(val adapterOptions: UniversalAdapt
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflator = LayoutInflater.from(parent.context)
-        if (viewType == VIEW_TYPE_LOADING) {
+        if (viewType == adapterOptions.loading?.resourceLoading) {
             val binding = DataBindingUtil.inflate<ViewDataBinding>(
                 layoutInflator,
-                adapterOptions.loading?.resourceLoading!!,
+                adapterOptions.loading.resourceLoading,
                 parent,
                 false
             )
             return UnusedViewHolder(binding)
-        } else if (viewType == VIEW_TYPE_LOAD_MORE) {
+        } else if (viewType == adapterOptions.loadingFooter?.loaderFooter) {
             val binding = DataBindingUtil.inflate<ViewDataBinding>(
                 layoutInflator,
-                adapterOptions.loadingFooter?.loaderFooter!!,
+                adapterOptions.loadingFooter.loaderFooter,
                 parent,
                 false
             )
             return UnusedViewHolder(binding)
-        } else if (viewType == VIEW_TYPE_ERROR) {
+        } else if (viewType == adapterOptions.error?.errorLayout) {
             val binding =
                 DataBindingUtil.inflate<ViewDataBinding>(
                     layoutInflator,
-                    adapterOptions.error?.errorLayout!!,
+                    adapterOptions.error.errorLayout,
                     parent,
                     false
                 )
             return ErrorViewHolder(binding)
-        } else if (viewType == VIEW_NO_DATA) {
+        } else if (viewType == adapterOptions.noData?.noDataLayout) {
             val binding =
                 DataBindingUtil.inflate<ViewDataBinding>(
                     layoutInflator,
-                    adapterOptions.noData?.noDataLayout!!,
+                    adapterOptions.noData.noDataLayout,
                     parent,
                     false
                 )
@@ -176,16 +170,16 @@ class UniversalRecyclerAdapter<T> constructor(val adapterOptions: UniversalAdapt
 
     override fun getItemViewType(position: Int): Int {
         return if (adapterOptions.data?.status == Status.LOADING && adapterOptions.data?.data?.isNullOrEmpty() != false && adapterOptions.loading?.resourceLoading != null) {
-            VIEW_TYPE_LOADING
+            adapterOptions.loading.resourceLoading
         } else if (adapterOptions.data?.status == Status.LOADING && adapterOptions.data?.data?.isNullOrEmpty() == false && adapterOptions.loadingFooter?.loaderFooter != null && position == itemCount - 1) {
-            return VIEW_TYPE_LOAD_MORE
+            return adapterOptions.loadingFooter.loaderFooter
         } else if (adapterOptions.data?.status == Status.ERROR && adapterOptions.error?.errorLayout != null && position == itemCount - 1) {
-            return VIEW_TYPE_ERROR
+            return adapterOptions.error.errorLayout
         } else {
             if (adapterOptions.data?.data?.isNullOrEmpty() == true && adapterOptions.noData?.noDataLayout != null) {
-                VIEW_NO_DATA
+                adapterOptions.noData.noDataLayout
             } else {
-                VIEW_TYPE_NORMAL
+                adapterOptions.content?.resource ?: 0
             }
         }
     }
@@ -207,7 +201,7 @@ class UniversalRecyclerAdapter<T> constructor(val adapterOptions: UniversalAdapt
             adapterOptions.content?.let { content ->
                 if (content.customBindingMapping == null) {
                     binding.setVariable(BR.model, model)
-                    binding.setVariable(BR.listener, content.listener ?: content.mListener)
+                    binding.setVariable(BR.listener, content.listener ?: content.listener)
                     binding.executePendingBindings()
                 } else {
                     model?.let { content.customBindingMapping.invoke(binding, it) }
@@ -225,7 +219,7 @@ class UniversalRecyclerAdapter<T> constructor(val adapterOptions: UniversalAdapt
             adapterOptions.error?.let { error ->
                 if (error.customBindingMapping == null) {
                     binding.setVariable(BR.message, adapterOptions.data?.message ?: "")
-                    binding.setVariable(BR.listener, error.listener ?: error.errorListener)
+                    binding.setVariable(BR.listener, error.listener ?: error.listener)
                     binding.executePendingBindings()
 
                 } else {
