@@ -48,7 +48,7 @@ class BasicListingActivity : AppCompatActivity() {
                             .show()
                     }
                 },
-                customBindingMapping = { itemBinding, item ->
+                customBindingMapping = { itemBinding, item, position ->
                     itemBinding.setVariable(BR.model, item.also {
                         it.name += "jadlfhldajfh adjfh"
                     })
