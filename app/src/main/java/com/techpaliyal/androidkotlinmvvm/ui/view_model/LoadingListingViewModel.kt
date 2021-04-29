@@ -31,32 +31,35 @@ class LoadingListingViewModel : ViewModel() {
             if (!isActive)
                 return@launch
 
-            val tempArr = data.value?.data ?:  ArrayList()
-            tempArr.add(
-                UserModel(
-                    name = "Yogesh ${index++}",
-                    image = "https://randomuser.me/api/portraits/men/52.jpg",
-                    address = "Jodhpur"
+            val tempArr = data.value?.data ?: ArrayList()
+
+            for (i in 0 until 10) {
+                tempArr.add(
+                    UserModel(
+                        name = "Yogesh ${index++}",
+                        image = "https://randomuser.me/api/portraits/men/52.jpg",
+                        address = "Jodhpur"
+                    )
                 )
-            )
-            tempArr.add(
-                UserModel(
-                    name = "Umesh ${index++}",
-                    image = "https://randomuser.me/api/portraits/men/62.jpg"
+                tempArr.add(
+                    UserModel(
+                        name = "Umesh ${index++}",
+                        image = "https://randomuser.me/api/portraits/men/62.jpg"
+                    )
                 )
-            )
-            tempArr.add(
-                UserModel(
-                    name = "Sohan ${index++}",
-                    image = "https://randomuser.me/api/portraits/men/84.jpg"
+                tempArr.add(
+                    UserModel(
+                        name = "Sohan ${index++}",
+                        image = "https://randomuser.me/api/portraits/men/84.jpg"
+                    )
                 )
-            )
-            tempArr.add(
-                UserModel(
-                    name = "Pramod ${index++}",
-                    image = "https://randomuser.me/api/portraits/men/83.jpg"
+                tempArr.add(
+                    UserModel(
+                        name = "Pramod ${index++}",
+                        image = "https://randomuser.me/api/portraits/men/83.jpg"
+                    )
                 )
-            )
+            }
             if (isActive)
                 data.postValue(Resource.success(tempArr))
         }

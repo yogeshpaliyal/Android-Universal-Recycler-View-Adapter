@@ -52,6 +52,6 @@ sealed class UniversalAdapterViewType {
         )
         val errorListener: Any? = null,
         val listener: Any? = null,
-        val customBindingMapping: ((itemBinding: ViewDataBinding, item: Resource<ArrayList<T>?>?) -> Unit)? = null
+        val customBindingMapping: ((itemBinding: ViewDataBinding, item: Resource<List<T>?>?) -> Unit)? = null
     )
 }

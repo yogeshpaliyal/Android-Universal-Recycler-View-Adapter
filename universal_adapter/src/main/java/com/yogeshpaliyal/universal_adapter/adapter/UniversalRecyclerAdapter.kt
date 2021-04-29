@@ -9,7 +9,10 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.yogeshpaliyal.universal_adapter.BR
-import com.yogeshpaliyal.universal_adapter.utils.*
+import com.yogeshpaliyal.universal_adapter.utils.Resource
+import com.yogeshpaliyal.universal_adapter.utils.Status
+import com.yogeshpaliyal.universal_adapter.utils.UniversalAdapterBuilder
+import com.yogeshpaliyal.universal_adapter.utils.UniversalDiffUtil
 
 
 /**
@@ -68,17 +71,14 @@ class UniversalRecyclerAdapter<T> constructor(val adapterOptions: UniversalAdapt
             )
 
 
-
-    fun updateData(data: Resource<ArrayList<T>?>) {
-
-        LogHelper.logD("TestingCrash", "updateData ${data.status} data => ${data.data?.size}")
+    fun updateData(data: Resource<List<T>?>) {
 
         val diffCallback = UniversalDiffUtil({
             getSize(it)
         }, adapterOptions.data, data)
         val diffResult = DiffUtil.calculateDiff(diffCallback, false)
 
-        adapterOptions.data = Resource.create(data.status, data.data, data.message)
+        adapterOptions.data = data
 
         diffResult.dispatchUpdatesTo(this)
     }
@@ -204,7 +204,13 @@ class UniversalRecyclerAdapter<T> constructor(val adapterOptions: UniversalAdapt
                     binding.setVariable(BR.listener, content.listener ?: content.listener)
                     binding.executePendingBindings()
                 } else {
-                    model?.let { content.customBindingMapping.invoke(binding, it, bindingAdapterPosition) }
+                    model?.let {
+                        content.customBindingMapping.invoke(
+                            binding,
+                            it,
+                            bindingAdapterPosition
+                        )
+                    }
                 }
 
             }

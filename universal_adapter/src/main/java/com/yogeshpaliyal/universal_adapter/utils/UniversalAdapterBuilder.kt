@@ -14,7 +14,7 @@ import com.yogeshpaliyal.universal_adapter.adapter.UniversalRecyclerAdapter
 */
 open class UniversalAdapterBuilder<T> constructor(
     var lifecycleOwner: LifecycleOwner? = null,
-    var data: Resource<ArrayList<T>?>? = null,
+    var data: Resource<List<T>?>? = null,
     val content: UniversalAdapterViewType.Content<T>? = null,
     val loading: UniversalAdapterViewType.Loading<T>? = null,
     val loadingFooter: UniversalAdapterViewType.LoadingFooter<T>? = null,
