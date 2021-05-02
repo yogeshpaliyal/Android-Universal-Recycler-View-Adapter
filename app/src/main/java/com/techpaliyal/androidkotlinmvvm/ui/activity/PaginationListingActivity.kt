@@ -13,7 +13,7 @@ import com.techpaliyal.androidkotlinmvvm.listeners.BasicListener
 import com.techpaliyal.androidkotlinmvvm.model.UserModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.LoadingListingViewModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.initViewModel
-import com.yogeshpaliyal.universal_adapter.adapter.UniversalRecyclerAdapter
+import com.yogeshpaliyal.universal_adapter.utils.UniversalAdapterBuilder
 
 class PaginationListingActivity : AppCompatActivity() {
     lateinit var binding: ActivityListingBinding
@@ -32,7 +32,7 @@ class PaginationListingActivity : AppCompatActivity() {
     }
 
     private val mAdapter by lazy {
-        UniversalRecyclerAdapter<UserModel>(
+        UniversalAdapterBuilder<UserModel>(
             R.layout.item_user,
             resourceLoading = R.layout.item_user_shimmer,
             defaultLoadingItems = 5,
@@ -42,7 +42,7 @@ class PaginationListingActivity : AppCompatActivity() {
                     Toast.makeText(this@PaginationListingActivity, model.name, Toast.LENGTH_SHORT)
                         .show()
                 }
-            })
+            }).build()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,7 +50,7 @@ class PaginationListingActivity : AppCompatActivity() {
         binding = ActivityListingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.recyclerView.adapter = mAdapter
+        binding.recyclerView.adapter = mAdapter.build()
 
         binding.recyclerView.setupPagination {
             if (mViewModel.fetchJob?.isActive == false)

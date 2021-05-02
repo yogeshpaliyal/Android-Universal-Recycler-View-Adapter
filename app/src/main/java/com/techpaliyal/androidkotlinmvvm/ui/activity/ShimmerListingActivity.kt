@@ -55,7 +55,7 @@ class ShimmerListingActivity : AppCompatActivity() {
         binding = ActivityListingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.recyclerView.adapter = mAdapter
+        binding.recyclerView.adapter = mAdapter.build()
 
         mViewModel.data.observe(this, Observer {
             mAdapter.updateData(it)

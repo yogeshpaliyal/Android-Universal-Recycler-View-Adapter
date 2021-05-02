@@ -229,7 +229,7 @@ class UniversalRecyclerAdapter<T> constructor(val adapterOptions: UniversalAdapt
                     binding.executePendingBindings()
 
                 } else {
-                    error.customBindingMapping.invoke(binding, adapterOptions.data)
+                    error.customBindingMapping.invoke(binding, adapterOptions.data?.message)
                 }
             }
 

@@ -13,7 +13,6 @@ import com.techpaliyal.androidkotlinmvvm.model.BasicModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.BasicListingActivityViewModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.initViewModel
 import com.yogeshpaliyal.universal_adapter.BR
-import com.yogeshpaliyal.universal_adapter.adapter.SectionUniversalRecyclerAdapterBuilder
 import com.yogeshpaliyal.universal_adapter.adapter.UniversalAdapterViewType
 import com.yogeshpaliyal.universal_adapter.utils.Resource
 import com.yogeshpaliyal.universal_adapter.utils.UniversalAdapterBuilder
@@ -55,7 +54,7 @@ class BasicListingActivity : AppCompatActivity() {
                 })
         )
 
-        SectionUniversalRecyclerAdapterBuilder<BasicModel, Unit, Unit>(contentOption)
+        contentOption.build()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,10 +62,10 @@ class BasicListingActivity : AppCompatActivity() {
         binding = ActivityListingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.recyclerView.adapter = mAdapter.concatedAdapter
+        binding.recyclerView.adapter = mAdapter.build()
 
         mViewModel.data.observe(this, Observer {
-            mAdapter.updateContent(Resource.success(it))
+            mAdapter.updateData(Resource.success(it))
         })
 
         mViewModel.fetchData()

@@ -2,7 +2,6 @@ package com.yogeshpaliyal.universal_adapter.adapter
 
 import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding
-import com.yogeshpaliyal.universal_adapter.utils.Resource
 
 
 /*
@@ -52,6 +51,6 @@ sealed class UniversalAdapterViewType {
         )
         val errorListener: Any? = null,
         val listener: Any? = null,
-        val customBindingMapping: ((itemBinding: ViewDataBinding, item: Resource<List<T>?>?) -> Unit)? = null
+        val customBindingMapping: ((itemBinding: ViewDataBinding, message: String?) -> Unit)? = null
     )
 }
