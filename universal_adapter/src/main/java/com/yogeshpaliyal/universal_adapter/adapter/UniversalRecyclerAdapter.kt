@@ -115,6 +115,8 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: Builder<T>) {
                 listener = adapterBuilder.noData.listener,
                 customBinding = adapterBuilder.noData.customBindingMapping
             )
+
+        adapterBuilder.data?.let { updateData(data = it) }
     }
 
     fun updateData(data: Resource<List<T>?>) {
