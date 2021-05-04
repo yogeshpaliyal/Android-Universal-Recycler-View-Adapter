@@ -102,6 +102,7 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: Builder<T>) {
             errorAdapter = ErrorAdapter(
                 adapterBuilder.lifecycleOwner,
                 adapterBuilder.error.errorLayout,
+                adapterBuilder.data?.message ?: "",
                 listener = adapterBuilder.error.listener,
                 customBinding = adapterBuilder.error.customBindingMapping
             )
@@ -110,6 +111,7 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: Builder<T>) {
             noDataFound = ErrorAdapter(
                 adapterBuilder.lifecycleOwner,
                 adapterBuilder.noData.noDataLayout,
+                adapterBuilder.data?.message ?: "",
                 listener = adapterBuilder.noData.listener,
                 customBinding = adapterBuilder.noData.customBindingMapping
             )
@@ -162,6 +164,8 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: Builder<T>) {
                     if (isContains(noDataFound).not())
                         noDataFound?.let { mainAdapter.addAdapter(it) }
                     noDataFound?.submitList(data.data)
+
+                    noDataFound?.updateData(data.message)
                 } else {
                     noDataFound?.let { mainAdapter.removeAdapter(it) }
 
@@ -173,7 +177,7 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: Builder<T>) {
             Status.ERROR -> {
                 // if has data then data + error else error
                 loadMoreAdapter?.let { mainAdapter.removeAdapter(it) }
-                errorAdapter?.let { mainAdapter.removeAdapter(it) }
+                loadingAdapter?.let { mainAdapter.removeAdapter(it) }
                 noDataFound?.let { mainAdapter.removeAdapter(it) }
                 if (data.data.isNullOrEmpty()) {
 
@@ -182,6 +186,7 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: Builder<T>) {
 
                     if (isContains(errorAdapter).not())
                         errorAdapter?.let { mainAdapter.addAdapter(it) }
+                    errorAdapter?.updateData(data.message)
                 } else {
 
                     if (isContains(contentAdapter).not())
@@ -189,6 +194,8 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: Builder<T>) {
                     contentAdapter?.submitList(data.data)
                     if (isContains(errorAdapter).not())
                         errorAdapter?.let { mainAdapter.addAdapter(it) }
+
+                    errorAdapter?.updateData(data.message)
                 }
             }
         }

@@ -37,6 +37,11 @@ class ErrorAdapter<T>(
 
     }).build()) {
 
+    fun updateData(message: String?){
+        this.message = message ?: ""
+        notifyDataSetChanged()
+    }
+
     override fun getItemViewType(position: Int): Int {
         return resource
     }
