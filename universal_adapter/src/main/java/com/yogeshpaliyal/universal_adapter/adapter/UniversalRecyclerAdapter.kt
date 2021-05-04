@@ -12,7 +12,7 @@ import com.yogeshpaliyal.universal_adapter.utils.UniversalAdapterBuilder
  * @author Yogesh Paliyal
  * Created Date : 15 October 2020
  */
-class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: UniversalAdapterBuilder<T>) {
+class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: Builder<T>) {
 //    var adapterOptions : UniversalAdapterOptions<T> = UniversalAdapterOptions(resource, resourceLoading, defaultLoadingItems, loaderFooter, data, errorLayout, errorListener, mListener, noDataLayout, noDataListener, lifecycleOwner)
 
 
@@ -51,7 +51,7 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: UniversalAdapt
         lifecycleOwner: LifecycleOwner? = null
     ) :
             this(
-                UniversalAdapterBuilder<T>(
+                Builder<T>(
                     lifecycleOwner,
                     data,
                     UniversalAdapterViewType.Content(resource, mListener),
@@ -73,6 +73,7 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: UniversalAdapt
 
     private var contentAdapter: ContentListAdapter<T>? = null
     private var loadingAdapter: LoadingAdapter<T>? = null
+    private var noDataFound: ErrorAdapter<T>? = null // to support only message
     private var loadMoreAdapter: LoadingAdapter<T>? = null
     private var errorAdapter: ErrorAdapter<T>? = null
 
@@ -104,6 +105,14 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: UniversalAdapt
                 listener = adapterBuilder.error.listener,
                 customBinding = adapterBuilder.error.customBindingMapping
             )
+
+        if (adapterBuilder.noData?.noDataLayout != null)
+            noDataFound = ErrorAdapter(
+                adapterBuilder.lifecycleOwner,
+                adapterBuilder.noData.noDataLayout,
+                listener = adapterBuilder.noData.listener,
+                customBinding = adapterBuilder.noData.customBindingMapping
+            )
     }
 
     fun updateData(data: Resource<List<T>?>) {
@@ -114,6 +123,7 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: UniversalAdapt
     fun getLoadMoreAdapter() = loadMoreAdapter
     fun getLoadingAdapter() = loadingAdapter
     fun getErrorAdapter() = errorAdapter
+    fun getNoDataAdapter() = noDataFound
 
     fun getAdapter() = mainAdapter
 
@@ -121,16 +131,16 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: UniversalAdapt
         when (data.status) {
             Status.LOADING -> {
                 // if has data then data + loading else loading
+                noDataFound?.let { mainAdapter.removeAdapter(it) }
+                errorAdapter?.let { mainAdapter.removeAdapter(it) }
                 if (data.data.isNullOrEmpty()) {
                     // add only loading state
                     contentAdapter?.let { mainAdapter.removeAdapter(it) }
                     loadMoreAdapter?.let { mainAdapter.removeAdapter(it) }
-                    errorAdapter?.let { mainAdapter.removeAdapter(it) }
                     if (isContains(loadingAdapter).not())
                         loadingAdapter?.let { mainAdapter.addAdapter(it) }
                 } else {
                     loadingAdapter?.let { mainAdapter.removeAdapter(it) }
-                    errorAdapter?.let { mainAdapter.removeAdapter(it) }
                     if (isContains(contentAdapter).not())
                         contentAdapter?.let { mainAdapter.addAdapter(it) }
                     contentAdapter?.submitList(data.data)
@@ -144,14 +154,27 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: UniversalAdapt
                 loadMoreAdapter?.let { mainAdapter.removeAdapter(it) }
                 errorAdapter?.let { mainAdapter.removeAdapter(it) }
 
-                if (isContains(contentAdapter).not())
-                    contentAdapter?.let { mainAdapter.addAdapter(it) }
-                contentAdapter?.submitList(data.data)
+                // check if there is data or note
+                if (data.data.isNullOrEmpty()) {
+                    // show no data found screen
+                    contentAdapter?.let { mainAdapter.removeAdapter(it) }
+
+                    if (isContains(noDataFound).not())
+                        noDataFound?.let { mainAdapter.addAdapter(it) }
+                    noDataFound?.submitList(data.data)
+                } else {
+                    noDataFound?.let { mainAdapter.removeAdapter(it) }
+
+                    if (isContains(contentAdapter).not())
+                        contentAdapter?.let { mainAdapter.addAdapter(it) }
+                    contentAdapter?.submitList(data.data)
+                }
             }
             Status.ERROR -> {
                 // if has data then data + error else error
                 loadMoreAdapter?.let { mainAdapter.removeAdapter(it) }
                 errorAdapter?.let { mainAdapter.removeAdapter(it) }
+                noDataFound?.let { mainAdapter.removeAdapter(it) }
                 if (data.data.isNullOrEmpty()) {
 
                     contentAdapter?.let { mainAdapter.removeAdapter(it) }
@@ -185,6 +208,55 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: UniversalAdapt
         for (adapter in mainAdapter.adapters) {
             mainAdapter.removeAdapter(adapter)
         }
+    }
+
+    data class Builder<T> constructor(
+        var lifecycleOwner: LifecycleOwner? = null,
+        var data: Resource<List<T>?>? = null,
+        val content: UniversalAdapterViewType.Content<T>? = null,
+        val loading: UniversalAdapterViewType.Loading<T>? = null,
+        val loadingFooter: UniversalAdapterViewType.LoadingFooter<T>? = null,
+        val noData: UniversalAdapterViewType.NoData<T>? = null,
+        val error: UniversalAdapterViewType.Error<T>? = null
+    ) {
+        constructor(
+            @LayoutRes
+            resource: Int,
+            @LayoutRes
+            resourceLoading: Int? = null,
+            defaultLoadingItems: Int = 5,
+            @LayoutRes
+            loaderFooter: Int? = null,
+            data: Resource<ArrayList<T>?>? = null,
+            @LayoutRes
+            errorLayout: Int? = null,
+            errorListener: Any? = null,
+            mListener: Any? = null,
+            @LayoutRes
+            noDataLayout: Int? = null,
+            noDataListener: Any? = null,
+            lifecycleOwner: LifecycleOwner? = null
+        ) : this(
+            lifecycleOwner,
+            data,
+            UniversalAdapterViewType.Content(resource, mListener),
+            UniversalAdapterViewType.Loading(resourceLoading, defaultLoadingItems),
+            UniversalAdapterViewType.LoadingFooter(loaderFooter),
+            UniversalAdapterViewType.NoData(noDataLayout, noDataListener),
+            UniversalAdapterViewType.Error(errorLayout, errorListener)
+        )
+
+        constructor(oldBuilder: UniversalAdapterBuilder<T>) : this(
+            oldBuilder.lifecycleOwner,
+            oldBuilder.data,
+            oldBuilder.content,
+            oldBuilder.loading,
+            oldBuilder.loadingFooter,
+            oldBuilder.noData,
+            oldBuilder.error
+        )
+
+        fun build() = UniversalRecyclerAdapter(this)
     }
 
 }

@@ -2,7 +2,6 @@ package com.yogeshpaliyal.universal_adapter.adapter
 
 import androidx.recyclerview.widget.ConcatAdapter
 import com.yogeshpaliyal.universal_adapter.utils.Resource
-import com.yogeshpaliyal.universal_adapter.utils.UniversalAdapterBuilder
 
 
 /*
@@ -20,9 +19,9 @@ import com.yogeshpaliyal.universal_adapter.utils.UniversalAdapterBuilder
     )
 )
 class UniversalRecyclerAdapterHelper<X : Any, Y : Any, Z : Any>(
-    contentOptions: UniversalAdapterBuilder<X>? = null,
-    headerOptions: UniversalAdapterBuilder<Y>? = null,
-    footerOptions: UniversalAdapterBuilder<Z>? = null
+    contentOptions: UniversalRecyclerAdapter.Builder<X>? = null,
+    headerOptions: UniversalRecyclerAdapter.Builder<Y>? = null,
+    footerOptions: UniversalRecyclerAdapter.Builder<Z>? = null
 ){
     val concatedAdapter by lazy {
         val ada= ConcatAdapter()

@@ -48,6 +48,6 @@ open class UniversalAdapterBuilder<T> constructor(
         UniversalAdapterViewType.Error(errorLayout, errorListener)
     )
 
-    fun build() = UniversalRecyclerAdapter(this)
+    fun build() = UniversalRecyclerAdapter.Builder(this).build()
 }
 

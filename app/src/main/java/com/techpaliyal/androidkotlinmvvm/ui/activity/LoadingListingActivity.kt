@@ -15,8 +15,8 @@ import com.techpaliyal.androidkotlinmvvm.ui.view_model.LoadingListingViewModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.initViewModel
 import com.yogeshpaliyal.universal_adapter.adapter.SectionUniversalRecyclerAdapterBuilder
 import com.yogeshpaliyal.universal_adapter.adapter.UniversalAdapterViewType
+import com.yogeshpaliyal.universal_adapter.adapter.UniversalRecyclerAdapter
 import com.yogeshpaliyal.universal_adapter.utils.Resource
-import com.yogeshpaliyal.universal_adapter.utils.UniversalAdapterBuilder
 
 class LoadingListingActivity : AppCompatActivity() {
     lateinit var binding: ActivityListingBinding
@@ -36,7 +36,7 @@ class LoadingListingActivity : AppCompatActivity() {
 
     private val mAdapter by lazy {
 
-        val header = UniversalAdapterBuilder(
+        val header = UniversalRecyclerAdapter.Builder(
             lifecycleOwner = this,
             content = UniversalAdapterViewType.Content(
                 R.layout.item_simple,
@@ -51,7 +51,7 @@ class LoadingListingActivity : AppCompatActivity() {
             })
         )
 
-        val content = UniversalAdapterBuilder<UserModel>(R.layout.item_user,
+        val content = UniversalRecyclerAdapter.Builder<UserModel>(R.layout.item_user,
             resourceLoading = R.layout.layout_loading_full_page,
             defaultLoadingItems = 1,
             mListener = object : BasicListener<UserModel> {
@@ -61,7 +61,8 @@ class LoadingListingActivity : AppCompatActivity() {
                 }
             })
 
-        SectionUniversalRecyclerAdapterBuilder<UserModel, BasicModel, Unit>(content, header)
+
+        SectionUniversalRecyclerAdapterBuilder<UserModel, BasicModel, Unit>(content, header, null)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
