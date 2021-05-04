@@ -50,7 +50,7 @@ class PaginationListingActivity : AppCompatActivity() {
         binding = ActivityListingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.recyclerView.adapter = mAdapter.build()
+        binding.recyclerView.adapter = mAdapter.getAdapter()
 
         binding.recyclerView.setupPagination {
             if (mViewModel.fetchJob?.isActive == false)

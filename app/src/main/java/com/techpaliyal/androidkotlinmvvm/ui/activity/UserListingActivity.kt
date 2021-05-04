@@ -49,7 +49,7 @@ class UserListingActivity : AppCompatActivity() {
         binding = ActivityListingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.recyclerView.adapter = mAdapter.build()
+        binding.recyclerView.adapter = mAdapter.getAdapter()
 
         mViewModel.data.observe(this, Observer {
             mAdapter.updateData(Resource.success(it))

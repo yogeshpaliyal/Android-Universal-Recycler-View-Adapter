@@ -27,13 +27,13 @@ class UniversalRecyclerAdapterHelper<X : Any, Y : Any, Z : Any>(
     val concatedAdapter by lazy {
         val ada= ConcatAdapter()
         headerAdapter?.let{
-            ada.addAdapter(it)
+            ada.addAdapter(it.getAdapter())
         }
         contentAdapter?.let{
-            ada.addAdapter(it)
+            ada.addAdapter(it.getAdapter())
         }
         footerAdapter?.let{
-            ada.addAdapter(it)
+            ada.addAdapter(it.getAdapter())
         }
         ada
     }

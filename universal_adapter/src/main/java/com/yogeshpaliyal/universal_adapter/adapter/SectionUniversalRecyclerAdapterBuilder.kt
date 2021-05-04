@@ -20,13 +20,13 @@ class SectionUniversalRecyclerAdapterBuilder<X : Any, Y : Any, Z : Any>(
     val concatedAdapter by lazy {
         val ada = ConcatAdapter()
         headerAdapter?.let {
-            ada.addAdapter(it)
+            ada.addAdapter(it.getAdapter())
         }
         contentAdapter?.let {
-            ada.addAdapter(it)
+            ada.addAdapter(it.getAdapter())
         }
         footerAdapter?.let {
-            ada.addAdapter(it)
+            ada.addAdapter(it.getAdapter())
         }
         ada
     }
@@ -58,15 +58,15 @@ class SectionUniversalRecyclerAdapterBuilder<X : Any, Y : Any, Z : Any>(
     fun build() = concatedAdapter
 
 
-    fun updateContent(data: Resource<ArrayList<X>?>) {
+    fun updateContent(data: Resource<List<X>>) {
         contentAdapter?.updateData(data)
     }
 
-    fun updateHeader(data: Resource<ArrayList<Y>?>) {
+    fun updateHeader(data: Resource<List<Y>>) {
         headerAdapter?.updateData(data)
     }
 
-    fun updateFooter(data: Resource<ArrayList<Z>?>) {
+    fun updateFooter(data: Resource<List<Z>>) {
         footerAdapter?.updateData(data)
     }
 

@@ -3,7 +3,7 @@ package com.yogeshpaliyal.universal_adapter.utils
 import androidx.annotation.LayoutRes
 import androidx.lifecycle.LifecycleOwner
 import com.yogeshpaliyal.universal_adapter.adapter.UniversalAdapterViewType
-import com.yogeshpaliyal.universal_adapter.adapter.UniversalBuilderNewExperiment
+import com.yogeshpaliyal.universal_adapter.adapter.UniversalRecyclerAdapter
 
 
 /*
@@ -48,6 +48,6 @@ open class UniversalAdapterBuilder<T> constructor(
         UniversalAdapterViewType.Error(errorLayout, errorListener)
     )
 
-    fun build() = UniversalBuilderNewExperiment(this)
+    fun build() = UniversalRecyclerAdapter(this)
 }
 
