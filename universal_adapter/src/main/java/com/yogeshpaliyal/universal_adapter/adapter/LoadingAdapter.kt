@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 /*
 * @author Yogesh Paliyal
-* techpaliyal@gmail.com
+* yogeshpaliyal.foss@gmail.com
 * https://techpaliyal.com
 * created on 02-05-2021 19:57
 */

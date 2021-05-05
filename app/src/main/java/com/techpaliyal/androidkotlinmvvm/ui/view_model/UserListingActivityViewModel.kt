@@ -1,16 +1,15 @@
 package com.techpaliyal.androidkotlinmvvm.ui.view_model
 
-import android.app.Application
-import android.widget.Toast
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.techpaliyal.androidkotlinmvvm.listeners.BasicListener
 import com.techpaliyal.androidkotlinmvvm.model.UserModel
 
 
 /**
  * @author Yogesh Paliyal
+ * yogeshpaliyal.foss@gmail.com
+ * https://techpaliyal.com
+ * https://yogeshpaliyal.com
  * Created Date : 9 January 2020
  */
 class UserListingActivityViewModel : ViewModel() {

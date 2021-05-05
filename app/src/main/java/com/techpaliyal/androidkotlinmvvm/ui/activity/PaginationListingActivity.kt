@@ -13,8 +13,15 @@ import com.techpaliyal.androidkotlinmvvm.listeners.BasicListener
 import com.techpaliyal.androidkotlinmvvm.model.UserModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.LoadingListingViewModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.initViewModel
-import com.yogeshpaliyal.universal_adapter.utils.UniversalAdapterBuilder
+import com.yogeshpaliyal.universal_adapter.adapter.UniversalRecyclerAdapter
 
+/**
+ * @author Yogesh Paliyal
+ * yogeshpaliyal.foss@gmail.com
+ * https://techpaliyal.com
+ * https://yogeshpaliyal.com
+ * Created Date : 9 January 2020
+ */
 class PaginationListingActivity : AppCompatActivity() {
     lateinit var binding: ActivityListingBinding
 
@@ -32,7 +39,7 @@ class PaginationListingActivity : AppCompatActivity() {
     }
 
     private val mAdapter by lazy {
-        UniversalAdapterBuilder<UserModel>(
+        UniversalRecyclerAdapter.Builder<UserModel>(
             R.layout.item_user,
             resourceLoading = R.layout.item_user_shimmer,
             defaultLoadingItems = 5,
@@ -60,13 +67,13 @@ class PaginationListingActivity : AppCompatActivity() {
         mViewModel.data.observe(this, Observer {
             mAdapter.updateData(it)
 
-           /* when(it.status){
-                Status.LOADING -> {
-                }
-                Status.SUCCESS -> {
-                    mAdapter.updateData(Resource.success(mViewModel.arrAllUsers))
-                }
-            }*/
+            /* when(it.status){
+                 Status.LOADING -> {
+                 }
+                 Status.SUCCESS -> {
+                     mAdapter.updateData(Resource.success(mViewModel.arrAllUsers))
+                 }
+             }*/
         })
 
         mViewModel.fetchData()

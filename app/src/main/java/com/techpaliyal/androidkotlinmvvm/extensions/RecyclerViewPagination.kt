@@ -4,12 +4,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 
-/*
-* @author Yogesh Paliyal
-* techpaliyal@gmail.com
-* https://techpaliyal.com
-* created on 19-10-2020 22:28
-*/
+/**
+ * @author Yogesh Paliyal
+ * yogeshpaliyal.foss@gmail.com
+ * https://techpaliyal.com
+ * https://yogeshpaliyal.com
+ * Created Date : 9 January 2020
+ */
 
 const val RECYCLER_PAGING_THRESHOLD = 5
 

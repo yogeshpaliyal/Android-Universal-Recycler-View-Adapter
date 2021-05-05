@@ -18,6 +18,13 @@ import com.yogeshpaliyal.universal_adapter.adapter.UniversalAdapterViewType
 import com.yogeshpaliyal.universal_adapter.adapter.UniversalRecyclerAdapter
 import com.yogeshpaliyal.universal_adapter.utils.Resource
 
+/**
+ * @author Yogesh Paliyal
+ * yogeshpaliyal.foss@gmail.com
+ * https://techpaliyal.com
+ * https://yogeshpaliyal.com
+ * Created Date : 9 January 2020
+ */
 class LoadingListingActivity : AppCompatActivity() {
     lateinit var binding: ActivityListingBinding
 
@@ -40,7 +47,7 @@ class LoadingListingActivity : AppCompatActivity() {
             lifecycleOwner = this,
             content = UniversalAdapterViewType.Content(
                 R.layout.item_simple,
-                mListener = object : BasicListener<BasicModel> {
+                listener = object : BasicListener<BasicModel> {
                     override fun onClick(model: BasicModel) {
                         Toast.makeText(this@LoadingListingActivity, model.name, Toast.LENGTH_SHORT)
                             .show()

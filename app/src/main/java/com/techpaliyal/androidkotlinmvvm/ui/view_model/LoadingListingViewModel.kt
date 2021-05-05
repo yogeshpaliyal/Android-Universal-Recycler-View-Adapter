@@ -13,6 +13,9 @@ import kotlinx.coroutines.launch
 
 /**
  * @author Yogesh Paliyal
+ * yogeshpaliyal.foss@gmail.com
+ * https://techpaliyal.com
+ * https://yogeshpaliyal.com
  * Created Date : 9 January 2020
  */
 class LoadingListingViewModel : ViewModel() {

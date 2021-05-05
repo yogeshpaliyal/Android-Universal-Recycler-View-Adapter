@@ -12,11 +12,14 @@ import com.techpaliyal.androidkotlinmvvm.listeners.BasicListener
 import com.techpaliyal.androidkotlinmvvm.model.UserModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.UserListingActivityViewModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.initViewModel
+import com.yogeshpaliyal.universal_adapter.adapter.UniversalRecyclerAdapter
 import com.yogeshpaliyal.universal_adapter.utils.Resource
-import com.yogeshpaliyal.universal_adapter.utils.UniversalAdapterBuilder
 
 /**
  * @author Yogesh Paliyal
+ * yogeshpaliyal.foss@gmail.com
+ * https://techpaliyal.com
+ * https://yogeshpaliyal.com
  * Created Date : 9 January 2020
  */
 class UserListingActivity : AppCompatActivity() {
@@ -34,7 +37,7 @@ class UserListingActivity : AppCompatActivity() {
     }
 
     private val mAdapter by lazy {
-        UniversalAdapterBuilder<UserModel>(
+        UniversalRecyclerAdapter.Builder<UserModel>(
             R.layout.item_user,
             mListener = object : BasicListener<UserModel> {
                 override fun onClick(model: UserModel) {

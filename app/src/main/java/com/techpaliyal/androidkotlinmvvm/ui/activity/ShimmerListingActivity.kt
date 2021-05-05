@@ -13,8 +13,16 @@ import com.techpaliyal.androidkotlinmvvm.model.UserModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.LoadingListingViewModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.initViewModel
 import com.yogeshpaliyal.universal_adapter.adapter.UniversalAdapterViewType
-import com.yogeshpaliyal.universal_adapter.utils.UniversalAdapterBuilder
+import com.yogeshpaliyal.universal_adapter.adapter.UniversalRecyclerAdapter
 
+
+/**
+ * @author Yogesh Paliyal
+ * yogeshpaliyal.foss@gmail.com
+ * https://techpaliyal.com
+ * https://yogeshpaliyal.com
+ * Created Date : 9 January 2020
+ */
 class ShimmerListingActivity : AppCompatActivity() {
     lateinit var binding: ActivityListingBinding
 
@@ -32,10 +40,9 @@ class ShimmerListingActivity : AppCompatActivity() {
     }
 
     private val mAdapter by lazy {
-        UniversalAdapterBuilder<UserModel>(
+        UniversalRecyclerAdapter.Builder<UserModel>(
             null,
-            null,
-            UniversalAdapterViewType.Content(
+            content = UniversalAdapterViewType.Content(
                 R.layout.item_user,
                 listener = object : BasicListener<UserModel> {
                     override fun onClick(model: UserModel) {
@@ -43,10 +50,10 @@ class ShimmerListingActivity : AppCompatActivity() {
                             .show()
                     }
                 }),
-            UniversalAdapterViewType.Loading(resourceLoading = R.layout.item_user_shimmer),
-            UniversalAdapterViewType.LoadingFooter(),
-            UniversalAdapterViewType.NoData(),
-            UniversalAdapterViewType.Error()
+            loading = UniversalAdapterViewType.Loading(resourceLoading = R.layout.item_user_shimmer),
+            loadingFooter = UniversalAdapterViewType.LoadingFooter(),
+            noData = UniversalAdapterViewType.NoData(),
+            error = UniversalAdapterViewType.Error()
         ).build()
     }
 

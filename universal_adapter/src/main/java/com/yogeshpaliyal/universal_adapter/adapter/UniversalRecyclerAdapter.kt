@@ -81,9 +81,7 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: Builder<T>) {
         if (adapterBuilder.content?.resource != null)
             contentAdapter = ContentListAdapter(
                 adapterBuilder.lifecycleOwner,
-                adapterBuilder.content.resource,
-                adapterBuilder.content.listener,
-                adapterBuilder.content.customBindingMapping
+                adapterBuilder.content
             )
 
         if (adapterBuilder.loading?.resourceLoading != null)

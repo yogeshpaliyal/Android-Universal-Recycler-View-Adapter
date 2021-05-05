@@ -6,7 +6,7 @@ import com.yogeshpaliyal.universal_adapter.utils.Resource
 
 /*
 * @author Yogesh Paliyal
-* techpaliyal@gmail.com
+* yogeshpaliyal.foss@gmail.com
 * https://techpaliyal.com
 * created on 08-01-2021 19:47
 */
@@ -15,7 +15,6 @@ class SectionUniversalRecyclerAdapterBuilder<X : Any, Y : Any, Z : Any> construc
     headerOptions: UniversalRecyclerAdapter<Y>? = null,
     footerOptions: UniversalRecyclerAdapter<Z>? = null
 ) {
-
 
     constructor(
         contentBuilder: UniversalRecyclerAdapter.Builder<X>? = null,

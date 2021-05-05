@@ -15,15 +15,13 @@ import com.yogeshpaliyal.universal_adapter.model.BaseDiffUtil
 
 /*
 * @author Yogesh Paliyal
-* techpaliyal@gmail.com
+* yogeshpaliyal.foss@gmail.com
 * https://techpaliyal.com
 * created on 02-05-2021 19:57
 */
 class ContentListAdapter<T>(
     val lifecycleOwner: LifecycleOwner?,
-    var resource: Int,
-    val listener: Any?,
-    val customBinding: ((itemBinding: ViewDataBinding, item: T, bindingAdapterPosition: Int) -> Unit)?
+    val options: UniversalAdapterViewType.Content<T>
 ) :
     ListAdapter<T, ContentListAdapter<T>.ViewHolder>(AsyncDifferConfig.Builder(object :
         DiffUtil.ItemCallback<T>() {
@@ -50,13 +48,13 @@ class ContentListAdapter<T>(
         fun bind(model: T) {
             binding.lifecycleOwner = lifecycleOwner
 
-            if (customBinding == null) {
+            if (options.customBindingMapping == null) {
                 binding.setVariable(BR.model, model)
-                binding.setVariable(BR.listener, listener)
+                binding.setVariable(BR.listener, options.listener)
                 binding.executePendingBindings()
             } else {
 
-                customBinding.invoke(
+                options.customBindingMapping.invoke(
                     binding,
                     model,
                     bindingAdapterPosition
@@ -71,13 +69,13 @@ class ContentListAdapter<T>(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return resource
+        return options.resource
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = DataBindingUtil.inflate<ViewDataBinding>(
             LayoutInflater.from(parent.context),
-            resource,
+            options.resource,
             parent,
             false
         )
