@@ -67,7 +67,8 @@ To bind your view item with Adapter using dataBinding you have to create use the
 name must be as follows 
 
 ### `model` 
-Type should be same as model you are passing to Adapter.
+Type should be same as model you are passing to Adapter.  
+***Content*** layout using this variable
 ```xml
 <variable
             name="model"
@@ -75,15 +76,67 @@ Type should be same as model you are passing to Adapter.
 ```
 
 ### `listener` 
-Type Any/Object, should be same as you passing while create Adapter.
+Type Any/Object, should be same as you passing while create Adapter.  
+***Content*** & ***Error*** layout using this variable
 ```xml
 <variable
             name="listener"
             type="com.techpaliyal.androidkotlinmvvm.model.BasicListener" />
 ```
 
+### `message` 
+Type will be String.  
+***Error*** layout using this variable
+
+```xml
+<variable
+            name="message"
+            type="String" />
+```
+
   
 ## Show me the code
+
+
+```kotlin
+ private val mAdapter by lazy {
+        UniversalRecyclerAdapter.Builder<UserModel>(
+            lifecycleOwner = this,
+            content = UniversalAdapterViewType.Content(resource = R.layout.item_user,
+                object : BasicListener<UserModel> {
+                    override fun onClick(model: UserModel) {
+                        Toast.makeText(this@LoadingListingActivity, model.name, Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }),
+            loading = UniversalAdapterViewType.Loading(
+                resourceLoading = R.layout.layout_loading_full_page,
+                defaultLoadingItems = 1
+            ),
+            error = UniversalAdapterViewType.Error(errorLayout = R.layout.item_error),
+            loadingFooter = UniversalAdapterViewType.LoadingFooter(loaderFooter = R.layout.item_loading_more)
+        ).build()
+    }
+```
+
+*Note : All the parameters in **UniversalRecyclerAdapter.Builder** are optional, use only those you want to use*
+
+**lifecycleOwner** = This will be used to notify your view to update on data change.  
+
+**content** = Your primary list element.  
+        - *resource* = Element layout id.  
+        - *listener* = Pass the interface you want to send to your item layout
+
+**loading** = Your loading list element. (like shimmer or just a loader).    
+        - *resourceLoading* = loading layout id.  
+        - *defaultLoadingItems* = Items you want to show while loading.  
+
+**error** = Layout to be shown when Status == STatus.ERROR.  
+        - *errorLayout* = error layout id.  
+        - *listener* = Pass the interface you want to send to your error layout.
+
+
+## Examples
 
 ### Simple List
 
@@ -147,3 +200,48 @@ binding.recyclerView.adapter = mAdapter.getAdapter()
   ```kotlin
 mAdapter.updateData(Resource.success(list))
   ```
+
+
+### Loading + Content + Error
+example : Hitting an api for loading showing a shimmer and then when API response came show the data or getting an error
+
+#### Initialize Adapter
+```kotlin
+private val mAdapter by lazy {
+        UniversalRecyclerAdapter.Builder<UserModel>(
+            lifecycleOwner = this,
+            content = UniversalAdapterViewType.Content(R.layout.item_user,
+                object : BasicListener<UserModel> {
+                override fun onClick(model: UserModel) {
+                    Toast.makeText(this@LoadingListingActivity, model.name, Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }),
+            loading = UniversalAdapterViewType.Loading(R.layout.layout_loading_full_page, defaultLoadingItems = 1),
+            error = UniversalAdapterViewType.Error(R.layout.item_error)).build()
+    }
+```
+
+#### Attach to adapter
+  ```kotlin
+binding.recyclerView.adapter = mAdapter.getAdapter()
+  ```
+
+
+ #### Update Data
+  ```kotlin
+ mViewModel.data.observe(this, Observer { data -> 
+     // The data type is like Resource<List<T>>
+     // if data.status == Status.LOADING thenn it will show the loading view
+     // if data.status == Status.SUCCESS then it will show the content list
+     // if data.status == Status.ERROR then it will show the error View and data.message will be passed to view as message variable
+            mAdapter.updateContent(it)
+})
+  ```
+
+
+
+## Feedback
+
+Having any issue to get you are looking for, feel free to put your question in [Discussion Section](https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-Adapter/discussions) and help us Improving this library and Documentation.
+  

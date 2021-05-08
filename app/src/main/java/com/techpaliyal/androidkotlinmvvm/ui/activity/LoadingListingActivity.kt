@@ -9,14 +9,11 @@ import androidx.lifecycle.Observer
 import com.techpaliyal.androidkotlinmvvm.R
 import com.techpaliyal.androidkotlinmvvm.databinding.ActivityListingBinding
 import com.techpaliyal.androidkotlinmvvm.listeners.BasicListener
-import com.techpaliyal.androidkotlinmvvm.model.BasicModel
 import com.techpaliyal.androidkotlinmvvm.model.UserModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.LoadingListingViewModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.initViewModel
-import com.yogeshpaliyal.universal_adapter.adapter.SectionUniversalRecyclerAdapterBuilder
 import com.yogeshpaliyal.universal_adapter.adapter.UniversalAdapterViewType
 import com.yogeshpaliyal.universal_adapter.adapter.UniversalRecyclerAdapter
-import com.yogeshpaliyal.universal_adapter.utils.Resource
 
 /**
  * @author Yogesh Paliyal
@@ -42,34 +39,22 @@ class LoadingListingActivity : AppCompatActivity() {
     }
 
     private val mAdapter by lazy {
-
-        val header = UniversalRecyclerAdapter.Builder(
+        UniversalRecyclerAdapter.Builder<UserModel>(
             lifecycleOwner = this,
-            content = UniversalAdapterViewType.Content(
-                R.layout.item_simple,
-                listener = object : BasicListener<BasicModel> {
-                    override fun onClick(model: BasicModel) {
+            content = UniversalAdapterViewType.Content(resource = R.layout.item_user,
+                object : BasicListener<UserModel> {
+                    override fun onClick(model: UserModel) {
                         Toast.makeText(this@LoadingListingActivity, model.name, Toast.LENGTH_SHORT)
                             .show()
                     }
                 }),
-            data = Resource.success(ArrayList<BasicModel>().also {
-                it.add(BasicModel(name = "Helllo Header 123 testing"))
-            })
-        )
-
-        val content = UniversalRecyclerAdapter.Builder<UserModel>(R.layout.item_user,
-            resourceLoading = R.layout.layout_loading_full_page,
-            defaultLoadingItems = 1,
-            mListener = object : BasicListener<UserModel> {
-                override fun onClick(model: UserModel) {
-                    Toast.makeText(this@LoadingListingActivity, model.name, Toast.LENGTH_SHORT)
-                        .show()
-                }
-            })
-
-
-        SectionUniversalRecyclerAdapterBuilder<UserModel, BasicModel, Unit>(content, header, null)
+            loading = UniversalAdapterViewType.Loading(
+                resourceLoading = R.layout.layout_loading_full_page,
+                defaultLoadingItems = 1
+            ),
+            error = UniversalAdapterViewType.Error(errorLayout = R.layout.item_error),
+            loadingFooter = UniversalAdapterViewType.LoadingFooter(loaderFooter = R.layout.item_loading_more)
+        ).build()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,10 +62,10 @@ class LoadingListingActivity : AppCompatActivity() {
         binding = ActivityListingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.recyclerView.adapter = mAdapter.concatedAdapter
+        binding.recyclerView.adapter = mAdapter.getAdapter()
 
         mViewModel.data.observe(this, Observer {
-            mAdapter.updateContent(it)
+            mAdapter.updateData(it)
         })
 
         mViewModel.fetchData()
