@@ -12,7 +12,6 @@ import com.techpaliyal.androidkotlinmvvm.listeners.BasicListener
 import com.techpaliyal.androidkotlinmvvm.model.BasicModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.BasicListingActivityViewModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.initViewModel
-import com.yogeshpaliyal.universal_adapter.BR
 import com.yogeshpaliyal.universal_adapter.adapter.UniversalAdapterViewType
 import com.yogeshpaliyal.universal_adapter.adapter.UniversalRecyclerAdapter
 import com.yogeshpaliyal.universal_adapter.utils.Resource
@@ -49,11 +48,6 @@ class BasicListingActivity : AppCompatActivity() {
                         Toast.makeText(this@BasicListingActivity, model.name, Toast.LENGTH_SHORT)
                             .show()
                     }
-                },
-                customBindingMapping = { itemBinding, item, position ->
-                    itemBinding.setVariable(BR.model, item.also {
-                        it.name += " concat text"
-                    })
                 })
         ).build()
     }
