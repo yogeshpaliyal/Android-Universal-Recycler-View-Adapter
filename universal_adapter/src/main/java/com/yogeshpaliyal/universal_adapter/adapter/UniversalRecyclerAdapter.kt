@@ -73,8 +73,8 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: Builder<T>) {
 
     private var contentAdapter: ContentListAdapter<T>? = null
     private var loadingAdapter: LoadingAdapter<T>? = null
-    private var noDataFound: ErrorAdapter<T>? = null // to support only message
-    private var loadMoreAdapter: LoadingAdapter<T>? = null
+    private var noDataFound: NoDataAdapter<T>? = null // to support only message
+    private var loadMoreAdapter: LoadingFooterAdapter<T>? = null
     private var errorAdapter: ErrorAdapter<T>? = null
 
     init {
@@ -87,31 +87,27 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: Builder<T>) {
         if (adapterBuilder.loading?.resourceLoading != null)
             loadingAdapter = LoadingAdapter(
                 adapterBuilder.lifecycleOwner,
-                adapterBuilder.loading.resourceLoading, adapterBuilder.loading.defaultLoadingItems
+                adapterBuilder.loading
             )
 
         if (adapterBuilder.loadingFooter?.loaderFooter != null)
-            loadMoreAdapter = LoadingAdapter(
+            loadMoreAdapter = LoadingFooterAdapter(
                 adapterBuilder.lifecycleOwner,
-                adapterBuilder.loadingFooter.loaderFooter, 1
+                adapterBuilder.loadingFooter
             )
 
         if (adapterBuilder.error?.errorLayout != null)
             errorAdapter = ErrorAdapter(
                 adapterBuilder.lifecycleOwner,
-                adapterBuilder.error.errorLayout,
-                adapterBuilder.data?.message ?: "",
-                listener = adapterBuilder.error.listener,
-                customBinding = adapterBuilder.error.customBindingMapping
+                adapterBuilder.error,
+                adapterBuilder.data?.message ?: ""
             )
 
         if (adapterBuilder.noData?.noDataLayout != null)
-            noDataFound = ErrorAdapter(
+            noDataFound = NoDataAdapter(
                 adapterBuilder.lifecycleOwner,
-                adapterBuilder.noData.noDataLayout,
-                adapterBuilder.data?.message ?: "",
-                listener = adapterBuilder.noData.listener,
-                customBinding = adapterBuilder.noData.customBindingMapping
+                adapterBuilder.noData,
+                adapterBuilder.data?.message ?: ""
             )
 
         adapterBuilder.data?.let { updateData(data = it) }

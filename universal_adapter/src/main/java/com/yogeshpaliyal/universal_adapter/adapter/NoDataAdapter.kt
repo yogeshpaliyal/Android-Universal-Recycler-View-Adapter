@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.yogeshpaliyal.universal_adapter.BR
-import com.yogeshpaliyal.universal_adapter.model.BaseDiffUtil
 
 
 /*
@@ -19,37 +18,38 @@ import com.yogeshpaliyal.universal_adapter.model.BaseDiffUtil
 * https://techpaliyal.com
 * created on 02-05-2021 19:57
 */
-class ContentListAdapter<T>(
+class NoDataAdapter<T>(
     val lifecycleOwner: LifecycleOwner?,
-    val options: UniversalAdapterViewType.Content<T>
+    var options : UniversalAdapterViewType.NoData<T>,
+    var message: String = ""
 ) :
-    ListAdapter<T, ContentListAdapter<T>.ViewHolder>(AsyncDifferConfig.Builder(object :
+    ListAdapter<T, NoDataAdapter<T>.ViewHolder>(AsyncDifferConfig.Builder<T>(object :
         DiffUtil.ItemCallback<T>() {
         override fun areItemsTheSame(oldItem: T, newItem: T): Boolean {
-            return if (oldItem is BaseDiffUtil && newItem is BaseDiffUtil) {
-                oldItem.getDiffId() == newItem.getDiffId()
-            } else {
-                oldItem.hashCode() == newItem.hashCode()
-            }
+            return false
         }
 
         override fun areContentsTheSame(oldItem: T, newItem: T): Boolean {
-            return if (oldItem is BaseDiffUtil && newItem is BaseDiffUtil) {
-                oldItem.getDiffBody() == newItem.getDiffBody()
-            } else {
-                oldItem.hashCode() == newItem.hashCode()
-            }
+            return false
         }
 
     }).build()) {
 
+    fun updateData(message: String?){
+        this.message = message ?: ""
+        notifyDataSetChanged()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return options.noDataLayout ?: 0
+    }
 
     inner class ViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(model: T) {
+        fun bind() {
             binding.lifecycleOwner = lifecycleOwner
 
-            if (options.customBindingMapping == null) {
-                binding.setVariable(BR.model, model)
+            if (options.additionalParams == null) {
+                binding.setVariable(BR.message, message)
                 binding.setVariable(BR.listener, options.listener)
                 options.additionalParams?.forEach {
                     binding.setVariable(it.key, it.value)
@@ -57,28 +57,19 @@ class ContentListAdapter<T>(
                 binding.executePendingBindings()
             } else {
 
-                options.customBindingMapping.invoke(
+                options.customBindingMapping?.invoke(
                     binding,
-                    model,
-                    bindingAdapterPosition
+                    message
                 )
             }
 
         }
     }
 
-    override fun submitList(list: List<T>?) {
-        super.submitList(list?.let { ArrayList(it) })
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return options.resource
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = DataBindingUtil.inflate<ViewDataBinding>(
             LayoutInflater.from(parent.context),
-            options.resource,
+            options.noDataLayout!!,
             parent,
             false
         )
@@ -86,7 +77,8 @@ class ContentListAdapter<T>(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind()
     }
 
+    override fun getItemCount(): Int = 1
 }

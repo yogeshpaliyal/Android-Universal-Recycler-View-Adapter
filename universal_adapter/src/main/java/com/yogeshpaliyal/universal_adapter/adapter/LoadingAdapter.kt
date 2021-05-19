@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 */
 class LoadingAdapter<T>(
     val lifecycleOwner: LifecycleOwner?,
-    var resource: Int, val count: Int
+    var options: UniversalAdapterViewType.Loading<T>
 ) :
     ListAdapter<T, LoadingAdapter<T>.ViewHolder>(AsyncDifferConfig.Builder<T>(object :
         DiffUtil.ItemCallback<T>() {
@@ -37,13 +37,18 @@ class LoadingAdapter<T>(
     inner class ViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind() {
             binding.lifecycleOwner = lifecycleOwner
+
+            options.additionalParams?.forEach {
+                binding.setVariable(it.key, it.value)
+            }
+
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = DataBindingUtil.inflate<ViewDataBinding>(
             LayoutInflater.from(parent.context),
-            resource,
+            options.resourceLoading!!,
             parent,
             false
         )
@@ -51,12 +56,12 @@ class LoadingAdapter<T>(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return resource
+        return options.resourceLoading ?: 0
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind()
     }
 
-    override fun getItemCount(): Int = count
+    override fun getItemCount(): Int = options.defaultLoadingItems
 }
