@@ -8,10 +8,11 @@ import com.yogeshpaliyal.universal_adapter.adapter.UniversalRecyclerAdapter
 
 /*
 * @author Yogesh Paliyal
-* techpaliyal@gmail.com
+* yogeshpaliyal.foss@gmail.com
 * https://techpaliyal.com
 * created on 08-01-2021 19:54
 */
+@Deprecated("Use UniversalRecyclerAdapter.Builder")
 open class UniversalAdapterBuilder<T> constructor(
     var lifecycleOwner: LifecycleOwner? = null,
     var data: Resource<List<T>?>? = null,
@@ -48,6 +49,6 @@ open class UniversalAdapterBuilder<T> constructor(
         UniversalAdapterViewType.Error(errorLayout, errorListener)
     )
 
-    fun build() = UniversalRecyclerAdapter(this)
+    fun build() = UniversalRecyclerAdapter.Builder(this).build()
 }
 

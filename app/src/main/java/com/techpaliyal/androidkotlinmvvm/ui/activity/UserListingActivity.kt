@@ -17,6 +17,9 @@ import com.yogeshpaliyal.universal_adapter.utils.Resource
 
 /**
  * @author Yogesh Paliyal
+ * yogeshpaliyal.foss@gmail.com
+ * https://techpaliyal.com
+ * https://yogeshpaliyal.com
  * Created Date : 9 January 2020
  */
 class UserListingActivity : AppCompatActivity() {
@@ -34,13 +37,13 @@ class UserListingActivity : AppCompatActivity() {
     }
 
     private val mAdapter by lazy {
-        UniversalRecyclerAdapter<UserModel>(
+        UniversalRecyclerAdapter.Builder<UserModel>(
             R.layout.item_user,
             mListener = object : BasicListener<UserModel> {
                 override fun onClick(model: UserModel) {
                     Toast.makeText(this@UserListingActivity, model.name, Toast.LENGTH_SHORT).show()
                 }
-            })
+            }).build()
     }
 
 
@@ -49,7 +52,7 @@ class UserListingActivity : AppCompatActivity() {
         binding = ActivityListingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.recyclerView.adapter = mAdapter
+        binding.recyclerView.adapter = mAdapter.getAdapter()
 
         mViewModel.data.observe(this, Observer {
             mAdapter.updateData(Resource.success(it))

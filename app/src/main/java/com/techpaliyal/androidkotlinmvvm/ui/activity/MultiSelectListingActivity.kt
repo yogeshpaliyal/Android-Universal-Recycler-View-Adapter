@@ -12,11 +12,14 @@ import com.techpaliyal.androidkotlinmvvm.model.MultiSelectModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.MultiSelectListingActivityViewModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.initViewModel
 import com.yogeshpaliyal.universal_adapter.adapter.UniversalAdapterViewType
+import com.yogeshpaliyal.universal_adapter.adapter.UniversalRecyclerAdapter
 import com.yogeshpaliyal.universal_adapter.utils.Resource
-import com.yogeshpaliyal.universal_adapter.utils.UniversalAdapterBuilder
 
 /**
  * @author Yogesh Paliyal
+ * yogeshpaliyal.foss@gmail.com
+ * https://techpaliyal.com
+ * https://yogeshpaliyal.com
  * Created Date : 9 January 2020
  */
 class MultiSelectListingActivity : AppCompatActivity() {
@@ -36,7 +39,7 @@ class MultiSelectListingActivity : AppCompatActivity() {
     }
 
     private val mAdapter by lazy {
-        UniversalAdapterBuilder<MultiSelectModel>(
+        UniversalRecyclerAdapter.Builder<MultiSelectModel>(
             null,
             null,
             UniversalAdapterViewType.Content(R.layout.item_multi_select,
@@ -53,7 +56,7 @@ class MultiSelectListingActivity : AppCompatActivity() {
         binding = ActivityListingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.recyclerView.adapter = mAdapter
+        binding.recyclerView.adapter = mAdapter.getAdapter()
 
         mViewModel.data.observe(this, Observer {
             mAdapter.updateData(Resource.success(it))

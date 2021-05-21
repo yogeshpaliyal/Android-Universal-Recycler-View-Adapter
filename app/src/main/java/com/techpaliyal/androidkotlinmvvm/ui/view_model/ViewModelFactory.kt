@@ -5,13 +5,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 
 
-/*
-* @author Yogesh Paliyal
-* techpaliyal@gmail.com
-* https://techpaliyal.com
-* created on 19-10-2020 21:38
-*/
-class ViewModelFactory() :
+/**
+ * @author Yogesh Paliyal
+ * yogeshpaliyal.foss@gmail.com
+ * https://techpaliyal.com
+ * https://yogeshpaliyal.com
+ * Created Date : 9 January 2020
+ */
+class ViewModelFactory :
     ViewModelProvider.NewInstanceFactory() {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

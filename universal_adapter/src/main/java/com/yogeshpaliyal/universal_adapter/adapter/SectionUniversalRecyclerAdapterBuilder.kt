@@ -2,31 +2,36 @@ package com.yogeshpaliyal.universal_adapter.adapter
 
 import androidx.recyclerview.widget.ConcatAdapter
 import com.yogeshpaliyal.universal_adapter.utils.Resource
-import com.yogeshpaliyal.universal_adapter.utils.UniversalAdapterBuilder
 
 
 /*
 * @author Yogesh Paliyal
-* techpaliyal@gmail.com
+* yogeshpaliyal.foss@gmail.com
 * https://techpaliyal.com
 * created on 08-01-2021 19:47
 */
-
-class SectionUniversalRecyclerAdapterBuilder<X : Any, Y : Any, Z : Any>(
-    contentOptions: UniversalAdapterBuilder<X>? = null,
-    headerOptions: UniversalAdapterBuilder<Y>? = null,
-    footerOptions: UniversalAdapterBuilder<Z>? = null
+class SectionUniversalRecyclerAdapterBuilder<X : Any, Y : Any, Z : Any> constructor(
+    contentOptions: UniversalRecyclerAdapter<X>? = null,
+    headerOptions: UniversalRecyclerAdapter<Y>? = null,
+    footerOptions: UniversalRecyclerAdapter<Z>? = null
 ) {
+
+    constructor(
+        contentBuilder: UniversalRecyclerAdapter.Builder<X>? = null,
+        headerBuilder: UniversalRecyclerAdapter.Builder<Y>? = null,
+        footerBuilder: UniversalRecyclerAdapter.Builder<Z>? = null
+    ) : this(contentBuilder?.build(), headerBuilder?.build(), footerBuilder?.build())
+
     val concatedAdapter by lazy {
         val ada = ConcatAdapter()
         headerAdapter?.let {
-            ada.addAdapter(it)
+            ada.addAdapter(it.getAdapter())
         }
         contentAdapter?.let {
-            ada.addAdapter(it)
+            ada.addAdapter(it.getAdapter())
         }
         footerAdapter?.let {
-            ada.addAdapter(it)
+            ada.addAdapter(it.getAdapter())
         }
         ada
     }
@@ -43,30 +48,30 @@ class SectionUniversalRecyclerAdapterBuilder<X : Any, Y : Any, Z : Any>(
 
     init {
         if (headerOptions != null) {
-            headerAdapter = UniversalRecyclerAdapter(headerOptions)
+            headerAdapter = headerOptions
         }
 
         if (contentOptions != null) {
-            contentAdapter = UniversalRecyclerAdapter(contentOptions)
+            contentAdapter = contentOptions
         }
 
         if (footerOptions != null) {
-            footerAdapter = UniversalRecyclerAdapter(footerOptions)
+            footerAdapter = footerOptions
         }
     }
 
     fun build() = concatedAdapter
 
 
-    fun updateContent(data: Resource<ArrayList<X>?>) {
+    fun updateContent(data: Resource<List<X>>) {
         contentAdapter?.updateData(data)
     }
 
-    fun updateHeader(data: Resource<ArrayList<Y>?>) {
+    fun updateHeader(data: Resource<List<Y>>) {
         headerAdapter?.updateData(data)
     }
 
-    fun updateFooter(data: Resource<ArrayList<Z>?>) {
+    fun updateFooter(data: Resource<List<Z>>) {
         footerAdapter?.updateData(data)
     }
 

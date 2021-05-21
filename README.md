@@ -1,4 +1,5 @@
-# Android-Universal-Recycler-View-Adapter
+
+[![](https://jitpack.io/v/yogeshpaliyal/Android-Universal-Recycler-View-Adapter.svg?style=flat-square)](https://jitpack.io/#yogeshpaliyal/Android-Universal-Recycler-View-Adapter)
 
 [![GitHub issues](https://img.shields.io/github/issues/yogeshpaliyal/Android-Universal-Recycler-View-Adapter?style=for-the-badge)](https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-Adapter/issues)
 [![GitHub forks](https://img.shields.io/github/forks/yogeshpaliyal/Android-Universal-Recycler-View-Adapter?style=for-the-badge)](https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-Adapter/network)
@@ -6,55 +7,16 @@
 [![GitHub license](https://img.shields.io/github/license/yogeshpaliyal/Android-Universal-Recycler-View-Adapter?style=for-the-badge)](https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-Adapter/blob/master/LICENSE)
 [![Twitter](https://img.shields.io/twitter/url?style=for-the-badge&url=https%3A%2F%2Ftwitter.com%2Fyogeshpaliyal)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2Fyogeshpaliyal%2FAndroid-Universal-Recycler-View-Adapter)
 
+# Android Universal Recycler Adapter
+
+Tired of creating 100s of Adapters and View Models.
+This Library will make it easy, No need to create a Adapter, ViewHolder for every list
+
+## How?
+Using Resource Pattern to find the status of the list and show view types according to that.
 
 
-Bored of creating Adapter for each recycler view?
-
-here is a solution, create any type of recycler view using this Adapter
-
-# Single adapter for your all types of recycler view adapter requirements
-
-
-# Features
-1. Add Custom Loading for multiple cell like shimmer
-2. Show Load more progress at the end of the listing 
-3. Bind to any item using Data Binding
-4. Listen to item events using listener, like click, long press, etc.
-5. Built in Diff Utils for smooth scrolling and animations.
-6. Custom Layout for No Data Found (when list is empty and status is success)
-7. Custom binding with any of the layout
-8. added concat adapter for joining multiple adapters
-
-
-Status|	List Size|	Result Behaviour
----|---|---
-LOADING	|0	|Show Loading Cells (default 5 items)
-SUCCESS	|0	|No Record Found Layout will be displayed
-ERROR	|0|	Error Layout Shown
-LOADING	|more than 0|	Data Cells + load more at end
-SUCCESS	|more than 0|	Data Cells
-ERROR	|more than 0|	Data Cells + error cell at end
-
-
-# Parameters
-```kotlin
-      UniversalAdapterBuilder(
-            lifecycleOwner,
-            data,
-            UniversalAdapterViewType.Content(resource, listener),
-            UniversalAdapterViewType.Loading(resourceLoading, defaultLoadingItems),
-            UniversalAdapterViewType.LoadingFooter(loaderFooter, listener),
-            UniversalAdapterViewType.NoData(noDataLayout, listener),
-            UniversalAdapterViewType.Error(errorLayout, listener)
-        ).build()
-  ```
-
-<a href='https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-MVVM-DataBinding/blob/master/app-debug_1_0_0.apk'>Download Sample App</a>
-
-
-# Setup
-
-#### Step #1. Add the JitPack repository to your build file:
+### Step #1. Add the JitPack repository to your build file:
 ```gradle
 allprojects {
     repositories {
@@ -64,7 +26,7 @@ allprojects {
 }
 ```
      
-#### Step #2. Add the dependency ([See latest release](https://jitpack.io/#yogeshpaliyal/Android-Universal-Recycler-View-Adapter)). 
+### Step #2. Add the dependency ([See latest release](https://jitpack.io/#yogeshpaliyal/Android-Universal-Recycler-View-Adapter)). 
 [![](https://jitpack.io/v/yogeshpaliyal/Android-Universal-Recycler-View-Adapter.svg)](https://jitpack.io/#yogeshpaliyal/Android-Universal-Recycler-View-Adapter)
 
 ```groovy
@@ -73,47 +35,218 @@ dependencies {
 }
 ```
 
+## Used in this Project
 
-<h1>Samples</h1>
+* [List Adapter](https://developer.android.com/reference/androidx/recyclerview/widget/ListAdapter)
+* [Async DiffUtil](https://developer.android.com/reference/androidx/recyclerview/widget/DiffUtil)
+* [Resource & Status Util Classes](https://blog.mindorks.com/mvvm-architecture-android-tutorial-for-beginners-step-by-step-guide)
+## Features
 
-<img src="https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-MVVM-DataBinding/blob/master/images/Screenshot_20201019-224331.jpg" width="30%">
+- Normal Listing
+- Loading + Listing (Showing shimmer items for Loading then showing the actual Listing)
+- Loading + LoadMore (Showing loading items and add a item at bottom to create infinite Listing)
+- No Data Found
+- Error Page
+- Async DiffUtils for better performance    
 
-<hr/>
+  
+    
 
-<h3>Simple List</h3>
+### When to show which item?
 
-<img src="https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-MVVM-DataBinding/blob/master/images/Screenshot_20201019-224335.jpg" width="30%">
+Status|	List Size|	Result Behaviour
+---|---|---
+LOADING	|0	|Show Loading Cells (default 5 items)
+SUCCESS	|0	|No Record Found Layout will be displayed
+ERROR	|0|	Error Layout Shown
+LOADING	|more than 0|	Data Cells + load more at end
+SUCCESS	|more than 0|	Data Cells
+ERROR	|more than 0|	Data Cells + error cell at end
+  
+## XML Variables
 
-<h3>Multi Select List</h3>
+To bind your view item with Adapter using dataBinding you have to create use these Variables
+name must be as follows 
 
-<img src="https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-MVVM-DataBinding/blob/master/images/Screenshot_20201019-224344.jpg" width="30%">
+### `model` 
+Type should be same as model you are passing to Adapter.  
+***Content*** layout using this variable
+```xml
+<variable
+            name="model"
+            type="com.techpaliyal.androidkotlinmvvm.model.BasicModel" />
+```
 
-<h3>Normal Users list</h3>
+### `listener` 
+Type Any/Object, should be same as you passing while create Adapter.  
+***Content*** & ***Error*** layout using this variable
+```xml
+<variable
+            name="listener"
+            type="com.techpaliyal.androidkotlinmvvm.model.BasicListener" />
+```
 
-<img src="https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-MVVM-DataBinding/blob/master/images/Screenshot_20201019-224339.jpg" width="30%">
+### `message` 
+Type will be String.  
+***Error*** layout using this variable
 
+```xml
+<variable
+            name="message"
+            type="String" />
+```
 
-<h3>Users list progress</h3>
-show progress when data is fetching then show the users list
-
-<img src="https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-MVVM-DataBinding/blob/master/images/user-list-progress.gif" width="30%">
-
-<h3>Shimmer list progress</h3>
-show shimmer when data is fetching then show the users list
-
-<img src="https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-MVVM-DataBinding/blob/master/images/user-list-shimmer.gif" width="30%">
-
-<h3>Shimmer list with load more progress</h3>
-show shimmer when data is fetching for first page and load more data when scroll to bottom
-
-
-<img src="https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-MVVM-DataBinding/blob/master/images/user-list-pagination.gif" width="30%">
-
-
-
-<h3> <a href="https://gist.github.com/yogeshpaliyal/dcb381941b9f0dec2cb366c85f8ce15b">Initilize Universal Adapter </a> </h3>
+  
+## Show me the code
 
 
-**Create your sample and share with us**
+```kotlin
+ private val mAdapter by lazy {
+        UniversalRecyclerAdapter.Builder<UserModel>(
+            lifecycleOwner = this,
+            content = UniversalAdapterViewType.Content(resource = R.layout.item_user,
+                object : BasicListener<UserModel> {
+                    override fun onClick(model: UserModel) {
+                        Toast.makeText(this@LoadingListingActivity, model.name, Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }),
+            loading = UniversalAdapterViewType.Loading(
+                resourceLoading = R.layout.layout_loading_full_page,
+                defaultLoadingItems = 1
+            ),
+            error = UniversalAdapterViewType.Error(errorLayout = R.layout.item_error),
+            loadingFooter = UniversalAdapterViewType.LoadingFooter(loaderFooter = R.layout.item_loading_more)
+        ).build()
+    }
+```
 
+*Note : All the parameters in **UniversalRecyclerAdapter.Builder** are optional, use only those you want to use*
+
+**lifecycleOwner** = This will be used to notify your view to update on data change.  
+
+**content** = Your primary list element.  
+        - *resource* = Element layout id.  
+        - *listener* = Pass the interface you want to send to your item layout
+
+**loading** = Your loading list element. (like shimmer or just a loader).    
+        - *resourceLoading* = loading layout id.  
+        - *defaultLoadingItems* = Items you want to show while loading.  
+
+**error** = Layout to be shown when Status == STatus.ERROR.  
+        - *errorLayout* = error layout id.  
+        - *listener* = Pass the interface you want to send to your error layout.
+
+
+## Examples
+
+### Simple List
+
+#### List item  ([File](https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-Adapter/blob/master/app/src/main/res/layout/item_simple.xml))
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="model"
+            type="com.techpaliyal.androidkotlinmvvm.model.BasicModel" />
+        <variable
+            name="listener"
+            type="com.techpaliyal.androidkotlinmvvm.listeners.BasicListener" />
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="5dp"
+        android:textSize="16sp"
+        android:text="@{model.name}"
+        android:onClick="@{()->listener.onClick(model)}"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+```
+
+#### Initialize Adapter ([File](https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-Adapter/blob/master/app/src/main/java/com/techpaliyal/androidkotlinmvvm/ui/activity/BasicListingActivity.kt))
+```kotlin
+ private val mAdapter by lazy {
+        UniversalRecyclerAdapter.Builder<BasicModel>(
+            lifecycleOwner = this,
+            content = UniversalAdapterViewType.Content(
+                R.layout.item_simple,
+                listener = object : BasicListener<BasicModel> {
+                    override fun onClick(model: BasicModel) {
+                        Toast.makeText(this@BasicListingActivity, model.name, Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                })
+        ).build()
+    }
+```
+
+#### Attach to adapter
+  ```kotlin
+binding.recyclerView.adapter = mAdapter.getAdapter()
+  ```
+
+
+  #### Update Data
+  ```kotlin
+mAdapter.updateData(Resource.success(list))
+  ```
+
+
+### Loading + Content + Error
+example : Hitting an api for loading showing a shimmer and then when API response came show the data or getting an error
+
+#### Initialize Adapter
+```kotlin
+private val mAdapter by lazy {
+        UniversalRecyclerAdapter.Builder<UserModel>(
+            lifecycleOwner = this,
+            content = UniversalAdapterViewType.Content(R.layout.item_user,
+                object : BasicListener<UserModel> {
+                override fun onClick(model: UserModel) {
+                    Toast.makeText(this@LoadingListingActivity, model.name, Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }),
+            loading = UniversalAdapterViewType.Loading(R.layout.layout_loading_full_page, defaultLoadingItems = 1),
+            error = UniversalAdapterViewType.Error(R.layout.item_error)).build()
+    }
+```
+
+#### Attach to adapter
+  ```kotlin
+binding.recyclerView.adapter = mAdapter.getAdapter()
+  ```
+
+
+ #### Update Data
+  ```kotlin
+ mViewModel.data.observe(this, Observer { data -> 
+     // The data type is like Resource<List<T>>
+     // if data.status == Status.LOADING thenn it will show the loading view
+     // if data.status == Status.SUCCESS then it will show the content list
+     // if data.status == Status.ERROR then it will show the error View and data.message will be passed to view as message variable
+            mAdapter.updateContent(it)
+})
+  ```
+
+
+
+## Feedback
+
+
+Having any issue to get you are looking for, feel free to put your question in [Discussion Section](https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-Adapter/discussions) and help us Improving this library and Documentation.
+  
 **Happy Coding 😁**
+

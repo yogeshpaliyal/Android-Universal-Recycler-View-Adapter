@@ -5,7 +5,7 @@ import com.yogeshpaliyal.universal_adapter.utils.getRandomString
 
 /*
 * @author Yogesh Paliyal
-* techpaliyal@gmail.com
+* yogeshpaliyal.foss@gmail.com
 * https://techpaliyal.com
 * created on 20-10-2020 21:57
 */
