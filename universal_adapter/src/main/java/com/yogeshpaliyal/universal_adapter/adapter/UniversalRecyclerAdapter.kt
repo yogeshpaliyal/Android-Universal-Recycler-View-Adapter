@@ -3,6 +3,7 @@ package com.yogeshpaliyal.universal_adapter.adapter
 import androidx.annotation.LayoutRes
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.ConcatAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.yogeshpaliyal.universal_adapter.utils.Resource
 import com.yogeshpaliyal.universal_adapter.utils.Status
 import com.yogeshpaliyal.universal_adapter.utils.UniversalAdapterBuilder
@@ -129,72 +130,78 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: Builder<T>) {
         when (data.status) {
             Status.LOADING -> {
                 // if has data then data + loading else loading
-                noDataFound?.let { mainAdapter.removeAdapter(it) }
-                errorAdapter?.let { mainAdapter.removeAdapter(it) }
+                remove(noDataFound)
+                remove(errorAdapter)
                 if (data.data.isNullOrEmpty()) {
                     // add only loading state
-                    contentAdapter?.let { mainAdapter.removeAdapter(it) }
-                    loadMoreAdapter?.let { mainAdapter.removeAdapter(it) }
-                    if (isContains(loadingAdapter).not())
-                        loadingAdapter?.let { mainAdapter.addAdapter(it) }
+                        remove(contentAdapter)
+                        remove(loadMoreAdapter)
+                    addAdapter(loadingAdapter)
+
                 } else {
-                    loadingAdapter?.let { mainAdapter.removeAdapter(it) }
-                    if (isContains(contentAdapter).not())
-                        contentAdapter?.let { mainAdapter.addAdapter(it) }
+                    remove(loadingAdapter)
+                    addAdapter(contentAdapter)
+
                     contentAdapter?.submitList(data.data)
-                    if (isContains(loadMoreAdapter).not())
-                        loadMoreAdapter?.let { mainAdapter.addAdapter(it) }
+                    addAdapter(loadMoreAdapter)
+
                 }
 
             }
             Status.SUCCESS -> {
-                loadingAdapter?.let { mainAdapter.removeAdapter(it) }
-                loadMoreAdapter?.let { mainAdapter.removeAdapter(it) }
-                errorAdapter?.let { mainAdapter.removeAdapter(it) }
+                remove(loadingAdapter)
+                remove(loadMoreAdapter)
+                remove(errorAdapter)
 
                 // check if there is data or note
                 if (data.data.isNullOrEmpty()) {
                     // show no data found screen
-                    contentAdapter?.let { mainAdapter.removeAdapter(it) }
+                    remove(contentAdapter)
 
-                    if (isContains(noDataFound).not())
-                        noDataFound?.let { mainAdapter.addAdapter(it) }
+                    addAdapter(noDataFound)
+
                     noDataFound?.submitList(data.data)
 
                     noDataFound?.updateData(data.message)
                 } else {
-                    noDataFound?.let { mainAdapter.removeAdapter(it) }
+                    remove(noDataFound)
 
-                    if (isContains(contentAdapter).not())
-                        contentAdapter?.let { mainAdapter.addAdapter(it) }
+                    addAdapter(contentAdapter)
                     contentAdapter?.submitList(data.data)
                 }
             }
             Status.ERROR -> {
                 // if has data then data + error else error
-                loadMoreAdapter?.let { mainAdapter.removeAdapter(it) }
-                loadingAdapter?.let { mainAdapter.removeAdapter(it) }
-                noDataFound?.let { mainAdapter.removeAdapter(it) }
+                remove(loadMoreAdapter)
+                remove(loadingAdapter)
+                remove(noDataFound)
                 if (data.data.isNullOrEmpty()) {
 
-                    contentAdapter?.let { mainAdapter.removeAdapter(it) }
+                    remove(contentAdapter)
                     // add only loading state
 
-                    if (isContains(errorAdapter).not())
-                        errorAdapter?.let { mainAdapter.addAdapter(it) }
+                    addAdapter(errorAdapter)
                     errorAdapter?.updateData(data.message)
                 } else {
 
-                    if (isContains(contentAdapter).not())
-                        contentAdapter?.let { mainAdapter.addAdapter(it) }
+                    addAdapter(contentAdapter)
                     contentAdapter?.submitList(data.data)
-                    if (isContains(errorAdapter).not())
-                        errorAdapter?.let { mainAdapter.addAdapter(it) }
 
+
+                    addAdapter(errorAdapter)
                     errorAdapter?.updateData(data.message)
                 }
             }
         }
+    }
+
+    private fun addAdapter(adapter: RecyclerView.Adapter<*>?) {
+        if (isContains(adapter).not())
+            adapter?.let { mainAdapter.addAdapter(adapter) }
+    }
+
+    private fun remove(adapter: RecyclerView.Adapter<*>?) {
+            adapter?.let { mainAdapter.removeAdapter(adapter) }
     }
 
 
