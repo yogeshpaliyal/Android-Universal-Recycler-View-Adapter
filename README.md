@@ -74,7 +74,7 @@ name must be as follows
 
 ### `binding`
 Type should be same as your resource binding file.
-This can be used to update your views in callback, after changing the variable value in model, for example check **UserListingActivity**
+This can be used to update your views in callback, after changing the variable value in model, for example check **UserListingActivity**.
 ***All Adapters*** layout using this variable
 ```xml
 <variable
