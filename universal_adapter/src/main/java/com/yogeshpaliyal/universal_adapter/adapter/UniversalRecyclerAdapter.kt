@@ -78,6 +78,8 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: Builder<T>) {
     private var loadMoreAdapter: LoadingFooterAdapter<T>? = null
     private var errorAdapter: ErrorAdapter<T>? = null
 
+    private var data : Resource<List<T>?>?= null
+
     init {
         if (adapterBuilder.content?.resource != null)
             contentAdapter = ContentListAdapter(
@@ -115,8 +117,11 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: Builder<T>) {
     }
 
     fun updateData(data: Resource<List<T>?>) {
+        this.data = data;
         setupAdapters(data)
     }
+
+    fun getData() = data
 
     fun getContentAdapter() = contentAdapter
     fun getLoadMoreAdapter() = loadMoreAdapter
@@ -144,7 +149,6 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: Builder<T>) {
 
                     contentAdapter?.submitList(data.data)
                     addAdapter(loadMoreAdapter)
-
                 }
 
             }

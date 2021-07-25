@@ -50,6 +50,8 @@ class ContentListAdapter<T>(
 
             if (options.customBindingMapping == null) {
                 binding.setVariable(BR.model, model)
+                binding.setVariable(BR.position, layoutPosition)
+                binding.setVariable(BR.binding, binding)
                 binding.setVariable(BR.listener, options.listener)
                 options.additionalParams?.forEach {
                     binding.setVariable(it.key, it.value)
@@ -68,7 +70,8 @@ class ContentListAdapter<T>(
     }
 
     override fun submitList(list: List<T>?) {
-        super.submitList(list?.let { ArrayList(it) })
+
+        super.submitList(list?.toList())
     }
 
     override fun getItemViewType(position: Int): Int {

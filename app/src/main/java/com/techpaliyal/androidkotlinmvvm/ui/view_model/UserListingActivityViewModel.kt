@@ -14,7 +14,7 @@ import com.techpaliyal.androidkotlinmvvm.model.UserModel
  */
 class UserListingActivityViewModel : ViewModel() {
 
-    val data = MutableLiveData<ArrayList<UserModel>>()
+    val data = MutableLiveData<List<UserModel>>()
 
 
 

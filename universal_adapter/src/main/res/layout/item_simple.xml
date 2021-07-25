@@ -10,6 +10,14 @@
         <variable
             name="listener"
             type="String" />
+
+        <variable
+            name="position"
+            type="String" />
+
+        <variable
+            name="binding"
+            type="androidx.databinding.ViewDataBinding" />
     </data>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"

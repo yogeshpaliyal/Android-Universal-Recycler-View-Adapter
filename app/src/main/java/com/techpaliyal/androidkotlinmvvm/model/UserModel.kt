@@ -10,7 +10,7 @@ import com.yogeshpaliyal.universal_adapter.model.BaseDiffUtil
  * https://yogeshpaliyal.com
  * Created Date : 9 January 2020
  */
-data class UserModel(var name: String, var address: String = "", var image: String) : BaseDiffUtil {
+data class UserModel(var name: String, var address: String = "", var image: String, var isLiked: Boolean = false) : BaseDiffUtil {
     override fun getDiffId(): Any? {
         return name
     }

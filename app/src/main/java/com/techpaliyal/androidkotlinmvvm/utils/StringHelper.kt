@@ -1,5 +1,7 @@
 package com.techpaliyal.androidkotlinmvvm.utils
 
+import android.view.View
+import androidx.databinding.BindingAdapter
 import java.util.*
 
 
@@ -11,3 +13,8 @@ import java.util.*
  * Created Date : 9 January 2020
  */
 fun getRandomString()= UUID.randomUUID().toString()
+
+@BindingAdapter("isSelected")
+fun View.setIsSeleted(value : Boolean){
+    isSelected = value
+}

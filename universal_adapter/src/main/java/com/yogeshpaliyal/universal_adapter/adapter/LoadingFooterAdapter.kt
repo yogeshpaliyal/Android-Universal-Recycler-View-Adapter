@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.yogeshpaliyal.universal_adapter.BR
 
 
 /*
@@ -37,6 +38,7 @@ class LoadingFooterAdapter<T>(
     inner class ViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind() {
             binding.lifecycleOwner = lifecycleOwner
+            binding.setVariable(BR.binding, binding)
 
             options.additionalParams?.forEach {
                 binding.setVariable(it.key, it.value)

@@ -48,9 +48,10 @@ class ErrorAdapter<T>(
         fun bind() {
             binding.lifecycleOwner = lifecycleOwner
 
-            if (options.additionalParams == null) {
+            if (options.customBindingMapping == null) {
                 binding.setVariable(BR.message, message)
                 binding.setVariable(BR.listener, options.listener)
+                binding.setVariable(BR.binding, binding)
                 options.additionalParams?.forEach {
                     binding.setVariable(it.key, it.value)
                 }
