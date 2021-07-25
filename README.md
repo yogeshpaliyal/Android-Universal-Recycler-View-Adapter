@@ -12,7 +12,9 @@
 Tired of creating 100s of Adapters and View Models.
 This Library will make it easy, No need to create a Adapter, ViewHolder for every list
 
-## How?
+![Cover Image](https://repository-images.githubusercontent.com/232743178/c14ced39-c916-4ceb-a868-c19bcbcf87f1)
+
+## 🤔 How?
 Using Resource Pattern to find the status of the list and show view types according to that.
 
 
@@ -35,12 +37,14 @@ dependencies {
 }
 ```
 
-## Used in this Project
+## 🛠️ Used in this Project
 
 * [List Adapter](https://developer.android.com/reference/androidx/recyclerview/widget/ListAdapter)
 * [Async DiffUtil](https://developer.android.com/reference/androidx/recyclerview/widget/DiffUtil)
 * [Resource & Status Util Classes](https://blog.mindorks.com/mvvm-architecture-android-tutorial-for-beginners-step-by-step-guide)
-## Features
+
+
+## 🤩 Features
 
 - Normal Listing
 - Loading + Listing (Showing shimmer items for Loading then showing the actual Listing)
@@ -143,7 +147,7 @@ Type will be String.
         - *resourceLoading* = loading layout id.  
         - *defaultLoadingItems* = Items you want to show while loading.  
 
-**error** = Layout to be shown when Status == STatus.ERROR.  
+**error** = Layout to be shown when Status == Status.ERROR  
         - *errorLayout* = error layout id.  
         - *listener* = Pass the interface you want to send to your error layout.
 
