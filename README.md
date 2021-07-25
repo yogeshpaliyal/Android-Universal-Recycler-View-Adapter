@@ -68,7 +68,17 @@ ERROR	|more than 0|	Data Cells + error cell at end
 To bind your view item with Adapter using dataBinding you have to create use these Variables
 name must be as follows 
 
-### `model` 
+### `binding`
+Type should be same as your resource binding file.
+This can be used to update your views in callback, after changing the variable value in model, for example check **UserListingActivity**
+***All Adapters*** layout using this variable
+```xml
+<variable
+            name="binding"
+            type="androidx.databinding.ViewDataBinding" />
+```
+
+### `model`
 Type should be same as model you are passing to Adapter.  
 ***Content*** layout using this variable
 ```xml
