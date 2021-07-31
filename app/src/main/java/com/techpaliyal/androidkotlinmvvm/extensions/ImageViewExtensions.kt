@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide
  * Created Date : 9 January 2020
  */
 @BindingAdapter("tool:loadUrl")
-fun loadUrl(imageView: ImageView?, loadUrl: String) {
+fun loadUrl(imageView: ImageView?, loadUrl: String?) {
     imageView?.let {
 
         Glide.with(imageView).load(loadUrl).into(imageView)

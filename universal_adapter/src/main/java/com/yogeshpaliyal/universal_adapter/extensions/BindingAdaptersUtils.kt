@@ -16,11 +16,11 @@ fun RecyclerView.setRecyclerAdapter(adapter: RecyclerView.Adapter<*>) {
 }
 
 
-@BindingAdapter(value = ["lifecycleOwner", "data", "item_layout", "loading_layout", "error_layout", "load_more_layout", "no_data_layout", "item_listener", "error_listener", "no_data_listener"])
+@BindingAdapter(value = ["lifecycleOwner", "data", "item_layout", "loading_layout", "error_layout", "load_more_layout", "no_data_layout", "item_listener", "error_listener", "no_data_listener"], requireAll = false)
 fun <T> RecyclerView.setRecyclerAdapter(
     lifecycleOwner: LifecycleOwner?,
     data: Resource<List<T>>?,
-    @LayoutRes itemLayout: Int,
+    @LayoutRes itemLayout: Int?,
     @LayoutRes loadingLayout: Int?,
     @LayoutRes errorLayout: Int?,
     @LayoutRes loadMoreLayout: Int?,
@@ -29,13 +29,15 @@ fun <T> RecyclerView.setRecyclerAdapter(
     errorListener: Any?,
     noDataListener: Any?
 ) {
-    val tempAdapter = UniversalRecyclerAdapter.Builder(
-        lifecycleOwner = lifecycleOwner, data = data,
-        content = UniversalAdapterViewType.Content(itemLayout, itemListener),
-        loading = UniversalAdapterViewType.Loading(loadingLayout),
-        loadingFooter = UniversalAdapterViewType.LoadingFooter(loadMoreLayout),
-        error = UniversalAdapterViewType.Error(errorLayout, errorListener),
-        noData = UniversalAdapterViewType.NoData(noDataLayout,noDataListener)
-    ).build()
-    adapter = tempAdapter.getAdapter()
+    if (itemLayout != null) {
+        val tempAdapter = UniversalRecyclerAdapter.Builder(
+            lifecycleOwner = lifecycleOwner, data = data,
+            content = UniversalAdapterViewType.Content(itemLayout, itemListener),
+            loading = UniversalAdapterViewType.Loading(loadingLayout),
+            loadingFooter = UniversalAdapterViewType.LoadingFooter(loadMoreLayout),
+            error = UniversalAdapterViewType.Error(errorLayout, errorListener),
+            noData = UniversalAdapterViewType.NoData(noDataLayout, noDataListener)
+        ).build()
+        adapter = tempAdapter.getAdapter()
+    }
 }
