@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.techpaliyal.androidkotlinmvvm.R" />
+
+        <variable
+            name="myLifecycleOwner"
+            type="androidx.lifecycle.LifecycleOwner" />
+
+        <variable
+            name="mViewModel"
+            type="com.techpaliyal.androidkotlinmvvm.ui.view_model.BindingTestViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.activity.BindingAdapterTestActivity">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
+            item_layout="@{R.layout.item_user}"
+            loading_layout="@{R.layout.item_user_shimmer}"
+            data="@{mViewModel.usersData}"
+            lifecycleOwner="@{myLifecycleOwner}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,5 +1,6 @@
 package com.techpaliyal.androidkotlinmvvm.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -42,8 +43,9 @@ class MainActivity : AppCompatActivity() {
             ShimmerListingActivity.start(this)
         }
 
-        binding.btnPaginationListing.setOnClickListener {
-            PaginationListingActivity.start(this)
+        binding.btnBindingAdapter.setOnClickListener {
+            val intent = Intent(this, BindingAdapterTestActivity::class.java)
+            startActivity(intent)
         }
 
     }
