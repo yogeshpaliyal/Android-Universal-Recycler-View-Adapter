@@ -21,6 +21,26 @@ android {
         }
     }
 
+    // applicationVariants are e.g. debug, release
+    android.applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+       
+            def abiVersionName = output.getFilter(com.android.build.OutputFile.ABI)
+            if (abiVersionName != null) {
+                def baseAbiVersionCode = abiCodes.get(abiVersionName)
+                if (baseAbiVersionCode != null) {
+                    output.versionCodeOverride = baseAbiVersionCode * 10000 + variant.versionCode
+                }
+                outputFileName = "${variant.versionName}/${abiVersionName}.apk"
+
+            } else {
+                outputFileName = "${variant.versionName}/${variant.applicationId}.${variant.versionCode}.apk"
+
+            }
+            println("Testing Build Path : "+output.outputFile.parent +"/" +outputFileName);
+        }
+    }
+
     // todo step1
     dataBinding {
         enabled = true
