@@ -1,0 +1,33 @@
+name: Build Android and iOS
+on:
+  push:
+    branches:
+      - test-ci
+jobs:
+  install-and-test:
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v2
+
+  build-android:
+    needs: install-and-test
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v2
+
+      - name: Grant rights
+        run: chmod +x build.gradle
+
+      - name: Grant Gradlew rights
+        run: chmod +x gradlew
+        
+        
+      - name: Build Android Release
+        run: |
+          ./gradlew app:assembleRelease 
+
+  # Example use of `signedReleaseFile` output -- not needed
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Signed app bundle
+          path: /build/outputs/app-release.apk
