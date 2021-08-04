@@ -16,11 +16,12 @@ fun RecyclerView.setRecyclerAdapter(adapter: RecyclerView.Adapter<*>) {
 }
 
 
-@BindingAdapter(value = ["lifecycleOwner", "data", "item_layout", "loading_layout", "error_layout", "load_more_layout", "no_data_layout", "item_listener", "error_listener", "no_data_listener"], requireAll = false)
+@BindingAdapter(value = ["lifecycleOwner", "data", "item_layout", "loading_layout_count","loading_layout", "error_layout", "load_more_layout", "no_data_layout", "item_listener", "error_listener", "no_data_listener"], requireAll = false)
 fun <T> RecyclerView.setRecyclerAdapter(
     lifecycleOwner: LifecycleOwner?,
     data: Resource<List<T>>?,
     @LayoutRes itemLayout: Int?,
+    loadingLayoutCount: Int?,
     @LayoutRes loadingLayout: Int?,
     @LayoutRes errorLayout: Int?,
     @LayoutRes loadMoreLayout: Int?,
@@ -33,7 +34,7 @@ fun <T> RecyclerView.setRecyclerAdapter(
         val tempAdapter = UniversalRecyclerAdapter.Builder(
             lifecycleOwner = lifecycleOwner, data = data,
             content = UniversalAdapterViewType.Content(itemLayout, itemListener),
-            loading = UniversalAdapterViewType.Loading(loadingLayout),
+            loading = UniversalAdapterViewType.Loading(loadingLayout,loadingLayoutCount),
             loadingFooter = UniversalAdapterViewType.LoadingFooter(loadMoreLayout),
             error = UniversalAdapterViewType.Error(errorLayout, errorListener),
             noData = UniversalAdapterViewType.NoData(noDataLayout, noDataListener)
