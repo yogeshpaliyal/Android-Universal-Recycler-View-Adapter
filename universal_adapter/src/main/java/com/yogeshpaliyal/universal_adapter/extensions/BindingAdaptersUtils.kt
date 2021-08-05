@@ -12,7 +12,8 @@ import java.util.*
 
 @BindingAdapter("recycler_adapter")
 fun RecyclerView.setRecyclerAdapter(adapter: RecyclerView.Adapter<*>) {
-    this.adapter = adapter
+    if(this.adapter != adapter)
+        this.adapter = adapter
 }
 
 
@@ -34,7 +35,7 @@ fun <T> RecyclerView.setRecyclerAdapter(
         val tempAdapter = UniversalRecyclerAdapter.Builder(
             lifecycleOwner = lifecycleOwner, data = data,
             content = UniversalAdapterViewType.Content(itemLayout, itemListener),
-            loading = UniversalAdapterViewType.Loading(loadingLayout,loadingLayoutCount),
+            loading = UniversalAdapterViewType.Loading(loadingLayout,loadingLayoutCount?:5),
             loadingFooter = UniversalAdapterViewType.LoadingFooter(loadMoreLayout),
             error = UniversalAdapterViewType.Error(errorLayout, errorListener),
             noData = UniversalAdapterViewType.NoData(noDataLayout, noDataListener)
