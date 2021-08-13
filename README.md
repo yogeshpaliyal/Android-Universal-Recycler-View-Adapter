@@ -12,7 +12,7 @@
 Tired of creating 100s of Adapters and View Models.
 This Library will make it easy, No need to create a Adapter, ViewHolder for every list
 
-![Cover Image](https://repository-images.githubusercontent.com/232743178/c14ced39-c916-4ceb-a868-c19bcbcf87f1)
+![Cover Image](https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-Adapter/blob/master/images/Universal%20Recycler%20View.jpg)
 
 ## 🤔 How?
 Using Resource Pattern to find the status of the list and show view types according to that.
