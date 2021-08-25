@@ -262,5 +262,5 @@ binding.recyclerView.adapter = mAdapter.getAdapter()
 
 Having any issue to get you are looking for, feel free to put your question in [Discussion Section](https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-Adapter/discussions) and help us Improving this library and Documentation.
   
-**Happy Coding 😁** 
+**Happy Coding 😁😁😁** 
 
