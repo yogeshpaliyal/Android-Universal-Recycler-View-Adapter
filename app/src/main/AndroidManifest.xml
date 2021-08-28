@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ui.multiple_view.MultipleViewTypeActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.activity.BindingAdapterTestActivity"
             android:exported="true" />
         <activity android:name=".ui.activity.LoadingListingActivity" />

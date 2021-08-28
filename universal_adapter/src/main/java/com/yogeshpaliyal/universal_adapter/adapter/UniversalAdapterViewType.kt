@@ -13,7 +13,7 @@ import androidx.databinding.ViewDataBinding
 sealed class UniversalAdapterViewType {
     data class Content<T>(
         @LayoutRes
-        val resource: Int,
+        val resource: Int? = null,
         val listener: Any? = null,
         val additionalParams : HashMap<Int,Any>?= null,
         val customBindingMapping: ((itemBinding: ViewDataBinding, item: T, bindingAdapterPosition: Int) -> Unit)? = null

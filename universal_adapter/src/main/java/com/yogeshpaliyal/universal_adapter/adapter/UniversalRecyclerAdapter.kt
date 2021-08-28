@@ -81,7 +81,7 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: Builder<T>) {
     private var data : Resource<List<T>?>?= null
 
     init {
-        if (adapterBuilder.content?.resource != null)
+        if (adapterBuilder.content != null)
             contentAdapter = ContentListAdapter(
                 adapterBuilder.lifecycleOwner,
                 adapterBuilder.content
