@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.yogeshpaliyal.universal_adapter.BR
+import com.yogeshpaliyal.universal_adapter.listener.UniversalViewType
 import com.yogeshpaliyal.universal_adapter.model.BaseDiffUtil
 
 
@@ -70,18 +71,31 @@ class ContentListAdapter<T>(
     }
 
     override fun submitList(list: List<T>?) {
-
         super.submitList(list?.toList())
     }
 
     override fun getItemViewType(position: Int): Int {
-        return options.resource
+        return getLayoutId(position)
+    }
+
+    private fun getLayoutId(position: Int): Int{
+        val item = currentList.get(position)
+        val layoutId = if (item is UniversalViewType){
+            item.getLayoutId()
+        }else{
+            options.resource
+        }
+
+        if (layoutId == null)
+            throw NotImplementedError("Layout file not found")
+
+        return layoutId
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = DataBindingUtil.inflate<ViewDataBinding>(
             LayoutInflater.from(parent.context),
-            options.resource,
+            viewType,
             parent,
             false
         )

@@ -83,6 +83,16 @@
             android:text="Binding Adapter Test"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
+        <Button
+            android:id="@+id/btnMultipleViews"
+            app:layout_constraintTop_toBottomOf="@id/btnUserListing"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Multiple View Types Test"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
     </LinearLayout>
 </ScrollView>
 </layout>
