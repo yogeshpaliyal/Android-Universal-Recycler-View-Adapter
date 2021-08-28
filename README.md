@@ -260,6 +260,11 @@ binding.recyclerView.adapter = mAdapter.getAdapter()
 Show multiple view types in your listing, for eg: heading and list  
 implement ```UniversalViewType``` in your model and override ```getLayoutId()```
 
+
+screenshot : [view fullscreen](https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-Adapter/blob/master/images/universal_recycler_view_multiple_view_type.png)  
+
+<img src="https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-Adapter/blob/master/images/universal_recycler_view_multiple_view_type.png?raw=true" width="30%" />
+
 example :
 
 #### Heading Model
