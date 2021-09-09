@@ -268,7 +268,7 @@ screenshot : [view fullscreen](https://github.com/yogeshpaliyal/Android-Universa
 example :
 
 #### Heading Model
-```
+```kotlin
 data class HeadingModel(val title: String) : UniversalViewType,SchoolListing {
     override fun getLayoutId(): Int {
         return R.layout.item_heading
@@ -277,7 +277,7 @@ data class HeadingModel(val title: String) : UniversalViewType,SchoolListing {
 ```
 
 #### List Model
-```
+```kotlin
 data class ListItemModel(val name: String) : UniversalViewType,SchoolListing {
     override fun getLayoutId(): Int {
         return R.layout.item_list
@@ -288,13 +288,13 @@ data class ListItemModel(val name: String) : UniversalViewType,SchoolListing {
 #### SchoolListing.kt  
 This interface is used to identify models to use in a recycler view, to prevent adding of other type of models in array except for models that implements ```SchoolListing```
 
-```
+```kotlin
 interface SchoolListing
 ```
 
 
 #### Adding data to array
-```
+```kotlin
 val tempArray = ArrayList<SchoolListing>()
         tempArray.add(HeadingModel("Principal"))
         tempArray.add(ListItemModel("Yogesh Paliyal"))
