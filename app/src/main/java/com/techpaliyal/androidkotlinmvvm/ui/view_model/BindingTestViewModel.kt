@@ -1,13 +1,12 @@
 package com.techpaliyal.androidkotlinmvvm.ui.view_model
 
-import android.app.Application
 import androidx.lifecycle.*
 import com.techpaliyal.androidkotlinmvvm.model.UserModel
-import com.yogeshpaliyal.universal_adapter.utils.Resource
+import com.yogeshpaliyal.universalAdapter.utils.Resource
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class BindingTestViewModel() : ViewModel() {
+class BindingTestViewModel : ViewModel() {
 
     private val _usersData = MutableLiveData<Resource<List<UserModel>>>()
     val usersData : LiveData<Resource<List<UserModel>>> = _usersData

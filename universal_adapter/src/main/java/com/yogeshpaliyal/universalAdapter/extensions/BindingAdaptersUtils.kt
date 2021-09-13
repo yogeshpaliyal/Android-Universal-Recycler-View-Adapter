@@ -1,23 +1,37 @@
-package com.yogeshpaliyal.universal_adapter.extensions
+package com.yogeshpaliyal.universalAdapter.extensions
 
 import androidx.annotation.LayoutRes
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
-import com.yogeshpaliyal.universal_adapter.adapter.UniversalAdapterViewType
-import com.yogeshpaliyal.universal_adapter.adapter.UniversalRecyclerAdapter
-import com.yogeshpaliyal.universal_adapter.utils.Resource
-import java.util.*
+import com.yogeshpaliyal.universalAdapter.adapter.UniversalAdapterViewType
+import com.yogeshpaliyal.universalAdapter.adapter.UniversalRecyclerAdapter
+import com.yogeshpaliyal.universalAdapter.utils.DEFAULT_LOADING_ITEMS
+import com.yogeshpaliyal.universalAdapter.utils.Resource
 
 
 @BindingAdapter("recycler_adapter")
 fun RecyclerView.setRecyclerAdapter(adapter: RecyclerView.Adapter<*>) {
-    if(this.adapter != adapter)
+    if (this.adapter != adapter)
         this.adapter = adapter
 }
 
 
-@BindingAdapter(value = ["lifecycleOwner", "data", "item_layout", "loading_layout_count","loading_layout", "error_layout", "load_more_layout", "no_data_layout", "item_listener", "error_listener", "no_data_listener"], requireAll = false)
+@BindingAdapter(
+    value = ["lifecycleOwner",
+        "data",
+        "item_layout",
+        "loading_layout_count",
+        "loading_layout",
+        "error_layout",
+        "load_more_layout",
+        "no_data_layout",
+        "item_listener",
+        "error_listener",
+        "no_data_listener"],
+    requireAll = false
+)
+@Suppress
 fun <T> RecyclerView.setRecyclerAdapter(
     lifecycleOwner: LifecycleOwner?,
     data: Resource<List<T>>?,
@@ -35,7 +49,10 @@ fun <T> RecyclerView.setRecyclerAdapter(
         val tempAdapter = UniversalRecyclerAdapter.Builder(
             lifecycleOwner = lifecycleOwner, data = data,
             content = UniversalAdapterViewType.Content(itemLayout, itemListener),
-            loading = UniversalAdapterViewType.Loading(loadingLayout,loadingLayoutCount?:5),
+            loading = UniversalAdapterViewType.Loading(
+                loadingLayout,
+                loadingLayoutCount ?: DEFAULT_LOADING_ITEMS
+            ),
             loadingFooter = UniversalAdapterViewType.LoadingFooter(loadMoreLayout),
             error = UniversalAdapterViewType.Error(errorLayout, errorListener),
             noData = UniversalAdapterViewType.NoData(noDataLayout, noDataListener)

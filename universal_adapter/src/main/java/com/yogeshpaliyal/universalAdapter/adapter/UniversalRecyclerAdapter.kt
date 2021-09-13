@@ -1,22 +1,21 @@
-package com.yogeshpaliyal.universal_adapter.adapter
+package com.yogeshpaliyal.universalAdapter.adapter
 
 import androidx.annotation.LayoutRes
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.yogeshpaliyal.universal_adapter.utils.Resource
-import com.yogeshpaliyal.universal_adapter.utils.Status
-import com.yogeshpaliyal.universal_adapter.utils.UniversalAdapterBuilder
+import com.yogeshpaliyal.universalAdapter.utils.Resource
+import com.yogeshpaliyal.universalAdapter.utils.Status
 
 
 /**
  * @author Yogesh Paliyal
  * Created Date : 15 October 2020
  */
+@Suppress
 class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: Builder<T>) {
-//    var adapterOptions : UniversalAdapterOptions<T> = UniversalAdapterOptions(resource, resourceLoading, defaultLoadingItems, loaderFooter, data, errorLayout, errorListener, mListener, noDataLayout, noDataListener, lifecycleOwner)
 
-
+    @Suppress
     @Deprecated(
         "Use UniversalAdapterBuilder for better approach",
         ReplaceWith(
@@ -78,7 +77,7 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: Builder<T>) {
     private var loadMoreAdapter: LoadingFooterAdapter<T>? = null
     private var errorAdapter: ErrorAdapter<T>? = null
 
-    private var data : Resource<List<T>?>?= null
+    private var data: Resource<List<T>?>? = null
 
     init {
         if (adapterBuilder.content != null)
@@ -117,7 +116,7 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: Builder<T>) {
     }
 
     fun updateData(data: Resource<List<T>?>) {
-        this.data = data;
+        this.data = data
         setupAdapters(data)
     }
 
@@ -139,8 +138,8 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: Builder<T>) {
                 remove(errorAdapter)
                 if (data.data.isNullOrEmpty()) {
                     // add only loading state
-                        remove(contentAdapter)
-                        remove(loadMoreAdapter)
+                    remove(contentAdapter)
+                    remove(loadMoreAdapter)
                     addAdapter(loadingAdapter)
 
                 } else {
@@ -205,7 +204,7 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: Builder<T>) {
     }
 
     private fun remove(adapter: RecyclerView.Adapter<*>?) {
-            adapter?.let { mainAdapter.removeAdapter(adapter) }
+        adapter?.let { mainAdapter.removeAdapter(adapter) }
     }
 
 
@@ -218,6 +217,7 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: Builder<T>) {
         return false
     }
 
+    @Suppress
     private fun clearMainAdapter() {
         for (adapter in mainAdapter.adapters) {
             mainAdapter.removeAdapter(adapter)
@@ -233,6 +233,8 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: Builder<T>) {
         val noData: UniversalAdapterViewType.NoData<T>? = null,
         val error: UniversalAdapterViewType.Error<T>? = null
     ) {
+
+        @Suppress
         constructor(
             @LayoutRes
             resource: Int,
@@ -260,19 +262,9 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: Builder<T>) {
             UniversalAdapterViewType.Error(errorLayout, errorListener)
         )
 
-        constructor(oldBuilder: UniversalAdapterBuilder<T>) : this(
-            oldBuilder.lifecycleOwner,
-            oldBuilder.data,
-            oldBuilder.content,
-            oldBuilder.loading,
-            oldBuilder.loadingFooter,
-            oldBuilder.noData,
-            oldBuilder.error
-        )
-
         fun build() = UniversalRecyclerAdapter(this)
 
-        fun buildAdapter() = build().getAdapter();
+        fun buildAdapter() = build().getAdapter()
     }
 
 }

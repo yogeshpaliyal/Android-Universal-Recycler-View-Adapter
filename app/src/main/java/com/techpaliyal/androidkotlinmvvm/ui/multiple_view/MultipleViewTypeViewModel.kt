@@ -1,11 +1,9 @@
 package com.techpaliyal.androidkotlinmvvm.ui.multiple_view
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.yogeshpaliyal.universal_adapter.utils.Resource
+import com.yogeshpaliyal.universalAdapter.utils.Resource
 
 class MultipleViewTypeViewModel : ViewModel() {
 

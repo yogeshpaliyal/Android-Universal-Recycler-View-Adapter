@@ -1,4 +1,4 @@
-package com.yogeshpaliyal.universal_adapter.adapter
+package com.yogeshpaliyal.universalAdapter.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.yogeshpaliyal.universal_adapter.BR
+import com.yogeshpaliyal.universalAdapter.BR
 
 
 /*
@@ -18,11 +18,12 @@ import com.yogeshpaliyal.universal_adapter.BR
 * https://techpaliyal.com
 * created on 02-05-2021 19:57
 */
-class LoadingFooterAdapter<T>(
+class NoDataAdapter<T>(
     val lifecycleOwner: LifecycleOwner?,
-    var options: UniversalAdapterViewType.LoadingFooter<T>
+    var options : UniversalAdapterViewType.NoData<T>,
+    var message: String = ""
 ) :
-    ListAdapter<T, LoadingFooterAdapter<T>.ViewHolder>(AsyncDifferConfig.Builder<T>(object :
+    ListAdapter<T, NoDataAdapter<T>.ViewHolder>(AsyncDifferConfig.Builder<T>(object :
         DiffUtil.ItemCallback<T>() {
         override fun areItemsTheSame(oldItem: T, newItem: T): Boolean {
             return false
@@ -34,16 +35,35 @@ class LoadingFooterAdapter<T>(
 
     }).build()) {
 
+    fun updateData(message: String?){
+        this.message = message ?: ""
+        notifyDataSetChanged()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return options.noDataLayout ?: 0
+    }
 
     inner class ViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind() {
             binding.lifecycleOwner = lifecycleOwner
-            binding.setVariable(BR.binding, binding)
 
-            options.additionalParams?.forEach {
-                binding.setVariable(it.key, it.value)
+            if (options.customBindingMapping == null) {
+                binding.setVariable(BR.message, message)
+                binding.setVariable(BR.listener, options.listener)
+                binding.setVariable(BR.binding, binding)
+
+                options.additionalParams?.forEach {
+                    binding.setVariable(it.key, it.value)
+                }
+                binding.executePendingBindings()
+            } else {
+
+                options.customBindingMapping?.invoke(
+                    binding,
+                    message
+                )
             }
-            binding.executePendingBindings()
 
         }
     }
@@ -51,20 +71,16 @@ class LoadingFooterAdapter<T>(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = DataBindingUtil.inflate<ViewDataBinding>(
             LayoutInflater.from(parent.context),
-            options.loaderFooter!!,
+            options.noDataLayout!!,
             parent,
             false
         )
         return ViewHolder(binding)
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return options.loaderFooter ?: 0
-    }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind()
     }
 
-    override fun getItemCount(): Int = if (options.loaderFooter != null) 1 else 0
+    override fun getItemCount(): Int = 1
 }

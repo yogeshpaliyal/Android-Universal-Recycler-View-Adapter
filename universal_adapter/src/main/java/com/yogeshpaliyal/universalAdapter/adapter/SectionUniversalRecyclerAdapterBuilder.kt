@@ -1,7 +1,7 @@
-package com.yogeshpaliyal.universal_adapter.adapter
+package com.yogeshpaliyal.universalAdapter.adapter
 
 import androidx.recyclerview.widget.ConcatAdapter
-import com.yogeshpaliyal.universal_adapter.utils.Resource
+import com.yogeshpaliyal.universalAdapter.utils.Resource
 
 
 /*
