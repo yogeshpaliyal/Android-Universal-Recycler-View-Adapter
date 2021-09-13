@@ -271,6 +271,8 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: Builder<T>) {
         )
 
         fun build() = UniversalRecyclerAdapter(this)
+
+        fun buildAdapter() = build().getAdapter();
     }
 
 }
