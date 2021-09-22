@@ -5,15 +5,17 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import com.techpaliyal.androidkotlinmvvm.R
 import com.techpaliyal.androidkotlinmvvm.databinding.ActivityListingBinding
 import com.techpaliyal.androidkotlinmvvm.listeners.BasicListener
+import com.techpaliyal.androidkotlinmvvm.listeners.UsersListener
 import com.techpaliyal.androidkotlinmvvm.model.UserModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.LoadingListingViewModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.initViewModel
-import com.yogeshpaliyal.universal_adapter.adapter.UniversalAdapterViewType
-import com.yogeshpaliyal.universal_adapter.adapter.UniversalRecyclerAdapter
+import com.yogeshpaliyal.universalAdapter.adapter.UniversalAdapterViewType
+import com.yogeshpaliyal.universalAdapter.adapter.UniversalRecyclerAdapter
 
 
 /**
@@ -44,7 +46,10 @@ class ShimmerListingActivity : AppCompatActivity() {
             null,
             content = UniversalAdapterViewType.Content(
                 R.layout.item_user,
-                listener = object : BasicListener<UserModel> {
+                listener = object : UsersListener {
+                    override fun onLikeClicked(binding: ViewDataBinding, model: UserModel) {
+
+                    }
                     override fun onClick(model: UserModel) {
                         Toast.makeText(this@ShimmerListingActivity, model.name, Toast.LENGTH_SHORT)
                             .show()

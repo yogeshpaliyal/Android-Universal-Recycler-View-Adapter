@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>EmptyClassBlock:SchoolListing.kt$SchoolListing${ }</ID>
+    <ID>EmptyDefaultConstructor:BindingTestViewModel.kt$BindingTestViewModel$()</ID>
+    <ID>MagicNumber:BindingTestViewModel.kt$BindingTestViewModel$3000</ID>
+    <ID>MagicNumber:LoadingListingViewModel.kt$LoadingListingViewModel$10</ID>
+    <ID>MagicNumber:LoadingListingViewModel.kt$LoadingListingViewModel$3000</ID>
+    <ID>MaxLineLength:BindingTestViewModel.kt$BindingTestViewModel$tempArr.add(UserModel(name = "Yogesh",image = "https://randomuser.me/api/portraits/men/52.jpg", address = "Jodhpur"))</ID>
+    <ID>MaxLineLength:UserListingActivityViewModel.kt$UserListingActivityViewModel$tempArr.add(UserModel(name = "Yogesh",image = "https://randomuser.me/api/portraits/men/52.jpg", address = "Jodhpur"))</ID>
+    <ID>MaxLineLength:UserModel.kt$UserModel$data</ID>
+    <ID>NewLineAtEndOfFile:BasicListener.kt$com.techpaliyal.androidkotlinmvvm.listeners.BasicListener.kt</ID>
+    <ID>NewLineAtEndOfFile:BasicListingActivityViewModel.kt$com.techpaliyal.androidkotlinmvvm.ui.view_model.BasicListingActivityViewModel.kt</ID>
+    <ID>NewLineAtEndOfFile:BasicModel.kt$com.techpaliyal.androidkotlinmvvm.model.BasicModel.kt</ID>
+    <ID>NewLineAtEndOfFile:BindingAdapterTestActivity.kt$com.techpaliyal.androidkotlinmvvm.ui.activity.BindingAdapterTestActivity.kt</ID>
+    <ID>NewLineAtEndOfFile:BindingTestViewModel.kt$com.techpaliyal.androidkotlinmvvm.ui.view_model.BindingTestViewModel.kt</ID>
+    <ID>NewLineAtEndOfFile:HeadingModel.kt$com.techpaliyal.androidkotlinmvvm.ui.multiple_view.HeadingModel.kt</ID>
+    <ID>NewLineAtEndOfFile:ImageViewExtensions.kt$com.techpaliyal.androidkotlinmvvm.extensions.ImageViewExtensions.kt</ID>
+    <ID>NewLineAtEndOfFile:ListItemModel.kt$com.techpaliyal.androidkotlinmvvm.ui.multiple_view.ListItemModel.kt</ID>
+    <ID>NewLineAtEndOfFile:LoadingListingActivity.kt$com.techpaliyal.androidkotlinmvvm.ui.activity.LoadingListingActivity.kt</ID>
+    <ID>NewLineAtEndOfFile:LoadingListingViewModel.kt$com.techpaliyal.androidkotlinmvvm.ui.view_model.LoadingListingViewModel.kt</ID>
+    <ID>NewLineAtEndOfFile:MultiSelectListingActivityViewModel.kt$com.techpaliyal.androidkotlinmvvm.ui.view_model.MultiSelectListingActivityViewModel.kt</ID>
+    <ID>NewLineAtEndOfFile:MultiSelectModel.kt$com.techpaliyal.androidkotlinmvvm.model.MultiSelectModel.kt</ID>
+    <ID>NewLineAtEndOfFile:MultipleViewTypeActivity.kt$com.techpaliyal.androidkotlinmvvm.ui.multiple_view.MultipleViewTypeActivity.kt</ID>
+    <ID>NewLineAtEndOfFile:MultipleViewTypeViewModel.kt$com.techpaliyal.androidkotlinmvvm.ui.multiple_view.MultipleViewTypeViewModel.kt</ID>
+    <ID>NewLineAtEndOfFile:PaginationListingActivity.kt$com.techpaliyal.androidkotlinmvvm.ui.activity.PaginationListingActivity.kt</ID>
+    <ID>NewLineAtEndOfFile:RecyclerViewPagination.kt$com.techpaliyal.androidkotlinmvvm.extensions.RecyclerViewPagination.kt</ID>
+    <ID>NewLineAtEndOfFile:SchoolListing.kt$com.techpaliyal.androidkotlinmvvm.ui.multiple_view.SchoolListing.kt</ID>
+    <ID>NewLineAtEndOfFile:ShimmerListingActivity.kt$com.techpaliyal.androidkotlinmvvm.ui.activity.ShimmerListingActivity.kt</ID>
+    <ID>NewLineAtEndOfFile:StringHelper.kt$com.techpaliyal.androidkotlinmvvm.utils.StringHelper.kt</ID>
+    <ID>NewLineAtEndOfFile:UserListingActivityViewModel.kt$com.techpaliyal.androidkotlinmvvm.ui.view_model.UserListingActivityViewModel.kt</ID>
+    <ID>NewLineAtEndOfFile:UserModel.kt$com.techpaliyal.androidkotlinmvvm.model.UserModel.kt</ID>
+    <ID>NewLineAtEndOfFile:UsersListener.kt$com.techpaliyal.androidkotlinmvvm.listeners.UsersListener.kt</ID>
+    <ID>NewLineAtEndOfFile:ViewModelFactory.kt$com.techpaliyal.androidkotlinmvvm.ui.view_model.ViewModelFactory.kt</ID>
+    <ID>PackageNaming:BasicListingActivityViewModel.kt$package com.techpaliyal.androidkotlinmvvm.ui.view_model</ID>
+    <ID>PackageNaming:BindingTestViewModel.kt$package com.techpaliyal.androidkotlinmvvm.ui.view_model</ID>
+    <ID>PackageNaming:HeadingModel.kt$package com.techpaliyal.androidkotlinmvvm.ui.multiple_view</ID>
+    <ID>PackageNaming:ListItemModel.kt$package com.techpaliyal.androidkotlinmvvm.ui.multiple_view</ID>
+    <ID>PackageNaming:LoadingListingViewModel.kt$package com.techpaliyal.androidkotlinmvvm.ui.view_model</ID>
+    <ID>PackageNaming:MultiSelectListingActivityViewModel.kt$package com.techpaliyal.androidkotlinmvvm.ui.view_model</ID>
+    <ID>PackageNaming:MultipleViewTypeActivity.kt$package com.techpaliyal.androidkotlinmvvm.ui.multiple_view</ID>
+    <ID>PackageNaming:MultipleViewTypeViewModel.kt$package com.techpaliyal.androidkotlinmvvm.ui.multiple_view</ID>
+    <ID>PackageNaming:SchoolListing.kt$package com.techpaliyal.androidkotlinmvvm.ui.multiple_view</ID>
+    <ID>PackageNaming:UserListingActivityViewModel.kt$package com.techpaliyal.androidkotlinmvvm.ui.view_model</ID>
+    <ID>PackageNaming:ViewModelFactory.kt$package com.techpaliyal.androidkotlinmvvm.ui.view_model</ID>
+    <ID>UnusedPrivateMember:LoadingListingViewModel.kt$LoadingListingViewModel$i</ID>
+    <ID>VariableNaming:RecyclerViewPagination.kt$val VISIBLE_THRESHOLD: Int = RECYCLER_PAGING_THRESHOLD</ID>
+    <ID>WildcardImport:BindingTestViewModel.kt$import androidx.lifecycle.*</ID>
+  </CurrentIssues>
+</SmellBaseline>

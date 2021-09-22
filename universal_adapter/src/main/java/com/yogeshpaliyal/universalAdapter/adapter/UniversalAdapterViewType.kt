@@ -1,4 +1,4 @@
-package com.yogeshpaliyal.universal_adapter.adapter
+package com.yogeshpaliyal.universalAdapter.adapter
 
 import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding

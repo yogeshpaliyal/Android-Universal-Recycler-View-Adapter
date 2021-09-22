@@ -1,4 +1,4 @@
-package com.yogeshpaliyal.universal_adapter.adapter
+package com.yogeshpaliyal.universalAdapter.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.yogeshpaliyal.universal_adapter.BR
+import com.yogeshpaliyal.universalAdapter.BR
 
 
 /*
@@ -18,11 +18,11 @@ import com.yogeshpaliyal.universal_adapter.BR
 * https://techpaliyal.com
 * created on 02-05-2021 19:57
 */
-class LoadingAdapter<T>(
+class LoadingFooterAdapter<T>(
     val lifecycleOwner: LifecycleOwner?,
-    var options: UniversalAdapterViewType.Loading<T>
+    var options: UniversalAdapterViewType.LoadingFooter<T>
 ) :
-    ListAdapter<T, LoadingAdapter<T>.ViewHolder>(AsyncDifferConfig.Builder<T>(object :
+    ListAdapter<T, LoadingFooterAdapter<T>.ViewHolder>(AsyncDifferConfig.Builder<T>(object :
         DiffUtil.ItemCallback<T>() {
         override fun areItemsTheSame(oldItem: T, newItem: T): Boolean {
             return false
@@ -43,6 +43,7 @@ class LoadingAdapter<T>(
             options.additionalParams?.forEach {
                 binding.setVariable(it.key, it.value)
             }
+            binding.executePendingBindings()
 
         }
     }
@@ -50,7 +51,7 @@ class LoadingAdapter<T>(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = DataBindingUtil.inflate<ViewDataBinding>(
             LayoutInflater.from(parent.context),
-            options.resourceLoading!!,
+            options.loaderFooter!!,
             parent,
             false
         )
@@ -58,12 +59,12 @@ class LoadingAdapter<T>(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return options.resourceLoading ?: 0
+        return options.loaderFooter ?: 0
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind()
     }
 
-    override fun getItemCount(): Int = options.defaultLoadingItems
+    override fun getItemCount(): Int = if (options.loaderFooter != null) 1 else 0
 }

@@ -1,4 +1,4 @@
-package com.yogeshpaliyal.universal_adapter
+package com.yogeshpaliyal.universalAdapter
 
 import org.junit.Test
 
