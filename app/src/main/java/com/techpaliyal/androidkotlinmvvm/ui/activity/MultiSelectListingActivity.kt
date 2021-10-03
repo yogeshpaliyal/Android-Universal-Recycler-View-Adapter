@@ -11,9 +11,9 @@ import com.techpaliyal.androidkotlinmvvm.listeners.BasicListener
 import com.techpaliyal.androidkotlinmvvm.model.MultiSelectModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.MultiSelectListingActivityViewModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.initViewModel
-import com.yogeshpaliyal.universal_adapter.adapter.UniversalAdapterViewType
-import com.yogeshpaliyal.universal_adapter.adapter.UniversalRecyclerAdapter
-import com.yogeshpaliyal.universal_adapter.utils.Resource
+import com.yogeshpaliyal.universalAdapter.adapter.UniversalAdapterViewType
+import com.yogeshpaliyal.universalAdapter.adapter.UniversalRecyclerAdapter
+import com.yogeshpaliyal.universalAdapter.utils.Resource
 
 /**
  * @author Yogesh Paliyal

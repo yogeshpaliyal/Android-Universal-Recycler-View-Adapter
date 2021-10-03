@@ -9,13 +9,12 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import com.techpaliyal.androidkotlinmvvm.R
 import com.techpaliyal.androidkotlinmvvm.databinding.ActivityListingBinding
-import com.techpaliyal.androidkotlinmvvm.listeners.BasicListener
 import com.techpaliyal.androidkotlinmvvm.listeners.UsersListener
 import com.techpaliyal.androidkotlinmvvm.model.UserModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.UserListingActivityViewModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.initViewModel
-import com.yogeshpaliyal.universal_adapter.adapter.UniversalRecyclerAdapter
-import com.yogeshpaliyal.universal_adapter.utils.Resource
+import com.yogeshpaliyal.universalAdapter.adapter.UniversalRecyclerAdapter
+import com.yogeshpaliyal.universalAdapter.utils.Resource
 
 /**
  * @author Yogesh Paliyal

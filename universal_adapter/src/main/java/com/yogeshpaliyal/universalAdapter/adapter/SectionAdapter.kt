@@ -1,4 +1,4 @@
-package com.yogeshpaliyal.universal_adapter.adapter
+package com.yogeshpaliyal.universalAdapter.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,13 +9,15 @@ import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.yogeshpaliyal.universal_adapter.BR
-import com.yogeshpaliyal.universal_adapter.model.BaseDiffUtil
+import com.yogeshpaliyal.universalAdapter.model.BaseDiffUtil
 
 class SectionAdapter<T, B : ViewDataBinding>(
-    val lifecycleOwner: LifecycleOwner?,var model: T,val resource: Int,val customBindingMapping: ((itemBinding: B, item: T) -> Unit)
+    val lifecycleOwner: LifecycleOwner?,
+    var model: T,
+    val resource: Int,
+    val customBindingMapping: ((itemBinding: B, item: T) -> Unit)
 ) :
-    ListAdapter<T, SectionAdapter<T,B>.ViewHolder>(AsyncDifferConfig.Builder(object :
+    ListAdapter<T, SectionAdapter<T, B>.ViewHolder>(AsyncDifferConfig.Builder(object :
         DiffUtil.ItemCallback<T>() {
         override fun areItemsTheSame(oldItem: T, newItem: T): Boolean {
             return if (oldItem is BaseDiffUtil && newItem is BaseDiffUtil) {
@@ -39,10 +41,10 @@ class SectionAdapter<T, B : ViewDataBinding>(
     inner class ViewHolder(val binding: B) : RecyclerView.ViewHolder(binding.root) {
         fun bind(model: T) {
             binding.lifecycleOwner = lifecycleOwner
-                customBindingMapping.invoke(
-                    binding,
-                    model
-                )
+            customBindingMapping.invoke(
+                binding,
+                model
+            )
 
         }
     }

@@ -1,4 +1,4 @@
-package com.yogeshpaliyal.universal_adapter.utils
+package com.yogeshpaliyal.universalAdapter.utils
 
 
 /**

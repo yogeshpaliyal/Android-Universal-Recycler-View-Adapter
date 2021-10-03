@@ -1,4 +1,4 @@
-package com.yogeshpaliyal.universal_adapter.adapter
+package com.yogeshpaliyal.universalAdapter.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.yogeshpaliyal.universal_adapter.BR
+import com.yogeshpaliyal.universalAdapter.BR
 
 
 /*
@@ -18,12 +18,12 @@ import com.yogeshpaliyal.universal_adapter.BR
 * https://techpaliyal.com
 * created on 02-05-2021 19:57
 */
-class NoDataAdapter<T>(
+class ErrorAdapter<T>(
     val lifecycleOwner: LifecycleOwner?,
-    var options : UniversalAdapterViewType.NoData<T>,
+    var options : UniversalAdapterViewType.Error<T>,
     var message: String = ""
 ) :
-    ListAdapter<T, NoDataAdapter<T>.ViewHolder>(AsyncDifferConfig.Builder<T>(object :
+    ListAdapter<T, ErrorAdapter<T>.ViewHolder>(AsyncDifferConfig.Builder<T>(object :
         DiffUtil.ItemCallback<T>() {
         override fun areItemsTheSame(oldItem: T, newItem: T): Boolean {
             return false
@@ -41,7 +41,7 @@ class NoDataAdapter<T>(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return options.noDataLayout ?: 0
+        return options.errorLayout ?: 0
     }
 
     inner class ViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -52,7 +52,6 @@ class NoDataAdapter<T>(
                 binding.setVariable(BR.message, message)
                 binding.setVariable(BR.listener, options.listener)
                 binding.setVariable(BR.binding, binding)
-
                 options.additionalParams?.forEach {
                     binding.setVariable(it.key, it.value)
                 }
@@ -71,7 +70,7 @@ class NoDataAdapter<T>(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = DataBindingUtil.inflate<ViewDataBinding>(
             LayoutInflater.from(parent.context),
-            options.noDataLayout!!,
+            options.errorLayout!!,
             parent,
             false
         )

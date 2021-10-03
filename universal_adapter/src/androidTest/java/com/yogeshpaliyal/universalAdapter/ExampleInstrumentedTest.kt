@@ -1,4 +1,4 @@
-package com.yogeshpaliyal.universal_adapter
+package com.yogeshpaliyal.universalAdapter
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

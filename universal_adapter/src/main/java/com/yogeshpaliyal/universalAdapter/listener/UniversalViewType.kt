@@ -1,4 +1,4 @@
-package com.yogeshpaliyal.universal_adapter.listener
+package com.yogeshpaliyal.universalAdapter.listener
 
 interface UniversalViewType {
     fun getLayoutId() : Int

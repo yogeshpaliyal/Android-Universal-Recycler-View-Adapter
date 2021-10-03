@@ -1,6 +1,6 @@
-package com.yogeshpaliyal.universal_adapter.model
+package com.yogeshpaliyal.universalAdapter.model
 
-import com.yogeshpaliyal.universal_adapter.utils.getRandomString
+import com.yogeshpaliyal.universalAdapter.utils.getRandomString
 
 
 /*

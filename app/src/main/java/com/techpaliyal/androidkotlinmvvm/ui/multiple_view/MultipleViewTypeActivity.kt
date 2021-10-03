@@ -7,8 +7,8 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.techpaliyal.androidkotlinmvvm.databinding.ActivityMultipleViewTypeBinding
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.initViewModel
-import com.yogeshpaliyal.universal_adapter.adapter.UniversalAdapterViewType
-import com.yogeshpaliyal.universal_adapter.adapter.UniversalRecyclerAdapter
+import com.yogeshpaliyal.universalAdapter.adapter.UniversalAdapterViewType
+import com.yogeshpaliyal.universalAdapter.adapter.UniversalRecyclerAdapter
 
 class MultipleViewTypeActivity : AppCompatActivity() {
 

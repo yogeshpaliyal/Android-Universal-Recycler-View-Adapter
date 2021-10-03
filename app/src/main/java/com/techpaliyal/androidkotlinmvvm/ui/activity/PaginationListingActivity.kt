@@ -15,7 +15,7 @@ import com.techpaliyal.androidkotlinmvvm.listeners.UsersListener
 import com.techpaliyal.androidkotlinmvvm.model.UserModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.LoadingListingViewModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.initViewModel
-import com.yogeshpaliyal.universal_adapter.adapter.UniversalRecyclerAdapter
+import com.yogeshpaliyal.universalAdapter.adapter.UniversalRecyclerAdapter
 
 /**
  * @author Yogesh Paliyal
