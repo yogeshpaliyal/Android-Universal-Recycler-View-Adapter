@@ -28,18 +28,18 @@ class ContentListAdapter<T>(
         DiffUtil.ItemCallback<T>() {
         override fun areItemsTheSame(oldItem: T, newItem: T): Boolean {
             return if (oldItem is BaseDiffUtil && newItem is BaseDiffUtil) {
-                oldItem.getDiffId() == newItem.getDiffId()
+                oldItem.getDiffId()?.equals(newItem.getDiffId())
             } else {
-                oldItem.hashCode() == newItem.hashCode()
-            }
+                oldItem?.hashCode()?.equals(newItem?.hashCode())
+            } ?: false
         }
 
         override fun areContentsTheSame(oldItem: T, newItem: T): Boolean {
             return if (oldItem is BaseDiffUtil && newItem is BaseDiffUtil) {
-                oldItem.getDiffBody() == newItem.getDiffBody()
+                oldItem.getDiffBody()?.equals(newItem.getDiffBody())
             } else {
-                oldItem.hashCode() == newItem.hashCode()
-            }
+                oldItem?.toString()?.equals(newItem?.toString())
+            } ?: false
         }
 
     }).build()) {

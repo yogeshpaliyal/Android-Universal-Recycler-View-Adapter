@@ -53,5 +53,9 @@ class MainActivity : AppCompatActivity() {
             MultipleViewTypeActivity.start(this)
         }
 
+        binding.btnPaginationListing.setOnClickListener {
+            PaginationListingActivity.start(this)
+        }
+
     }
 }
