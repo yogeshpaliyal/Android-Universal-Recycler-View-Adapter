@@ -1,5 +1,6 @@
 package com.yogeshpaliyal.universalAdapter.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -34,12 +35,13 @@ class ContentListAdapter<T>(
             } ?: false
         }
 
+
         override fun areContentsTheSame(oldItem: T, newItem: T): Boolean {
             return if (oldItem is BaseDiffUtil && newItem is BaseDiffUtil) {
-                oldItem.getDiffBody()?.equals(newItem.getDiffBody())
+                oldItem.getDiffBody() == newItem.getDiffBody()
             } else {
-                oldItem?.toString()?.equals(newItem?.toString())
-            } ?: false
+                oldItem?.toString() == newItem?.toString()
+            }
         }
 
     }).build()) {
