@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnMultipleViews.setOnClickListener {
-            MultipleViewTypeActivity.start(this)
+            SelectMultipleViewTypeExampleActivity.start(this)
         }
 
         binding.btnPaginationListing.setOnClickListener {

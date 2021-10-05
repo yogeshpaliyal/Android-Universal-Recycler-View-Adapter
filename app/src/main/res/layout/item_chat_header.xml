@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.techpaliyal.androidkotlinmvvm.ui.multiple_view_example_2.HeadingModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:padding="3dp"
+        android:weightSum="3">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0.8dp"
+            android:layout_weight="1"
+            android:layout_marginStart="20dp"
+            android:background="@color/black"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp" />
+
+        <TextView
+            android:id="@+id/tvdateheader"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:elevation="3dp"
+            android:padding="2dp"
+            android:gravity="center"
+            android:text="@{model.title}"
+            tools:text="Yesterday"
+            android:textColor="#0C1027"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0.8dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="20dp"
+            android:background="@color/black"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="20dp" />
+
+
+    </LinearLayout>
+</layout>
