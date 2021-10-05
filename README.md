@@ -327,6 +327,66 @@ val tempArray = ArrayList<SchoolListing>()
 View full [example](https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-Adapter/tree/master/app/src/main/java/com/techpaliyal/androidkotlinmvvm/ui/multiple_view)
 
 
+### Multiple View Types Example 2
+
+Show multiple, here 3 view types in your listing, for eg: message sent, message received and date header  
+implement ```UniversalViewType``` in your model and override ```getLayoutId()```
+
+screenshot : [view fullscreen](https://github.com/IamRaja007/Android-Universal-Recycler-View-Adapter/blob/master/multiple_view_type_example_2.jpg)  
+
+<img src="https://github.com/IamRaja007/Android-Universal-Recycler-View-Adapter/blob/master/multiple_view_type_example_2.jpg?raw=true" width="30%" />
+
+example:
+
+#### Heading Model
+```kotlin
+data class HeadingModel(val title: String) : UniversalViewType, ChatListing {
+    override fun getLayoutId(): Int {
+        return R.layout.item_chat_header
+    }
+}
+```
+
+#### List Model
+```kotlin
+data class ListItems(val name: String,val time:String,val type:String) : UniversalViewType, ChatListing {
+    override fun getLayoutId(): Int {
+        if(type == "MessageSent"){
+            return R.layout.item_row_message_sent
+        }
+        else{
+            return R.layout.item_row_message_received
+        }
+    }
+}
+``` 
+
+#### ChatListing.kt  
+This interface is used to identify models to use in a recycler view, to prevent adding of other type of models in array except for models that implements ```ChatListing```
+
+```kotlin
+interface ChatListing
+```
+
+#### Adding data to array
+```kotlin
+val tempArray = ArrayList<SchoolListing>()
+        val tempArray = ArrayList<ChatListing>()
+
+        tempArray.add(HeadingModel("Yesterday"))
+        tempArray.add(ListItems("Wassup","1:40 PM","MessageSent"))
+        tempArray.add(ListItems("Just preparing for exams","1:43 PM","MessageReceived"))
+        tempArray.add(ListItems("Great!","1:47 PM","MessageSent"))
+
+        tempArray.add(HeadingModel("Today"))
+        tempArray.add(ListItems("Hello","12:25 AM","MessageSent"))
+        tempArray.add(ListItems("I am fine","12:27 AM","MessageReceived"))
+        tempArray.add(ListItems("What about you","12:27 AM","MessageReceived"))
+        tempArray.add(ListItems("I am great!","12:30 AM","MessageSent"))
+```
+
+View full [example](https://github.com/IamRaja007/Android-Universal-Recycler-View-Adapter/tree/master/app/src/main/java/com/techpaliyal/androidkotlinmvvm/ui/multiple_view_example_2)
+
 
 ## Feedback
 
