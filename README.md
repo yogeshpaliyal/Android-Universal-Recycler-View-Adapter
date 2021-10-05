@@ -370,7 +370,6 @@ interface ChatListing
 
 #### Adding data to array
 ```kotlin
-val tempArray = ArrayList<SchoolListing>()
         val tempArray = ArrayList<ChatListing>()
 
         tempArray.add(HeadingModel("Yesterday"))
