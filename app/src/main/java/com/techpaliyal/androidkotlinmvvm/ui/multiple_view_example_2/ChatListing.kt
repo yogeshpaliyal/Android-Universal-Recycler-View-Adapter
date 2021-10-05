@@ -1,0 +1,3 @@
+package com.techpaliyal.androidkotlinmvvm.ui.multiple_view_example_2
+
+interface ChatListing
