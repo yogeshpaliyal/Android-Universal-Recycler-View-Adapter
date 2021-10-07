@@ -15,9 +15,12 @@ buildscript {
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.18.1"
-
+        classpath "io.github.gradle-nexus:publish-plugin:1.1.0"
     }
 }
+
+apply plugin: 'io.github.gradle-nexus.publish-plugin'
+
 
 allprojects {
     repositories {
