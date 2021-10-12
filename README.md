@@ -65,12 +65,12 @@ SUCCESS	|0	|No Record Found Layout will be displayed
 ERROR	|0|	Error Layout Shown
 LOADING	|more than 0|	Data Cells + load more at end
 SUCCESS	|more than 0|	Data Cells
-ERROR	|more than 0|	Data Cells + error cell at end
-  
+ERROR	|more than 0|	Data Cells + error cell at end   
+    
 
 
-# For more info Check [Wiki](https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-Adapter/wiki)
-## General
+## 📚 For more info Check [Wiki](https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-Adapter/wiki)
+### General
 - [Intro](https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-Adapter/wiki/Intro)  
 - [Features & Logic Table](https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-Adapter/wiki/Features-&-Logic-Table)
 - [Implementation](https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-Adapter/wiki/Implement)
@@ -78,7 +78,7 @@ ERROR	|more than 0|	Data Cells + error cell at end
 - [XML Variables](https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-Adapter/wiki/XML-Variables)
 
 
-## Examples
+### Examples
 - [Simple List](https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-Adapter/wiki/Simple-List)
 - [Loading, Content , Error](https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-Adapter/wiki/Loading,-Content,-Error)
 
