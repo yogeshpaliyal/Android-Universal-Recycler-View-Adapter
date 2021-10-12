@@ -146,7 +146,7 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: Builder<T>) {
                     remove(loadingAdapter)
                     addAdapter(contentAdapter)
 
-                    contentAdapter?.submitList(data.data)
+                    contentAdapter?.submitData(data.data)
                     addAdapter(loadMoreAdapter)
                 }
 
@@ -224,7 +224,7 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: Builder<T>) {
         }
     }
 
-    data class Builder<T> constructor(
+    data class Builder<T: Any> constructor(
         var lifecycleOwner: LifecycleOwner? = null,
         var data: Resource<List<T>?>? = null,
         val content: UniversalAdapterViewType.Content<T>? = null,

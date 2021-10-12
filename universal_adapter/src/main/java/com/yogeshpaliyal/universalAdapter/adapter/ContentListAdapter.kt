@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LifecycleOwner
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -21,30 +22,28 @@ import com.yogeshpaliyal.universalAdapter.model.BaseDiffUtil
 * https://techpaliyal.com
 * created on 02-05-2021 19:57
 */
-class ContentListAdapter<T>(
+class ContentListAdapter<T : Any>(
     val lifecycleOwner: LifecycleOwner?,
     val options: UniversalAdapterViewType.Content<T>
 ) :
-    ListAdapter<T, ContentListAdapter<T>.ViewHolder>(AsyncDifferConfig.Builder(object :
-        DiffUtil.ItemCallback<T>() {
+    PagingDataAdapter<T, ContentListAdapter<T>.ViewHolder>(object : DiffUtil.ItemCallback<T>(){
         override fun areItemsTheSame(oldItem: T, newItem: T): Boolean {
             return if (oldItem is BaseDiffUtil && newItem is BaseDiffUtil) {
                 oldItem.getDiffId()?.equals(newItem.getDiffId())
             } else {
-                oldItem?.hashCode()?.equals(newItem?.hashCode())
+                oldItem.hashCode().equals(newItem.hashCode())
             } ?: false
         }
-
 
         override fun areContentsTheSame(oldItem: T, newItem: T): Boolean {
             return if (oldItem is BaseDiffUtil && newItem is BaseDiffUtil) {
                 oldItem.getDiffBody() == newItem.getDiffBody()
             } else {
-                oldItem?.toString() == newItem?.toString()
+                oldItem.toString() == newItem.toString()
             }
         }
 
-    }).build()) {
+    }) {
 
 
     inner class ViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -72,16 +71,13 @@ class ContentListAdapter<T>(
         }
     }
 
-    override fun submitList(list: List<T>?) {
-        super.submitList(list?.toList())
-    }
 
     override fun getItemViewType(position: Int): Int {
         return getLayoutId(position)
     }
 
     private fun getLayoutId(position: Int): Int{
-        val item = currentList.get(position)
+        val item = snapshot().get(position)
         val layoutId = if (item is UniversalViewType){
             item.getLayoutId()
         }else{
@@ -105,7 +101,7 @@ class ContentListAdapter<T>(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        getItem(position)?.let { holder.bind(it) }
     }
 
 }

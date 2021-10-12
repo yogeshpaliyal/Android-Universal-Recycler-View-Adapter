@@ -63,5 +63,8 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:1.2.1"
 
 
+    def paging_version = "3.0.1"
+
+    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
 
 }
