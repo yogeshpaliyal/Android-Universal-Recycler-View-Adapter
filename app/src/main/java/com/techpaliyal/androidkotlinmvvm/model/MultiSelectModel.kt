@@ -1,6 +1,6 @@
 package com.techpaliyal.androidkotlinmvvm.model
 
-import com.yogeshpaliyal.universal_adapter.model.BaseDiffUtil
+import com.yogeshpaliyal.universalAdapter.model.BaseDiffUtil
 
 
 /**

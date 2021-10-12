@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.techpaliyal.androidkotlinmvvm.R
 import com.techpaliyal.androidkotlinmvvm.databinding.ActivityMainBinding
+import com.techpaliyal.androidkotlinmvvm.ui.multiple_view.MultipleViewTypeActivity
 
 
 /**
@@ -46,6 +47,14 @@ class MainActivity : AppCompatActivity() {
         binding.btnBindingAdapter.setOnClickListener {
             val intent = Intent(this, BindingAdapterTestActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.btnMultipleViews.setOnClickListener {
+            SelectMultipleViewTypeExampleActivity.start(this)
+        }
+
+        binding.btnPaginationListing.setOnClickListener {
+            PaginationListingActivity.start(this)
         }
 
     }

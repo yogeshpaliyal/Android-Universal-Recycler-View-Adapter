@@ -5,15 +5,17 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import com.techpaliyal.androidkotlinmvvm.R
 import com.techpaliyal.androidkotlinmvvm.databinding.ActivityListingBinding
 import com.techpaliyal.androidkotlinmvvm.extensions.setupPagination
 import com.techpaliyal.androidkotlinmvvm.listeners.BasicListener
+import com.techpaliyal.androidkotlinmvvm.listeners.UsersListener
 import com.techpaliyal.androidkotlinmvvm.model.UserModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.LoadingListingViewModel
 import com.techpaliyal.androidkotlinmvvm.ui.view_model.initViewModel
-import com.yogeshpaliyal.universal_adapter.adapter.UniversalRecyclerAdapter
+import com.yogeshpaliyal.universalAdapter.adapter.UniversalRecyclerAdapter
 
 /**
  * @author Yogesh Paliyal
@@ -44,7 +46,11 @@ class PaginationListingActivity : AppCompatActivity() {
             resourceLoading = R.layout.item_user_shimmer,
             defaultLoadingItems = 5,
             loaderFooter = R.layout.item_loading_more,
-            mListener = object : BasicListener<UserModel> {
+            mListener = object : UsersListener {
+                override fun onLikeClicked(binding: ViewDataBinding, model: UserModel) {
+
+                }
+
                 override fun onClick(model: UserModel) {
                     Toast.makeText(this@PaginationListingActivity, model.name, Toast.LENGTH_SHORT)
                         .show()

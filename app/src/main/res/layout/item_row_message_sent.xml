@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.techpaliyal.androidkotlinmvvm.ui.multiple_view_example_2.ListItems" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp"
+        android:layout_marginLeft="30dp">
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/flexboxlayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                app:alignItems="flex_end"
+                app:flexWrap="wrap"
+                android:background="@color/colorPrimaryDark"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:justifyContent="flex_end">
+
+                <TextView
+                    android:id="@+id/tvmessagecontent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="@{model.name}"
+                    tools:text="Hey! WHATS UP?" />
+            </com.google.android.flexbox.FlexboxLayout>
+
+        <TextView
+            android:id="@+id/tvmessagetime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{model.time}"
+            tools:text="12:48 AM"
+            android:textSize="12sp"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/flexboxlayout"
+            app:layout_constraintHorizontal_bias="1.0"
+            android:textColor="@color/black"
+            android:layout_marginRight="5dp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

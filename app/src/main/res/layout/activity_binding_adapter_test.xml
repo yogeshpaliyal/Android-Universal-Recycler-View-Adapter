@@ -28,6 +28,7 @@
             item_layout="@{R.layout.item_user}"
             loading_layout="@{R.layout.item_user_shimmer}"
             data="@{mViewModel.usersData}"
+            ura_use_tag="@{false}"
             lifecycleOwner="@{myLifecycleOwner}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"

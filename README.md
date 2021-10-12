@@ -12,13 +12,13 @@
 Tired of creating 100s of Adapters and View Models.
 This Library will make it easy, No need to create a Adapter, ViewHolder for every list
 
-![Cover Image](https://repository-images.githubusercontent.com/232743178/c14ced39-c916-4ceb-a868-c19bcbcf87f1)
+![Cover Image](https://raw.githubusercontent.com/yogeshpaliyal/Android-Universal-Recycler-View-Adapter/master/images/Universal%20Recycler%20View.jpg)
 
 ## 🤔 How?
 Using Resource Pattern to find the status of the list and show view types according to that.
 
 
-### Step #1. Add the JitPack repository to your build file:
+### Step #1. Add the JitPack repository to your build file: 
 ```gradle
 allprojects {
     repositories {
@@ -46,7 +46,7 @@ dependencies {
 
 ## 🤩 Features
 
-- Normal Listing
+- Content Listing (Supports Multiple View Types)
 - Loading + Listing (Showing shimmer items for Loading then showing the actual Listing)
 - Loading + LoadMore (Showing loading items and add a item at bottom to create infinite Listing)
 - No Data Found
@@ -256,11 +256,141 @@ binding.recyclerView.adapter = mAdapter.getAdapter()
   ```
 
 
+### Multiple View Types  
+Show multiple view types in your listing, for eg: heading and list  
+implement ```UniversalViewType``` in your model and override ```getLayoutId()```
+
+
+screenshot : [view fullscreen](https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-Adapter/blob/master/images/universal_recycler_view_multiple_view_type.png)  
+
+<img src="https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-Adapter/blob/master/images/universal_recycler_view_multiple_view_type.png?raw=true" width="30%" />
+
+example :
+
+#### Heading Model
+```kotlin
+data class HeadingModel(val title: String) : UniversalViewType,SchoolListing {
+    override fun getLayoutId(): Int {
+        return R.layout.item_heading
+    }
+}
+```
+
+#### List Model
+```kotlin
+data class ListItemModel(val name: String) : UniversalViewType,SchoolListing {
+    override fun getLayoutId(): Int {
+        return R.layout.item_list
+    }
+}
+``` 
+
+#### SchoolListing.kt  
+This interface is used to identify models to use in a recycler view, to prevent adding of other type of models in array except for models that implements ```SchoolListing```
+
+```kotlin
+interface SchoolListing
+```
+
+
+#### Adding data to array
+```kotlin
+val tempArray = ArrayList<SchoolListing>()
+        tempArray.add(HeadingModel("Principal"))
+        tempArray.add(ListItemModel("Yogesh Paliyal"))
+
+        tempArray.add(HeadingModel("Staff"))
+        tempArray.add(ListItemModel("Sachin Rupani"))
+        tempArray.add(ListItemModel("Suraj Vaishnav"))
+        tempArray.add(ListItemModel("Himanshu Choudhan"))
+        tempArray.add(ListItemModel("Pramod Patel"))
+        tempArray.add(ListItemModel("Bharath"))
+        tempArray.add(ListItemModel("Sanjay"))
+        tempArray.add(ListItemModel("Surendra Singh"))
+
+
+        tempArray.add(HeadingModel("Students"))
+        tempArray.add(ListItemModel("Bhoma Ram"))
+        tempArray.add(ListItemModel("Deepak"))
+        tempArray.add(ListItemModel("Sohan"))
+        tempArray.add(ListItemModel("Umesh"))
+        tempArray.add(ListItemModel("Amanda Howard"))
+        tempArray.add(ListItemModel("Jeremy Glover"))
+        tempArray.add(ListItemModel("Ginger Larson"))
+        tempArray.add(ListItemModel("Lincoln Pierpoint"))
+        tempArray.add(ListItemModel("Brian Brooks"))
+        tempArray.add(ListItemModel("Erasmus Hall"))
+        tempArray.add(ListItemModel("Amber Lane"))
+        tempArray.add(ListItemModel("Elsie Cole"))
+```
+
+View full [example](https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-Adapter/tree/master/app/src/main/java/com/techpaliyal/androidkotlinmvvm/ui/multiple_view)
+
+
+### Multiple View Types Example 2
+
+Show multiple, here 3 view types in your listing, for eg: message sent, message received and date header  
+implement ```UniversalViewType``` in your model and override ```getLayoutId()```
+
+screenshot : [view fullscreen](https://github.com/IamRaja007/Android-Universal-Recycler-View-Adapter/blob/master/multiple_view_type_example_2.jpg)  
+
+<img src="https://github.com/IamRaja007/Android-Universal-Recycler-View-Adapter/blob/master/multiple_view_type_example_2.jpg?raw=true" width="30%" />
+
+example:
+
+#### Heading Model
+```kotlin
+data class HeadingModel(val title: String) : UniversalViewType, ChatListing {
+    override fun getLayoutId(): Int {
+        return R.layout.item_chat_header
+    }
+}
+```
+
+#### List Model
+```kotlin
+data class ListItems(val name: String,val time:String,val type:String) : UniversalViewType, ChatListing {
+    override fun getLayoutId(): Int {
+        if(type == "MessageSent"){
+            return R.layout.item_row_message_sent
+        }
+        else{
+            return R.layout.item_row_message_received
+        }
+    }
+}
+``` 
+
+#### ChatListing.kt  
+This interface is used to identify models to use in a recycler view, to prevent adding of other type of models in array except for models that implements ```ChatListing```
+
+```kotlin
+interface ChatListing
+```
+
+#### Adding data to array
+```kotlin
+        val tempArray = ArrayList<ChatListing>()
+
+        tempArray.add(HeadingModel("Yesterday"))
+        tempArray.add(ListItems("Wassup","1:40 PM","MessageSent"))
+        tempArray.add(ListItems("Just preparing for exams","1:43 PM","MessageReceived"))
+        tempArray.add(ListItems("Great!","1:47 PM","MessageSent"))
+
+        tempArray.add(HeadingModel("Today"))
+        tempArray.add(ListItems("Hello","12:25 AM","MessageSent"))
+        tempArray.add(ListItems("I am fine","12:27 AM","MessageReceived"))
+        tempArray.add(ListItems("What about you","12:27 AM","MessageReceived"))
+        tempArray.add(ListItems("I am great!","12:30 AM","MessageSent"))
+```
+
+View full [example](https://github.com/IamRaja007/Android-Universal-Recycler-View-Adapter/tree/master/app/src/main/java/com/techpaliyal/androidkotlinmvvm/ui/multiple_view_example_2)
+
 
 ## Feedback
 
 
 Having any issue to get you are looking for, feel free to put your question in [Discussion Section](https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-Adapter/discussions) and help us Improving this library and Documentation.
   
-**Happy Coding 😁**
+**Happy Coding 😁** 
 

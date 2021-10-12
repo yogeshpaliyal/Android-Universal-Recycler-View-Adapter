@@ -12,9 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ui.multiple_view.MultipleViewTypeActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.activity.BindingAdapterTestActivity"
             android:exported="true" />
         <activity android:name=".ui.activity.LoadingListingActivity" />
+        <activity android:name=".ui.activity.SelectMultipleViewTypeExampleActivity" />
+        <activity android:name=".ui.multiple_view_example_2.MultipleViewTypeChat" />
         <activity android:name=".ui.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
