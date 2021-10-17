@@ -52,30 +52,42 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: Builder<T>) {
         lifecycleOwner: LifecycleOwner? = null
     ) :
             this(
-                Builder<T>(
-                    lifecycleOwner,
-                    data,
-                    UniversalAdapterViewType.Content(resource, mListener),
-                    UniversalAdapterViewType.Loading(resourceLoading, defaultLoadingItems),
-                    UniversalAdapterViewType.LoadingFooter(loaderFooter),
-                    UniversalAdapterViewType.NoData(noDataLayout, noDataListener),
-                    UniversalAdapterViewType.Error(errorLayout, errorListener)
-                )
+                Builder<T>().also {
+                    it.setLifecycleOwner(lifecycleOwner)
+                    it.setData(data)
+                    it.setContent(resource, mListener)
+
+                    if (resourceLoading != null) {
+                        it.setLoading(resourceLoading, defaultLoadingItems)
+                    }
+
+                    if (loaderFooter != null) {
+                        it.setLoadingFooter(loaderFooter)
+                    }
+                    if (noDataLayout != null) {
+                        it.setNoData(noDataLayout, noDataListener)
+                    }
+                    if (errorLayout != null) {
+                        it.setError(errorLayout, errorListener)
+                    }
+                }
             )
 
 
-    // content type
-    // loading type
-    // content + loading type
-    // error layout
-    // content + error layout
-
     private val mainAdapter: ConcatAdapter = ConcatAdapter()
 
+    // content type
     private var contentAdapter: ContentListAdapter<T>? = null
+
+    // loading type
     private var loadingAdapter: LoadingAdapter<T>? = null
     private var noDataFound: NoDataAdapter<T>? = null // to support only message
+
+    // content + loading type
     private var loadMoreAdapter: LoadingFooterAdapter<T>? = null
+
+    // content + error layout
+    // error layout
     private var errorAdapter: ErrorAdapter<T>? = null
 
     private var data: Resource<List<T>?>? = null
@@ -90,20 +102,18 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: Builder<T>) {
 
 
         adapterBuilder.loading?.let { loading ->
-            if (loading.resourceLoading != null)
-                loadingAdapter = LoadingAdapter(
-                    adapterBuilder.lifecycleOwner,
-                    loading
-                )
+            loadingAdapter = LoadingAdapter(
+                adapterBuilder.lifecycleOwner,
+                loading
+            )
         }
 
 
         adapterBuilder.loadingFooter?.let { loadingFooter ->
-            if (loadingFooter.loaderFooter != null)
-                loadMoreAdapter = LoadingFooterAdapter(
-                    adapterBuilder.lifecycleOwner,
-                    loadingFooter
-                )
+            loadMoreAdapter = LoadingFooterAdapter(
+                adapterBuilder.lifecycleOwner,
+                loadingFooter
+            )
         }
 
 
@@ -253,16 +263,22 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: Builder<T>) {
         internal var error: UniversalAdapterViewType.Error<T>? = null
     ) {
 
-        fun setLifecycleOwner(lifecycleOwner: LifecycleOwner?) {
+        /**
+         * Set lifecycle owner to observe livedata changes
+         */
+        fun setLifecycleOwner(lifecycleOwner: LifecycleOwner?): Builder<T> {
             this.lifecycleOwner = lifecycleOwner
+            return this
         }
 
-        fun setData(data: Resource<List<T>?>?) {
+        fun setData(data: Resource<List<T>?>?): Builder<T> {
             this.data = data
+            return this
         }
 
-        fun setContent(content: UniversalAdapterViewType.Content<T>) {
+        fun setContent(content: UniversalAdapterViewType.Content<T>): Builder<T> {
             this.content = content
+            return this
         }
 
         @JvmOverloads
@@ -272,99 +288,109 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: Builder<T>) {
             listener: Any? = null,
             additionalParams: HashMap<Int, Any>? = null,
             customBindingMapping: ((itemBinding: ViewDataBinding, item: T, bindingAdapterPosition: Int) -> Unit)? = null
-        ) {
+        ): Builder<T> {
             this.content = UniversalAdapterViewType.Content<T>(
                 resource,
                 listener,
                 additionalParams,
                 customBindingMapping
             )
+            return this
         }
 
-        fun setLoading(loading: UniversalAdapterViewType.Loading<T>) {
+        fun setLoading(loading: UniversalAdapterViewType.Loading<T>): Builder<T> {
             this.loading = loading
+            return this
         }
 
         @JvmOverloads
         fun setLoading(
             @LayoutRes
-            resourceLoading: Int? = null,
+            loadingLayout: Int,
             defaultLoadingItems: Int = 5,
             additionalParams: HashMap<Int, Any>? = null,
             customBindingMapping: ((itemBinding: ViewDataBinding, item: T) -> Unit)? = null
-        ) {
+        ): Builder<T> {
 
             this.loading = UniversalAdapterViewType.Loading<T>(
-                resourceLoading,
+                loadingLayout,
                 defaultLoadingItems,
                 additionalParams,
                 customBindingMapping
             )
+
+            return this
         }
 
-        fun setLoadingFooter(loadingFooter: UniversalAdapterViewType.LoadingFooter<T>) {
+        fun setLoadingFooter(loadingFooter: UniversalAdapterViewType.LoadingFooter<T>): Builder<T> {
             this.loadingFooter = loadingFooter
+            return this
         }
 
         @JvmOverloads
         fun setLoadingFooter(
             @LayoutRes
-            loaderFooter: Int? = null,
+            loaderFooterLayout: Int,
             additionalParams: HashMap<Int, Any>? = null,
             customBindingMapping: ((itemBinding: ViewDataBinding, item: T) -> Unit)? = null
-        ) {
+        ): Builder<T> {
             this.loadingFooter = UniversalAdapterViewType.LoadingFooter<T>(
-                loaderFooter,
+                loaderFooterLayout,
                 additionalParams,
                 customBindingMapping
             )
+            return this
         }
 
-        fun setNoData(noData: UniversalAdapterViewType.NoData<T>) {
+        fun setNoData(noData: UniversalAdapterViewType.NoData<T>): Builder<T> {
             this.noData = noData
+            return this
         }
 
         @JvmOverloads
         fun setNoData(
             @LayoutRes
-            noDataLayout: Int? = null,
+            noDataLayout: Int,
             listener: Any? = null,
             additionalParams: HashMap<Int, Any>? = null,
             customBindingMapping: ((itemBinding: ViewDataBinding, item: String?) -> Unit)? = null
-        ) {
+        ): Builder<T> {
             this.noData = UniversalAdapterViewType.NoData<T>(
                 noDataLayout,
                 listener,
                 additionalParams,
                 customBindingMapping
             )
+            return this
         }
 
-        fun setError(error: UniversalAdapterViewType.Error<T>) {
+        fun setError(error: UniversalAdapterViewType.Error<T>): Builder<T> {
             this.error = error
+            return this
         }
 
         @JvmOverloads
         fun setError(
             @LayoutRes
-            errorLayout: Int? = null,
+            errorLayout: Int,
             listener: Any? = null,
             additionalParams: HashMap<Int, Any>? = null,
             customBindingMapping: ((itemBinding: ViewDataBinding, message: String?) -> Unit)? = null
-        ) {
+        ): Builder<T> {
             this.error = UniversalAdapterViewType.Error<T>(
                 errorLayout,
                 listener,
                 additionalParams,
                 customBindingMapping
             )
+            return this
         }
 
 
         @Suppress
         constructor(
             @LayoutRes
-            resource: Int,
+            resource: Int ?= null,
             @LayoutRes
             resourceLoading: Int? = null,
             defaultLoadingItems: Int = 5,
@@ -383,10 +409,19 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: Builder<T>) {
             lifecycleOwner,
             data,
             UniversalAdapterViewType.Content(resource, mListener),
-            UniversalAdapterViewType.Loading(resourceLoading, defaultLoadingItems),
-            UniversalAdapterViewType.LoadingFooter(loaderFooter),
-            UniversalAdapterViewType.NoData(noDataLayout, noDataListener),
-            UniversalAdapterViewType.Error(errorLayout, errorListener)
+            if (resourceLoading != null) UniversalAdapterViewType.Loading(
+                resourceLoading,
+                defaultLoadingItems
+            ) else null,
+            if (loaderFooter != null) UniversalAdapterViewType.LoadingFooter(loaderFooter) else null,
+            if (noDataLayout != null) UniversalAdapterViewType.NoData(
+                noDataLayout,
+                noDataListener
+            ) else null,
+            if (errorLayout != null) UniversalAdapterViewType.Error(
+                errorLayout,
+                errorListener
+            ) else null
         )
 
         fun build() = UniversalRecyclerAdapter(this)

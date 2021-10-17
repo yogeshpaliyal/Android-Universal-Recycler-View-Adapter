@@ -57,9 +57,6 @@ class ShimmerListingActivity : AppCompatActivity() {
                     }
                 }),
             loading = UniversalAdapterViewType.Loading(resourceLoading = R.layout.item_user_shimmer),
-            loadingFooter = UniversalAdapterViewType.LoadingFooter(),
-            noData = UniversalAdapterViewType.NoData(),
-            error = UniversalAdapterViewType.Error()
         ).build()
     }
 

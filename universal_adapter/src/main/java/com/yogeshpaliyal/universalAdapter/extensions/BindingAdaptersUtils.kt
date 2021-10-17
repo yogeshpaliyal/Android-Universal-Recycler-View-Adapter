@@ -54,17 +54,23 @@ fun <T> RecyclerView.setRecyclerAdapter(
                 universalAdapter.updateData(it)
             }
         }else {
-            val tempAdapter = UniversalRecyclerAdapter.Builder(
-                lifecycleOwner = lifecycleOwner, data = data,
-                content = UniversalAdapterViewType.Content(itemLayout, itemListener),
-                loading = UniversalAdapterViewType.Loading(
-                    loadingLayout,
-                    loadingLayoutCount ?: DEFAULT_LOADING_ITEMS
-                ),
-                loadingFooter = UniversalAdapterViewType.LoadingFooter(loadMoreLayout),
-                error = UniversalAdapterViewType.Error(errorLayout, errorListener),
-                noData = UniversalAdapterViewType.NoData(noDataLayout, noDataListener)
-            ).build()
+            val builder = UniversalRecyclerAdapter.Builder<T>()
+            builder.setLifecycleOwner(lifecycleOwner)
+
+            builder.setData(data)
+
+            builder.setContent(itemLayout, itemListener)
+            if(loadingLayout != null)
+                builder.setLoading(loadingLayout,loadingLayoutCount ?: DEFAULT_LOADING_ITEMS)
+            if(loadMoreLayout != null)
+                builder.setLoadingFooter(loadMoreLayout)
+
+            if(errorLayout != null)
+                builder.setError(errorLayout, errorListener)
+            if(noDataLayout != null)
+                builder.setNoData(noDataLayout, noDataListener)
+
+            val tempAdapter = builder.build()
             adapter = tempAdapter.getAdapter()
             if (useTag != false)
                 tag = tempAdapter
