@@ -38,7 +38,10 @@ class BasicListingActivity : AppCompatActivity() {
         }
     }
 
-    private val mAdapter by lazy {
+    /**
+     * Old Builder way
+     */
+   /* private val mAdapter by lazy {
         UniversalRecyclerAdapter.Builder<BasicModel>(
             lifecycleOwner = this,
             content = UniversalAdapterViewType.Content(
@@ -50,6 +53,21 @@ class BasicListingActivity : AppCompatActivity() {
                     }
                 })
         ).build()
+    }*/
+
+    /**
+     * New Builder Way
+     */
+    private val mAdapter by lazy{
+        UniversalRecyclerAdapter.Builder<BasicModel>()
+            .setLifecycleOwner(this)
+            .setContent(R.layout.item_simple, object : BasicListener<BasicModel> {
+                override fun onClick(model: BasicModel) {
+                    Toast.makeText(this@BasicListingActivity, model.name, Toast.LENGTH_SHORT)
+                        .show()
+                }
+            })
+            .build()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
