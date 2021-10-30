@@ -23,7 +23,7 @@ jobs:
 
         # Builds the release artifacts of the library
       - name: Release build
-        run: ./gradlew :universal-adapter:assembleRelease
+        run: ./gradlew :universal_adapter:assembleRelease
 
         # Generates other artifacts (javadocJar is optional)
       - name: Source jar and dokka
