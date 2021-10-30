@@ -1,5 +1,5 @@
 
-[![](https://jitpack.io/v/yogeshpaliyal/Android-Universal-Recycler-View-Adapter.svg?style=flat-square)](https://jitpack.io/#yogeshpaliyal/Android-Universal-Recycler-View-Adapter)
+![Maven metadata URL](https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Frepo1.maven.org%2Fmaven2%2Fcom%2Fyogeshpaliyal%2Funiversal-adapter%2Fmaven-metadata.xml)
 
 [![GitHub issues](https://img.shields.io/github/issues/yogeshpaliyal/Android-Universal-Recycler-View-Adapter?style=for-the-badge)](https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-Adapter/issues)
 [![GitHub forks](https://img.shields.io/github/forks/yogeshpaliyal/Android-Universal-Recycler-View-Adapter?style=for-the-badge)](https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-Adapter/network)
@@ -18,22 +18,13 @@ This Library will make it easy, No need to create a Adapter, ViewHolder for ever
 Using Resource Pattern to find the status of the list and show view types according to that.
 
 
-### Step #1. Add the JitPack repository to your build file: 
-```gradle
-allprojects {
-    repositories {
-	...
-    	maven { url "https://jitpack.io" }
-    }
-}
-```
-     
-### Step #2. Add the dependency ([See latest release](https://jitpack.io/#yogeshpaliyal/Android-Universal-Recycler-View-Adapter)). 
-[![](https://jitpack.io/v/yogeshpaliyal/Android-Universal-Recycler-View-Adapter.svg)](https://jitpack.io/#yogeshpaliyal/Android-Universal-Recycler-View-Adapter)
+### Add Dependency repository to your build file: 
+![Maven metadata URL](https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Frepo1.maven.org%2Fmaven2%2Fcom%2Fyogeshpaliyal%2Funiversal-adapter%2Fmaven-metadata.xml)
+
 
 ```groovy
 dependencies {
-    implementation 'com.github.yogeshpaliyal:Android-Universal-Recycler-View-Adapter:+'
+    implementation 'com.yogeshpaliyal:universal-adapter:1.0.0'
 }
 ```
 
