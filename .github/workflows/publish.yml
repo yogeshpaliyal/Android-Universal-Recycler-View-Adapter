@@ -18,6 +18,9 @@ jobs:
          distribution: adopt
          java-version: 11
 
+      - name: Grant Gradlew rights
+        run: chmod +x gradlew
+
         # Builds the release artifacts of the library
       - name: Release build
         run: ./gradlew :universal-adapter:assembleRelease
