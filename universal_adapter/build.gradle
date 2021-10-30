@@ -3,7 +3,25 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'io.gitlab.arturbosch.detekt'
+    id 'maven-publish' // Apply this plugin at the top of your library build.gradle
+    id "signing"
+}
 
+ext {
+    PUBLISH_GROUP_ID = 'com.yogeshpaliyal'
+    PUBLISH_VERSION = '1.0.0'
+    PUBLISH_ARTIFACT_ID = 'universal-adapter'
+}
+apply from: "${rootDir}/scripts/publish-module.gradle"
+
+
+
+def getVersionName = { ->
+    return "1.0.0" // Replace with version Name
+}
+
+def getArtificatId = { ->
+    return "universaladapter" // Replace with library name ID
 }
 
 android {
@@ -63,3 +81,50 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:1.2.0"
 
 }
+
+
+/*
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: System.getenv('ossrhUsername'), password: System.getenv('ossrhPassword'))
+            }
+
+            snapshotRepository(url: "https://s01.oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: System.getenv('ossrhUsername'), password: System.getenv('ossrhPassword'))
+            }
+
+            pom.project {
+                name 'Universal Recycler adapter'
+                packaging 'jar'
+                // optionally artifactId can be defined here
+                description 'Universal Recycler adapter.'
+                url 'https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-Adapter'
+
+                scm {
+                    connection 'https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-Adapter.git'
+                    developerConnection 'https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-Adapter.git'
+                    url 'https://github.com/yogeshpaliyal/Android-Universal-Recycler-View-Adapter'
+                }
+
+                licenses {
+                    license {
+                        name 'MIT license'
+                        url 'https://opensource.org/licenses/MIT'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'yogeshpaliyal'
+                        name 'Yogesh Choudhary Paliyal'
+                        email 'yogeshpaliyal.foss@gmail.com'
+                    }
+                }
+            }
+        }
+    }
+}*/
