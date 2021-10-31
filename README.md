@@ -18,9 +18,18 @@ This Library will make it easy, No need to create a Adapter, ViewHolder for ever
 Using Resource Pattern to find the status of the list and show view types according to that.
 
 
-### Add Dependency repository to your build file: 
-![Maven metadata URL](https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Frepo1.maven.org%2Fmaven2%2Fcom%2Fyogeshpaliyal%2Funiversal-adapter%2Fmaven-metadata.xml)
+### Step #1. Add the `mavenCentral()` to your root buuld.gradle: 
+```gradle
+allprojects {
+    repositories {
+	...
+    	mavenCentral()
+    }
+}
+```
 
+### 2. Add Dependency repository to your build file: 
+![Maven metadata URL](https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Frepo1.maven.org%2Fmaven2%2Fcom%2Fyogeshpaliyal%2Funiversal-adapter%2Fmaven-metadata.xml)
 
 ```groovy
 dependencies {
