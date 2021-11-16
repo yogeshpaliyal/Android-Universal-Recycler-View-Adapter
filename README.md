@@ -33,7 +33,7 @@ allprojects {
 
 ```groovy
 dependencies {
-    implementation 'com.yogeshpaliyal:universal-adapter:1.0.0'
+    implementation 'com.yogeshpaliyal:universal-adapter:3.0.0'
 }
 ```
 
