@@ -38,10 +38,14 @@ class LoadingFooterAdapter<T>(
     inner class ViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind() {
             binding.lifecycleOwner = lifecycleOwner
-            binding.setVariable(BR.binding, binding)
 
-            options.additionalParams?.forEach {
-                binding.setVariable(it.key, it.value)
+            if (options.customBindingMapping == null) {
+                binding.setVariable(BR.binding, binding)
+                options.additionalParams?.forEach {
+                    binding.setVariable(it.key, it.value)
+                }
+            } else {
+                options.customBindingMapping?.invoke(binding)
             }
             binding.executePendingBindings()
 
@@ -51,7 +55,7 @@ class LoadingFooterAdapter<T>(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = DataBindingUtil.inflate<ViewDataBinding>(
             LayoutInflater.from(parent.context),
-            options.loaderFooter!!,
+            options.loaderFooter,
             parent,
             false
         )
@@ -66,5 +70,5 @@ class LoadingFooterAdapter<T>(
         holder.bind()
     }
 
-    override fun getItemCount(): Int = if (options.loaderFooter != null) 1 else 0
+    override fun getItemCount(): Int = 1
 }

@@ -24,14 +24,14 @@ sealed class UniversalAdapterViewType {
         val resourceLoading: Int,
         val defaultLoadingItems: Int = 5,
         val additionalParams : HashMap<Int,Any>?= null,
-        val customBindingMapping: ((itemBinding: ViewDataBinding, item: T) -> Unit)? = null
+        val customBindingMapping: ((itemBinding: ViewDataBinding) -> Unit)? = null
     )
 
     data class LoadingFooter<T>(
         @LayoutRes
         val loaderFooter: Int,
         val additionalParams : HashMap<Int,Any>?= null,
-        val customBindingMapping: ((itemBinding: ViewDataBinding, item: T) -> Unit)? = null
+        val customBindingMapping: ((itemBinding: ViewDataBinding) -> Unit)? = null
     )
 
     data class NoData<T>(

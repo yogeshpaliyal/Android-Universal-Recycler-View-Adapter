@@ -309,7 +309,7 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: Builder<T>) {
             loadingLayout: Int,
             defaultLoadingItems: Int = 5,
             additionalParams: HashMap<Int, Any>? = null,
-            customBindingMapping: ((itemBinding: ViewDataBinding, item: T) -> Unit)? = null
+            customBindingMapping: ((itemBinding: ViewDataBinding) -> Unit)? = null
         ): Builder<T> {
 
             this.loading = UniversalAdapterViewType.Loading<T>(
@@ -332,7 +332,7 @@ class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: Builder<T>) {
             @LayoutRes
             loaderFooterLayout: Int,
             additionalParams: HashMap<Int, Any>? = null,
-            customBindingMapping: ((itemBinding: ViewDataBinding, item: T) -> Unit)? = null
+            customBindingMapping: ((itemBinding: ViewDataBinding) -> Unit)? = null
         ): Builder<T> {
             this.loadingFooter = UniversalAdapterViewType.LoadingFooter<T>(
                 loaderFooterLayout,
