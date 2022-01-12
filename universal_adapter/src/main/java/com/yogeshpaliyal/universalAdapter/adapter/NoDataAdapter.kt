@@ -71,7 +71,7 @@ class NoDataAdapter<T>(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = DataBindingUtil.inflate<ViewDataBinding>(
             LayoutInflater.from(parent.context),
-            options.noDataLayout!!,
+            options.noDataLayout,
             parent,
             false
         )

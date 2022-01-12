@@ -38,10 +38,17 @@ class LoadingAdapter<T>(
     inner class ViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind() {
             binding.lifecycleOwner = lifecycleOwner
-            binding.setVariable(BR.binding, binding)
 
-            options.additionalParams?.forEach {
-                binding.setVariable(it.key, it.value)
+            if (options.customBindingMapping == null) {
+                binding.setVariable(BR.position, layoutPosition)
+                binding.setVariable(BR.binding, binding)
+                options.additionalParams?.forEach {
+                    binding.setVariable(it.key, it.value)
+                }
+                binding.executePendingBindings()
+            } else {
+                options.customBindingMapping?.invoke(binding)
+                binding.executePendingBindings()
             }
 
         }

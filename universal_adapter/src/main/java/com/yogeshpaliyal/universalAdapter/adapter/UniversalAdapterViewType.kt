@@ -21,22 +21,22 @@ sealed class UniversalAdapterViewType {
 
     data class Loading<T>(
         @LayoutRes
-        val resourceLoading: Int? = null,
+        val resourceLoading: Int,
         val defaultLoadingItems: Int = 5,
         val additionalParams : HashMap<Int,Any>?= null,
-        val customBindingMapping: ((itemBinding: ViewDataBinding, item: T) -> Unit)? = null
+        val customBindingMapping: ((itemBinding: ViewDataBinding) -> Unit)? = null
     )
 
     data class LoadingFooter<T>(
         @LayoutRes
-        val loaderFooter: Int? = null,
+        val loaderFooter: Int,
         val additionalParams : HashMap<Int,Any>?= null,
-        val customBindingMapping: ((itemBinding: ViewDataBinding, item: T) -> Unit)? = null
+        val customBindingMapping: ((itemBinding: ViewDataBinding) -> Unit)? = null
     )
 
     data class NoData<T>(
         @LayoutRes
-        val noDataLayout: Int? = null,
+        val noDataLayout: Int,
         val listener: Any? = null,
         val additionalParams : HashMap<Int,Any>?= null,
         val customBindingMapping: ((itemBinding: ViewDataBinding, item: String?) -> Unit)? = null
@@ -44,7 +44,7 @@ sealed class UniversalAdapterViewType {
 
     data class Error<T>(
         @LayoutRes
-        val errorLayout: Int? = null,
+        val errorLayout: Int,
         val listener: Any? = null,
         val additionalParams : HashMap<Int,Any>?= null,
         val customBindingMapping: ((itemBinding: ViewDataBinding, message: String?) -> Unit)? = null

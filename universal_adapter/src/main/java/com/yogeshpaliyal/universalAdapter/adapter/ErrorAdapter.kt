@@ -55,7 +55,6 @@ class ErrorAdapter<T>(
                 options.additionalParams?.forEach {
                     binding.setVariable(it.key, it.value)
                 }
-                binding.executePendingBindings()
             } else {
 
                 options.customBindingMapping?.invoke(
@@ -63,6 +62,7 @@ class ErrorAdapter<T>(
                     message
                 )
             }
+            binding.executePendingBindings()
 
         }
     }

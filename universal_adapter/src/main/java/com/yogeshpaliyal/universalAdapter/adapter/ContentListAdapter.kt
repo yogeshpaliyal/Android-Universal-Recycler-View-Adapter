@@ -58,7 +58,6 @@ class ContentListAdapter<T : Any>(
                 options.additionalParams?.forEach {
                     binding.setVariable(it.key, it.value)
                 }
-                binding.executePendingBindings()
             } else {
 
                 options.customBindingMapping.invoke(
@@ -67,6 +66,7 @@ class ContentListAdapter<T : Any>(
                     bindingAdapterPosition
                 )
             }
+            binding.executePendingBindings()
 
         }
     }
