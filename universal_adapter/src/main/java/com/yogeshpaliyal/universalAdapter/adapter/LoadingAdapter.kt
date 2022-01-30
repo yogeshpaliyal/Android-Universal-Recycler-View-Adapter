@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LifecycleOwner
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -22,7 +23,7 @@ class LoadingAdapter<T>(
     val lifecycleOwner: LifecycleOwner?,
     var options: UniversalAdapterViewType.Loading<T>
 ) :
-    ListAdapter<T, LoadingAdapter<T>.ViewHolder>(AsyncDifferConfig.Builder<T>(object :
+    PagingDataAdapter<T, LoadingAdapter<T>.ViewHolder>(AsyncDifferConfig.Builder<T>(object :
         DiffUtil.ItemCallback<T>() {
         override fun areItemsTheSame(oldItem: T, newItem: T): Boolean {
             return false

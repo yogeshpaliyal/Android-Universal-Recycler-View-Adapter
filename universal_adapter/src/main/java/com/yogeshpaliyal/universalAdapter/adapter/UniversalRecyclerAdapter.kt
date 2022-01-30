@@ -14,7 +14,7 @@ import com.yogeshpaliyal.universalAdapter.utils.Status
  * Created Date : 15 October 2020
  */
 @Suppress
-class UniversalRecyclerAdapter<T> constructor(val adapterBuilder: Builder<T>) {
+class UniversalRecyclerAdapter<T: Any> constructor(val adapterBuilder: Builder<T>) {
 
     @Suppress
     @Deprecated(
