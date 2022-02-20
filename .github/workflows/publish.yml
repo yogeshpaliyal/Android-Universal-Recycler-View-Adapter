@@ -23,7 +23,7 @@ jobs:
 
         # Builds the release artifacts of the library
       - name: Release build
-        run: ./gradlew :universal_adapter:assembleRelease
+        run: ./gradlew :speld:assembleRelease
 
       - name: Publish Library
         run: |
